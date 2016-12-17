@@ -1,0 +1,1 @@
+CMake: 3.6.2@/home/sutil/CLion/clion-2016.3.1/bin/cmake/bin/cmake
