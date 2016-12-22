@@ -13,6 +13,8 @@ separador.h
 /home/sutil/ClionProjects/ProjetoU/lexico/separador.h
 definidorToken.h
 /home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.h
+leitorValorToken.h
+/home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.h
 
 /home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.h
 cstdio
@@ -35,6 +37,18 @@ regex
 /home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.h
 string
 -
+
+/home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.cpp
+leitorValorToken.h
+/home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.h
+separador.h
+/home/sutil/ClionProjects/ProjetoU/lexico/separador.h
+
+/home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.h
+string
+-
+separador.h
+/home/sutil/ClionProjects/ProjetoU/lexico/separador.h
 
 /home/sutil/ClionProjects/ProjetoU/lexico/separador.cpp
 vector
@@ -60,21 +74,37 @@ cstdio
 string
 -
 
+/home/sutil/ClionProjects/ProjetoU/tests/lexico/abreArquivo.cpp
+fstream
+-
+
+/home/sutil/ClionProjects/ProjetoU/tests/lexico/abreArquivo.h
+string
+-
+
 /home/sutil/ClionProjects/ProjetoU/tests/lexico/definidorTokenTest.cpp
 gtest/gtest.h
 -
 ../../lexico/definidorToken.h
 /home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.h
 
-/home/sutil/ClionProjects/ProjetoU/tests/lexico/lexicoTest.cpp
+/home/sutil/ClionProjects/ProjetoU/tests/lexico/leitorValorTokenTest.cpp
 gtest/gtest.h
 -
-iostream
+../../lexico/leitorValorToken.h
+/home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.h
+abreArquivo.h
+/home/sutil/ClionProjects/ProjetoU/tests/lexico/abreArquivo.h
+
+/home/sutil/ClionProjects/ProjetoU/tests/lexico/lexicoTest.cpp
+gtest/gtest.h
 -
 fstream
 -
 ../../lexico/AnalisadorLexico.h
 /home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.h
+abreArquivo.h
+/home/sutil/ClionProjects/ProjetoU/tests/lexico/abreArquivo.h
 
 /home/sutil/ClionProjects/ProjetoU/tests/separadorTest.cpp
 gtest/gtest.h

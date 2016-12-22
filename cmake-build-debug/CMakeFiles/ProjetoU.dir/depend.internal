@@ -5,10 +5,15 @@ CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.o
  /home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.cpp
  /home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.h
  /home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.h
+ /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.h
  /home/sutil/ClionProjects/ProjetoU/lexico/separador.h
 CMakeFiles/ProjetoU.dir/lexico/definidorToken.cpp.o
  /home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.cpp
  /home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.h
+CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o
+ /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.cpp
+ /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.h
+ /home/sutil/ClionProjects/ProjetoU/lexico/separador.h
 CMakeFiles/ProjetoU.dir/lexico/separador.cpp.o
  /home/sutil/ClionProjects/ProjetoU/lexico/separador.cpp
  /home/sutil/ClionProjects/ProjetoU/lexico/separador.h
@@ -56,6 +61,8 @@ CMakeFiles/ProjetoU.dir/main.cpp.o
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o
  /home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.h
  /home/sutil/ClionProjects/ProjetoU/sintatico/AnalisadorSintaticoMain.cpp
+CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o
+ /home/sutil/ClionProjects/ProjetoU/tests/lexico/abreArquivo.cpp
 CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o
  /home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.h
  /home/sutil/ClionProjects/ProjetoU/tests/lexico/definidorTokenTest.cpp
@@ -81,8 +88,36 @@ CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o
  googletest-src/googletest/include/gtest/internal/gtest-string.h
  googletest-src/googletest/include/gtest/internal/gtest-tuple.h
  googletest-src/googletest/include/gtest/internal/gtest-type-util.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o
+ /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.h
+ /home/sutil/ClionProjects/ProjetoU/lexico/separador.h
+ /home/sutil/ClionProjects/ProjetoU/tests/lexico/abreArquivo.h
+ /home/sutil/ClionProjects/ProjetoU/tests/lexico/leitorValorTokenTest.cpp
+ googletest-src/googletest/include/gtest/gtest-death-test.h
+ googletest-src/googletest/include/gtest/gtest-message.h
+ googletest-src/googletest/include/gtest/gtest-param-test.h
+ googletest-src/googletest/include/gtest/gtest-printers.h
+ googletest-src/googletest/include/gtest/gtest-test-part.h
+ googletest-src/googletest/include/gtest/gtest-typed-test.h
+ googletest-src/googletest/include/gtest/gtest.h
+ googletest-src/googletest/include/gtest/gtest_pred_impl.h
+ googletest-src/googletest/include/gtest/gtest_prod.h
+ googletest-src/googletest/include/gtest/internal/custom/gtest-port.h
+ googletest-src/googletest/include/gtest/internal/custom/gtest-printers.h
+ googletest-src/googletest/include/gtest/internal/gtest-death-test-internal.h
+ googletest-src/googletest/include/gtest/internal/gtest-filepath.h
+ googletest-src/googletest/include/gtest/internal/gtest-internal.h
+ googletest-src/googletest/include/gtest/internal/gtest-linked_ptr.h
+ googletest-src/googletest/include/gtest/internal/gtest-param-util-generated.h
+ googletest-src/googletest/include/gtest/internal/gtest-param-util.h
+ googletest-src/googletest/include/gtest/internal/gtest-port-arch.h
+ googletest-src/googletest/include/gtest/internal/gtest-port.h
+ googletest-src/googletest/include/gtest/internal/gtest-string.h
+ googletest-src/googletest/include/gtest/internal/gtest-tuple.h
+ googletest-src/googletest/include/gtest/internal/gtest-type-util.h
 CMakeFiles/ProjetoU.dir/tests/lexico/lexicoTest.cpp.o
  /home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.h
+ /home/sutil/ClionProjects/ProjetoU/tests/lexico/abreArquivo.h
  /home/sutil/ClionProjects/ProjetoU/tests/lexico/lexicoTest.cpp
  googletest-src/googletest/include/gtest/gtest-death-test.h
  googletest-src/googletest/include/gtest/gtest-message.h

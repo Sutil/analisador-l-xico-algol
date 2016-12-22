@@ -249,6 +249,78 @@ CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o.provides: CMakeFil
 CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o.provides.build: CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o
 
 
+CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o: CMakeFiles/ProjetoU.dir/flags.make
+CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o: ../lexico/leitorValorToken.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o -c /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.cpp
+
+CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.cpp > CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.i
+
+CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.cpp -o CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.s
+
+CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o.requires:
+
+.PHONY : CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o.requires
+
+CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o.provides: CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o.provides.build
+.PHONY : CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o.provides
+
+CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o.provides.build: CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o
+
+
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: CMakeFiles/ProjetoU.dir/flags.make
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: ../tests/lexico/leitorValorTokenTest.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o -c /home/sutil/ClionProjects/ProjetoU/tests/lexico/leitorValorTokenTest.cpp
+
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sutil/ClionProjects/ProjetoU/tests/lexico/leitorValorTokenTest.cpp > CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.i
+
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sutil/ClionProjects/ProjetoU/tests/lexico/leitorValorTokenTest.cpp -o CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.s
+
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o.requires:
+
+.PHONY : CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o.requires
+
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o.provides: CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o.provides.build
+.PHONY : CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o.provides
+
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o.provides.build: CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o
+
+
+CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o: CMakeFiles/ProjetoU.dir/flags.make
+CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o: ../tests/lexico/abreArquivo.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o"
+	/usr/bin/c++   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o -c /home/sutil/ClionProjects/ProjetoU/tests/lexico/abreArquivo.cpp
+
+CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.i"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/sutil/ClionProjects/ProjetoU/tests/lexico/abreArquivo.cpp > CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.i
+
+CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.s"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/sutil/ClionProjects/ProjetoU/tests/lexico/abreArquivo.cpp -o CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.s
+
+CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o.requires:
+
+.PHONY : CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o.requires
+
+CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o.provides: CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o.requires
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o.provides.build
+.PHONY : CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o.provides
+
+CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o.provides.build: CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o
+
+
 # Object files for target ProjetoU
 ProjetoU_OBJECTS = \
 "CMakeFiles/ProjetoU.dir/main.cpp.o" \
@@ -258,7 +330,10 @@ ProjetoU_OBJECTS = \
 "CMakeFiles/ProjetoU.dir/lexico/separador.cpp.o" \
 "CMakeFiles/ProjetoU.dir/tests/lexico/lexicoTest.cpp.o" \
 "CMakeFiles/ProjetoU.dir/lexico/definidorToken.cpp.o" \
-"CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o"
+"CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o" \
+"CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o" \
+"CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o" \
+"CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o"
 
 # External object files for target ProjetoU
 ProjetoU_EXTERNAL_OBJECTS =
@@ -271,12 +346,15 @@ ProjetoU: CMakeFiles/ProjetoU.dir/lexico/separador.cpp.o
 ProjetoU: CMakeFiles/ProjetoU.dir/tests/lexico/lexicoTest.cpp.o
 ProjetoU: CMakeFiles/ProjetoU.dir/lexico/definidorToken.cpp.o
 ProjetoU: CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o
+ProjetoU: CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o
+ProjetoU: CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o
+ProjetoU: CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o
 ProjetoU: CMakeFiles/ProjetoU.dir/build.make
 ProjetoU: googletest-build/googlemock/gtest/libgtest.a
 ProjetoU: googletest-build/googlemock/gtest/libgtest_main.a
 ProjetoU: googletest-build/googlemock/gtest/libgtest.a
 ProjetoU: CMakeFiles/ProjetoU.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable ProjetoU"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable ProjetoU"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ProjetoU.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -292,6 +370,9 @@ CMakeFiles/ProjetoU.dir/requires: CMakeFiles/ProjetoU.dir/lexico/separador.cpp.o
 CMakeFiles/ProjetoU.dir/requires: CMakeFiles/ProjetoU.dir/tests/lexico/lexicoTest.cpp.o.requires
 CMakeFiles/ProjetoU.dir/requires: CMakeFiles/ProjetoU.dir/lexico/definidorToken.cpp.o.requires
 CMakeFiles/ProjetoU.dir/requires: CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o.requires
+CMakeFiles/ProjetoU.dir/requires: CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o.requires
+CMakeFiles/ProjetoU.dir/requires: CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o.requires
+CMakeFiles/ProjetoU.dir/requires: CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o.requires
 
 .PHONY : CMakeFiles/ProjetoU.dir/requires
 

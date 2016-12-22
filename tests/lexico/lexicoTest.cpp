@@ -5,19 +5,12 @@
 
 #include <gtest/gtest.h>
 
-#include <iostream>
 #include <fstream>
 #include "../../lexico/AnalisadorLexico.h"
+#include "abreArquivo.h"
 
 using namespace std;
 
-FILE * criaEAbreArquivo(string conteudo){
-    ofstream outfile ("test.txt");
-    outfile << conteudo << endl;
-    outfile.close();
-
-    return fopen("test.txt", "rt");
-}
 
 void assertToken(string valor, string nome, int linha, int coluna, Token* token){
     ASSERT_EQ(valor, token->valor);
@@ -27,7 +20,7 @@ void assertToken(string valor, string nome, int linha, int coluna, Token* token)
 }
 
 TEST(Lexico, tipoVariavelValido){
-    FILE * f = criaEAbreArquivo("int");
+    FILE * f = criaArquivo("int");
     inicializaAnalizadorLexico(f);
 
     Token * token = getToken();
@@ -38,7 +31,7 @@ TEST(Lexico, tipoVariavelValido){
 }
 
 TEST(Lexico, atribuicao){
-    FILE * f = criaEAbreArquivo("int saldo := 0;");
+    FILE * f = criaArquivo("int saldo := 0;");
     inicializaAnalizadorLexico(f);
 
     Token * token = getToken();
@@ -49,6 +42,26 @@ TEST(Lexico, atribuicao){
 
     token = getToken();
     assertToken(":=", "SIMBOLO", 1, 11, token);
+
+    token = getToken();
+    assertToken("0", "NUM", 1, 14, token);
+
+    fclose(f);
+    remove("test.txt");
+}
+
+TEST(Lexico, ignoraEspacosEmBranco){
+    FILE * f = criaArquivo("a +  10  ");
+    inicializaAnalizadorLexico(f);
+
+    Token * token = getToken();
+    assertToken("a", "ID", 1, 1, token);
+
+    token = getToken();
+    assertToken("+", "SIMBOLO", 1, 3, token);
+
+    token = getToken();
+    assertToken("10", "NUM", 1, 6, token);
 
     fclose(f);
     remove("test.txt");

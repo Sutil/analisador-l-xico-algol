@@ -7,4 +7,10 @@
 
 bool isSeparadorDescartavel(char caraceter);
 
+bool isSeparadorNaoDescartavel(char caracter);
+
+bool isSeparadorComSequencia(char caracter);
+
+bool isSeparador(char cararcter);
+
 #endif //PROJETOU_SEPARADOR_H

@@ -6,10 +6,13 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.o"
   "/home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/lexico/definidorToken.cpp.o"
+  "/home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o"
   "/home/sutil/ClionProjects/ProjetoU/lexico/separador.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/lexico/separador.cpp.o"
   "/home/sutil/ClionProjects/ProjetoU/main.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/main.cpp.o"
   "/home/sutil/ClionProjects/ProjetoU/sintatico/AnalisadorSintaticoMain.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o"
+  "/home/sutil/ClionProjects/ProjetoU/tests/lexico/abreArquivo.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o"
   "/home/sutil/ClionProjects/ProjetoU/tests/lexico/definidorTokenTest.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o"
+  "/home/sutil/ClionProjects/ProjetoU/tests/lexico/leitorValorTokenTest.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o"
   "/home/sutil/ClionProjects/ProjetoU/tests/lexico/lexicoTest.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/tests/lexico/lexicoTest.cpp.o"
   "/home/sutil/ClionProjects/ProjetoU/tests/separadorTest.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/tests/separadorTest.cpp.o"
   )

@@ -4,10 +4,15 @@
 CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.o: ../lexico/AnalisadorLexico.cpp
 CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.o: ../lexico/AnalisadorLexico.h
 CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.o: ../lexico/definidorToken.h
+CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.o: ../lexico/leitorValorToken.h
 CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.o: ../lexico/separador.h
 
 CMakeFiles/ProjetoU.dir/lexico/definidorToken.cpp.o: ../lexico/definidorToken.cpp
 CMakeFiles/ProjetoU.dir/lexico/definidorToken.cpp.o: ../lexico/definidorToken.h
+
+CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o: ../lexico/leitorValorToken.cpp
+CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o: ../lexico/leitorValorToken.h
+CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o: ../lexico/separador.h
 
 CMakeFiles/ProjetoU.dir/lexico/separador.cpp.o: ../lexico/separador.cpp
 CMakeFiles/ProjetoU.dir/lexico/separador.cpp.o: ../lexico/separador.h
@@ -56,6 +61,8 @@ CMakeFiles/ProjetoU.dir/main.cpp.o: googletest-src/googletest/include/gtest/inte
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: ../lexico/AnalisadorLexico.h
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: ../sintatico/AnalisadorSintaticoMain.cpp
 
+CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o: ../tests/lexico/abreArquivo.cpp
+
 CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o: ../lexico/definidorToken.h
 CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o: ../tests/lexico/definidorTokenTest.cpp
 CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o: googletest-src/googletest/include/gtest/gtest-death-test.h
@@ -81,7 +88,35 @@ CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o: googletest-src/go
 CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-tuple.h
 CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-type-util.h
 
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: ../lexico/leitorValorToken.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: ../lexico/separador.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: ../tests/lexico/abreArquivo.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: ../tests/lexico/leitorValorTokenTest.cpp
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/gtest-death-test.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/gtest-message.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/gtest-param-test.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/gtest-printers.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/gtest-test-part.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/gtest-typed-test.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/gtest.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/gtest_pred_impl.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/gtest_prod.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/internal/custom/gtest-port.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/internal/custom/gtest-printers.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-death-test-internal.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-filepath.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-internal.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-linked_ptr.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-param-util-generated.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-param-util.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-port-arch.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-port.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-string.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-tuple.h
+CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-type-util.h
+
 CMakeFiles/ProjetoU.dir/tests/lexico/lexicoTest.cpp.o: ../lexico/AnalisadorLexico.h
+CMakeFiles/ProjetoU.dir/tests/lexico/lexicoTest.cpp.o: ../tests/lexico/abreArquivo.h
 CMakeFiles/ProjetoU.dir/tests/lexico/lexicoTest.cpp.o: ../tests/lexico/lexicoTest.cpp
 CMakeFiles/ProjetoU.dir/tests/lexico/lexicoTest.cpp.o: googletest-src/googletest/include/gtest/gtest-death-test.h
 CMakeFiles/ProjetoU.dir/tests/lexico/lexicoTest.cpp.o: googletest-src/googletest/include/gtest/gtest-message.h

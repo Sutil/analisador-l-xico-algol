@@ -363,6 +363,12 @@
 		<Unit filename="/home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.h">
 			<Option target="ProjetoU"/>
 		</Unit>
+		<Unit filename="/home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.cpp">
+			<Option target="ProjetoU"/>
+		</Unit>
+		<Unit filename="/home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.h">
+			<Option target="ProjetoU"/>
+		</Unit>
 		<Unit filename="/home/sutil/ClionProjects/ProjetoU/lexico/separador.cpp">
 			<Option target="ProjetoU"/>
 		</Unit>
@@ -375,7 +381,16 @@
 		<Unit filename="/home/sutil/ClionProjects/ProjetoU/sintatico/AnalisadorSintaticoMain.cpp">
 			<Option target="ProjetoU"/>
 		</Unit>
+		<Unit filename="/home/sutil/ClionProjects/ProjetoU/tests/lexico/abreArquivo.cpp">
+			<Option target="ProjetoU"/>
+		</Unit>
+		<Unit filename="/home/sutil/ClionProjects/ProjetoU/tests/lexico/abreArquivo.h">
+			<Option target="ProjetoU"/>
+		</Unit>
 		<Unit filename="/home/sutil/ClionProjects/ProjetoU/tests/lexico/definidorTokenTest.cpp">
+			<Option target="ProjetoU"/>
+		</Unit>
+		<Unit filename="/home/sutil/ClionProjects/ProjetoU/tests/lexico/leitorValorTokenTest.cpp">
 			<Option target="ProjetoU"/>
 		</Unit>
 		<Unit filename="/home/sutil/ClionProjects/ProjetoU/tests/lexico/lexicoTest.cpp">

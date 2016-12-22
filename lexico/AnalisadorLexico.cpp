@@ -5,19 +5,20 @@
 #include "AnalisadorLexico.h"
 #include "separador.h"
 #include "definidorToken.h"
+#include "leitorValorToken.h"
 
 FILE *file;
 int linhaAtual  = 1;
-int linhaARetornar =  0;
 int colunaAtual =  0;
 int colunaARetornar = 0;
 
 string definineTipoToken(string basic_string);
 
+bool naoEhSeparador(char caracter);
+
 void inicializaAnalizadorLexico(FILE *pFile) {
     file = pFile;
     linhaAtual  = 1;
-    linhaARetornar =  0;
     colunaAtual =  0;
     colunaARetornar = 0;
 }
@@ -36,22 +37,11 @@ char leCaracter(){
     return caracter;
 }
 
-string leValorToken(){
-    char caracter = leCaracter();
-    colunaARetornar = colunaAtual;
-    linhaARetornar = linhaAtual;
-
-    char sequencia[50];
-    int i = 0;
-
-    while(!isSeparadorDescartavel(caracter)){
-        sequencia[i] = caracter;
-        caracter = leCaracter();
-        i++;
-    }
-    sequencia[i] = '\0';
-
-    string valorToken(sequencia);
+ValorToken* leValorToken(){
+    ValorToken * valorToken = getValorToken(file, linhaAtual, colunaAtual);
+    linhaAtual = valorToken->linha;
+    colunaAtual = valorToken->colunaAtual;
+    colunaARetornar = valorToken->colunaARetornar;
     return valorToken;
 }
 
@@ -62,10 +52,10 @@ string definineTipoToken(string valorToken) {
 
 Token * getToken() {
 
-    string valorToken = leValorToken();
-    string tipoToken = definineTipoToken(valorToken);
+    ValorToken* valorToken = leValorToken();
+    string tipoToken = definineTipoToken(valorToken->valor);
 
-    Token * token = new Token(valorToken, tipoToken, linhaARetornar, colunaARetornar);
+    Token * token = new Token(valorToken->valor, tipoToken, linhaAtual, colunaARetornar);
 
     return token;
 }

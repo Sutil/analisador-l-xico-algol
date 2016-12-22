@@ -273,6 +273,33 @@ lexico/definidorToken.cpp.s:
 	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/lexico/definidorToken.cpp.s
 .PHONY : lexico/definidorToken.cpp.s
 
+lexico/leitorValorToken.o: lexico/leitorValorToken.cpp.o
+
+.PHONY : lexico/leitorValorToken.o
+
+# target to build an object file
+lexico/leitorValorToken.cpp.o:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o
+.PHONY : lexico/leitorValorToken.cpp.o
+
+lexico/leitorValorToken.i: lexico/leitorValorToken.cpp.i
+
+.PHONY : lexico/leitorValorToken.i
+
+# target to preprocess a source file
+lexico/leitorValorToken.cpp.i:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.i
+.PHONY : lexico/leitorValorToken.cpp.i
+
+lexico/leitorValorToken.s: lexico/leitorValorToken.cpp.s
+
+.PHONY : lexico/leitorValorToken.s
+
+# target to generate assembly for a file
+lexico/leitorValorToken.cpp.s:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.s
+.PHONY : lexico/leitorValorToken.cpp.s
+
 lexico/separador.o: lexico/separador.cpp.o
 
 .PHONY : lexico/separador.o
@@ -354,6 +381,33 @@ sintatico/AnalisadorSintaticoMain.cpp.s:
 	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.s
 .PHONY : sintatico/AnalisadorSintaticoMain.cpp.s
 
+tests/lexico/abreArquivo.o: tests/lexico/abreArquivo.cpp.o
+
+.PHONY : tests/lexico/abreArquivo.o
+
+# target to build an object file
+tests/lexico/abreArquivo.cpp.o:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o
+.PHONY : tests/lexico/abreArquivo.cpp.o
+
+tests/lexico/abreArquivo.i: tests/lexico/abreArquivo.cpp.i
+
+.PHONY : tests/lexico/abreArquivo.i
+
+# target to preprocess a source file
+tests/lexico/abreArquivo.cpp.i:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.i
+.PHONY : tests/lexico/abreArquivo.cpp.i
+
+tests/lexico/abreArquivo.s: tests/lexico/abreArquivo.cpp.s
+
+.PHONY : tests/lexico/abreArquivo.s
+
+# target to generate assembly for a file
+tests/lexico/abreArquivo.cpp.s:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.s
+.PHONY : tests/lexico/abreArquivo.cpp.s
+
 tests/lexico/definidorTokenTest.o: tests/lexico/definidorTokenTest.cpp.o
 
 .PHONY : tests/lexico/definidorTokenTest.o
@@ -380,6 +434,33 @@ tests/lexico/definidorTokenTest.s: tests/lexico/definidorTokenTest.cpp.s
 tests/lexico/definidorTokenTest.cpp.s:
 	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.s
 .PHONY : tests/lexico/definidorTokenTest.cpp.s
+
+tests/lexico/leitorValorTokenTest.o: tests/lexico/leitorValorTokenTest.cpp.o
+
+.PHONY : tests/lexico/leitorValorTokenTest.o
+
+# target to build an object file
+tests/lexico/leitorValorTokenTest.cpp.o:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o
+.PHONY : tests/lexico/leitorValorTokenTest.cpp.o
+
+tests/lexico/leitorValorTokenTest.i: tests/lexico/leitorValorTokenTest.cpp.i
+
+.PHONY : tests/lexico/leitorValorTokenTest.i
+
+# target to preprocess a source file
+tests/lexico/leitorValorTokenTest.cpp.i:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.i
+.PHONY : tests/lexico/leitorValorTokenTest.cpp.i
+
+tests/lexico/leitorValorTokenTest.s: tests/lexico/leitorValorTokenTest.cpp.s
+
+.PHONY : tests/lexico/leitorValorTokenTest.s
+
+# target to generate assembly for a file
+tests/lexico/leitorValorTokenTest.cpp.s:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.s
+.PHONY : tests/lexico/leitorValorTokenTest.cpp.s
 
 tests/lexico/lexicoTest.o: tests/lexico/lexicoTest.cpp.o
 
@@ -458,6 +539,9 @@ help:
 	@echo "... lexico/definidorToken.o"
 	@echo "... lexico/definidorToken.i"
 	@echo "... lexico/definidorToken.s"
+	@echo "... lexico/leitorValorToken.o"
+	@echo "... lexico/leitorValorToken.i"
+	@echo "... lexico/leitorValorToken.s"
 	@echo "... lexico/separador.o"
 	@echo "... lexico/separador.i"
 	@echo "... lexico/separador.s"
@@ -467,9 +551,15 @@ help:
 	@echo "... sintatico/AnalisadorSintaticoMain.o"
 	@echo "... sintatico/AnalisadorSintaticoMain.i"
 	@echo "... sintatico/AnalisadorSintaticoMain.s"
+	@echo "... tests/lexico/abreArquivo.o"
+	@echo "... tests/lexico/abreArquivo.i"
+	@echo "... tests/lexico/abreArquivo.s"
 	@echo "... tests/lexico/definidorTokenTest.o"
 	@echo "... tests/lexico/definidorTokenTest.i"
 	@echo "... tests/lexico/definidorTokenTest.s"
+	@echo "... tests/lexico/leitorValorTokenTest.o"
+	@echo "... tests/lexico/leitorValorTokenTest.i"
+	@echo "... tests/lexico/leitorValorTokenTest.s"
 	@echo "... tests/lexico/lexicoTest.o"
 	@echo "... tests/lexico/lexicoTest.i"
 	@echo "... tests/lexico/lexicoTest.s"
