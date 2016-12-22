@@ -11,11 +11,13 @@ using namespace std;
 
 vector<string> TIPOS = {"int", "char"};
 vector<string> SIMBOLOS = {":=", "+"};
+vector<string> RELATIONAL_OPERATORS = {">", ">=", "==", "<", "<="};
 
 string NUM = "NUM";
 string TIPO = "TIPO";
 string ID = "ID";
 string SIMBOLO = "SIMBOLO";
+string RELATIONAL_OPERATOR = "RELATIONAL_OPERATOR";
 
 bool isTipo(string valor){
     for(int i = 0; i < TIPOS.size(); i++)
@@ -44,12 +46,23 @@ bool isSimbolo(string valor){
     return false;
 }
 
+bool isOperadorRelacional(string valor){
+    for(int i = 0; i < RELATIONAL_OPERATORS.size(); i++)
+        if(RELATIONAL_OPERATORS[i].compare(valor) == 0)
+            return true;
+
+    return false;
+}
+
 string getTipoToken(string valor){
     if(isNumero(valor))
         return NUM;
 
     if(isTipo(valor))
         return TIPO;
+
+    if(isOperadorRelacional(valor))
+        return RELATIONAL_OPERATOR;
 
     if(isIdentificador(valor))
         return ID;

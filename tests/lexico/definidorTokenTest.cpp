@@ -40,3 +40,11 @@ TEST(DefinidorToken, simboloDeAtribuicao){
 TEST(DefinidorToken, simboloDeMais){
     ASSERT_EQ("SIMBOLO", getTipoToken("+"));
 }
+
+TEST(DefinidorToken, operadorRelacional){
+    ASSERT_EQ("RELATIONAL_OPERATOR", getTipoToken("<"));
+    ASSERT_EQ("RELATIONAL_OPERATOR", getTipoToken("<="));
+    ASSERT_EQ("RELATIONAL_OPERATOR", getTipoToken("=="));
+    ASSERT_EQ("RELATIONAL_OPERATOR", getTipoToken(">"));
+    ASSERT_EQ("RELATIONAL_OPERATOR", getTipoToken(">="));
+}
