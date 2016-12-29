@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../lexico/AnalisadorLexico.h"
+#include "../terminais.h"
 
 
 
@@ -25,7 +26,7 @@ static std::string tokens[] = {"begin", "procedure", "Absmax", "(", "a", ")", "S
 void salvaEstado(int *j);
 void restauraEstado(int j); // Implementar
 
-//std::string getToken();
+//std::string getToken()->valor;
 bool token_isIdentifier(std::string token);
 
 bool program();
@@ -125,8 +126,22 @@ bool arraySegment();
 bool boundPair();
 bool unsignedInteger();
 
-int main() {
+int main(int argc, char* argv[]) {
     std::cout << "Iniciado, analisador sintatico!" << std::endl;
+
+    if(argc != 2){
+        std::cout << "Informe endereço do arquivo fonte por parâmetro." << std::endl;
+        return false;
+    }
+
+
+    FILE * f = fopen(argv[1], "rt");
+    if(!f){
+        std::cout << "Erro ao abrir arquivo." << std::endl;
+        return false;
+    }
+
+    inicializaAnalizadorLexico(f);
 
     return program(); // Verificar se chegou no final do arquivo!!
 }
@@ -154,7 +169,7 @@ bool block() {
         return true;
     restauraEstado(j);
 
-    if (label() && 0 == getToken().compare(":") && block())
+    if (label() && 0 == getToken()->valor.compare(":") && block())
         return true;
     restauraEstado(j);
 
@@ -199,7 +214,7 @@ bool forClause() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare("for") && variable() && 0 == getToken().compare(":=") && forList() && 0 == getToken().compare("do"))
+    if (0 == getToken()->valor.compare("for") && variable() && 0 == getToken()->valor.compare(":=") && forList() && 0 == getToken()->valor.compare("do"))
         return true;
     restauraEstado(j);
 
@@ -222,11 +237,11 @@ bool forListElement() {
         return true;
     restauraEstado(j);
 
-    if (arithmeticExpression() && 0 == getToken().compare("step") && arithmeticExpression() && 0 == getToken().compare("until") && arithmeticExpression())
+    if (arithmeticExpression() && 0 == getToken()->valor.compare("step") && arithmeticExpression() && 0 == getToken()->valor.compare("until") && arithmeticExpression())
         return true;
     restauraEstado(j);
 
-    if (arithmeticExpression() && 0 == getToken().compare("while") && booleanExpression())
+    if (arithmeticExpression() && 0 == getToken()->valor.compare("while") && booleanExpression())
         return true;
     restauraEstado(j);
 
@@ -261,7 +276,7 @@ bool conditionalStatement() {
         return true;
     restauraEstado(j);
 
-    if (ifStatement() && 0 == getToken().compare("else") && statement())
+    if (ifStatement() && 0 == getToken()->valor.compare("else") && statement())
         return true;
     restauraEstado(j);
 
@@ -269,7 +284,7 @@ bool conditionalStatement() {
         return true;
     restauraEstado(j);
 
-    if (label() && 0 == getToken().compare(":") && conditionalStatement())
+    if (label() && 0 == getToken()->valor.compare(":") && conditionalStatement())
         return true;
     restauraEstado(j);
 
@@ -295,7 +310,7 @@ bool basicStatement() {
         return true;
     restauraEstado(j);
 
-    if (label() && 0 == getToken().compare(":") && basicStatement())
+    if (label() && 0 == getToken()->valor.compare(":") && basicStatement())
         return true;
     restauraEstado(j);
 
@@ -388,11 +403,11 @@ bool leftPart() {
     int j = 0;
 
     salvaEstado(&j);
-    if (variable() && 0 == getToken().compare(":") && 0 == getToken().compare("="))
+    if (variable() && 0 == getToken()->valor.compare(":") && 0 == getToken()->valor.compare("="))
         return true;
     restauraEstado(j);
 
-    if (procedureIdentifier() && 0 == getToken().compare(":") && 0 == getToken().compare("="))
+    if (procedureIdentifier() && 0 == getToken()->valor.compare(":") && 0 == getToken()->valor.compare("="))
         return true;
     restauraEstado(j);
 
@@ -418,7 +433,7 @@ bool subscriptedVariable() {
     int j = 0;
 
     salvaEstado(&j);
-    if (arrayIdentifier() && 0 == getToken().compare("[") && subscriptList() && 0 == getToken().compare("]"))
+    if (arrayIdentifier() && 0 == getToken()->valor.compare("[") && subscriptList() && 0 == getToken()->valor.compare("]"))
         return true;
     restauraEstado(j);
 
@@ -451,7 +466,7 @@ bool subscriptListRecursao() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare(",") && subscriptExpression() && subscriptListRecursao())
+    if (0 == getToken()->valor.compare(",") && subscriptExpression() && subscriptListRecursao())
         return true;
     restauraEstado(j);
 
@@ -462,7 +477,7 @@ bool arrayIdentifier() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()))
+    if (token_isIdentifier(getToken()->valor))
         return true;
     restauraEstado(j);
 
@@ -477,7 +492,7 @@ bool booleanExpression() {
         return true;
     restauraEstado(j);
 
-    if (ifClause() && simpleBoolean() && 0 == getToken().compare("else") && booleanExpression())
+    if (ifClause() && simpleBoolean() && 0 == getToken()->valor.compare("else") && booleanExpression())
         return true;
     restauraEstado(j);
 
@@ -499,7 +514,7 @@ bool simpleBooleanRecursao() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare("===") && implication() && simpleBooleanRecursao())
+    if (0 == getToken()->valor.compare("===") && implication() && simpleBooleanRecursao())
         return true;
     restauraEstado(j);
 
@@ -521,7 +536,7 @@ bool implicationRecursao() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare("naosei") && booleanTerm() && implicationRecursao())
+    if (0 == getToken()->valor.compare("naosei") && booleanTerm() && implicationRecursao())
         return true;
     restauraEstado(j);
     return true;
@@ -542,7 +557,7 @@ bool booleanTermRecursao() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare("or") && booleanFactor() && booleanTermRecursao())
+    if (0 == getToken()->valor.compare("or") && booleanFactor() && booleanTermRecursao())
         return true;
     restauraEstado(j);
 
@@ -565,7 +580,7 @@ bool booleanFactorRecursao() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare("and") && booleanSecondary() && booleanFactorRecursao())
+    if (0 == getToken()->valor.compare("and") && booleanSecondary() && booleanFactorRecursao())
         return true;
     restauraEstado(j);
 
@@ -580,7 +595,7 @@ bool booleanSecondary() {
         return true;
     restauraEstado(j);
 
-    if (0 == getToken().compare("¬") && booleanPrimary())
+    if (0 == getToken()->valor.compare("¬") && booleanPrimary())
         return true;
 
     return false;
@@ -609,9 +624,9 @@ bool logicalValue() {
     int j = 0;
 
     salvaEstado(&j);
-    std::string t = getToken();
+    std::string t = getToken()->valor;
 
-    if (t.compare("true") || t.compare("false"))
+    if (t.compare(LOGICALVALUE_TRUE) || t.compare(LOGICALVALUE_FALSE))
         return true;
     restauraEstado(j);
 
@@ -637,7 +652,7 @@ bool relationalOperator() {
     int j = 0;
 
     salvaEstado(&j);
-    std::string token = getToken();
+    std::string token = getToken()->valor;
 
     if (0 == token.compare("<") || 0 == token.compare("<=") || 0 == token.compare("=") || 0 == token.compare("#") || 0 == token.compare(">") || 0 == token.compare(">="))
         return true;
@@ -653,7 +668,7 @@ bool arithmeticExpression() {
         return true;
     restauraEstado(j);
 
-    if (ifClause() && simpleArithmeticExpression() && 0 == getToken().compare("else") && arithmeticExpression())
+    if (ifClause() && simpleArithmeticExpression() && 0 == getToken()->valor.compare("else") && arithmeticExpression())
         return true;
     restauraEstado(j);
 
@@ -664,7 +679,7 @@ bool ifClause() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare("if") && booleanExpression() && 0 == getToken().compare("then"))
+    if (0 == getToken()->valor.compare("if") && booleanExpression() && 0 == getToken()->valor.compare("then"))
         return true;
     restauraEstado(j);
 
@@ -701,9 +716,9 @@ bool addingOperator() {
     int j = 0;
 
     salvaEstado(&j);
-    std::string t = getToken();
+    std::string t = getToken()->valor;
 
-    if (t.compare("+") || t.compare("-"))
+    if (t.compare(ARITHMETIOPERATOR_MAIS) || t.compare(ARITHMETIOPERATOR_MENOS))
         return true;
     restauraEstado(j);
 
@@ -747,7 +762,7 @@ bool primary() {
     //if (fu)
     // implementar
 
-    if (0 == getToken().compare("(") && arithmeticExpression() && 0 == getToken().compare(")"))
+    if (0 == getToken()->valor.compare("(") && arithmeticExpression() && 0 == getToken()->valor.compare(")"))
         return true;
     restauraEstado(j);
 
@@ -770,7 +785,7 @@ bool actualParameterPart() {
 
     salvaEstado(&j);
 
-    if (0 == getToken().compare("(") && actualParameterList() && 0 == getToken().compare(")"))
+    if (0 == getToken()->valor.compare("(") && actualParameterList() && 0 == getToken()->valor.compare(")"))
 
         return true;
 }
@@ -802,7 +817,7 @@ bool actualParameter() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isString(getToken()))
+    if (token_isString(getToken()->valor))
         return true;
     restauraEstado(j);
 
@@ -855,7 +870,7 @@ bool decimalNumber() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isNumber(getToken()))
+    if (token_isNumber(getToken()->valor))
         return true;
     restauraEstado(j);
 
@@ -866,9 +881,9 @@ bool multiplyingOperator() {
     int j = 0;
 
     salvaEstado(&j);
-    std::string op = getToken();
+    std::string op = getToken()->valor;
 
-    if (op.compare("*") || op.compare("/"))
+    if (op.compare(ARITHMETIOPERATOR_VEZES) || op.compare(ARITHMETIOPERATOR_DIVIDIR))
         return true;
     restauraEstado(j);
 
@@ -880,7 +895,7 @@ bool unlabelledBlock() {
     int j = 0;
 
     salvaEstado(&j);
-    if (blockHead() && 0 == getToken().compare(";") && compoundTail())
+    if (blockHead() && 0 == getToken()->valor.compare(";") && compoundTail())
         return true;
     restauraEstado(j);
 
@@ -891,11 +906,11 @@ bool compoundTail() {
     int j = 0;
 
     salvaEstado(&j);
-    if (statement() && 0 == getToken().compare("end"))
+    if (statement() && 0 == getToken()->valor.compare("end"))
         return true;
     restauraEstado(j);
 
-    if (statement() && 0 == getToken().compare(";") && compoundTail())
+    if (statement() && 0 == getToken()->valor.compare(";") && compoundTail())
         return true;
     restauraEstado(j);
 
@@ -911,7 +926,7 @@ bool compoundStatement() {
         return true;
     restauraEstado(j);
 
-    if (label() && 0 == getToken().compare(":") && compoundStatement())
+    if (label() && 0 == getToken()->valor.compare(":") && compoundStatement())
         return true;
     restauraEstado(j);
 
@@ -923,7 +938,7 @@ bool blockHead() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare("begin") && declaration() && blockHeadRecursao())
+    if (0 == getToken()->valor.compare("begin") && declaration() && blockHeadRecursao())
         return true;
     restauraEstado(j);
 
@@ -934,7 +949,7 @@ bool blockHeadRecursao() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare(";") && declaration() && blockHeadRecursao())
+    if (0 == getToken()->valor.compare(";") && declaration() && blockHeadRecursao())
         return true;
     restauraEstado(j);
 
@@ -945,7 +960,7 @@ bool unlabelledCompound() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare("begin") && compoundTail())
+    if (0 == getToken()->valor.compare("begin") && compoundTail())
         return true;
     restauraEstado(j);
 
@@ -991,7 +1006,7 @@ bool localOrOwnType() {
         return true;
     restauraEstado(j);
 
-    if (getToken() == "own" && type())
+    if (getToken()->valor == "own" && type())
         return true;
     restauraEstado(j);
 
@@ -1002,7 +1017,7 @@ bool type() {
     int j = 0;
 
     salvaEstado(&j);
-    std::string token = getToken();
+    std::string token = getToken()->valor;
 
     if (0 == token.compare("real") || 0 == token.compare("integer") || 0 == token.compare("boolean"))
         return true;
@@ -1015,7 +1030,7 @@ bool typeList() {
     int j = 0;
 
     salvaEstado(&j);
-    if (simpleVariable() || (simpleVariable() && 0 == getToken().compare(",") && typeList()))
+    if (simpleVariable() || (simpleVariable() && 0 == getToken()->valor.compare(",") && typeList()))
         return true;
     restauraEstado(j);
 
@@ -1026,7 +1041,7 @@ bool simpleVariable() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()))
+    if (token_isIdentifier(getToken()->valor))
         return true;
     restauraEstado(j);
 
@@ -1037,11 +1052,11 @@ bool arrayDeclaration() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare("array") && arrayList())
+    if (0 == getToken()->valor.compare("array") && arrayList())
         return true;
     restauraEstado(j);
 
-    if (localOrOwnType() && 0 == getToken().compare("array") && arrayList())
+    if (localOrOwnType() && 0 == getToken()->valor.compare("array") && arrayList())
         return true;
     restauraEstado(j);
 
@@ -1062,7 +1077,7 @@ bool arrayList() {
 bool arrayListRecursao() {
     int j = 0;
 
-    if (0 == getToken().compare(",") && arraySegment() && arrayListRecursao())
+    if (0 == getToken()->valor.compare(",") && arraySegment() && arrayListRecursao())
         return true;
     restauraEstado(j);
 
@@ -1078,11 +1093,11 @@ bool arraySegment() {
         return true;
     restauraEstado(j);
 
-    if (0 == getToken().compare("[") && boundPairList() && 0 == getToken().compare("]"))
+    if (0 == getToken()->valor.compare("[") && boundPairList() && 0 == getToken()->valor.compare("]"))
         return true;
     restauraEstado(j);
 
-    if (arrayIdentifier() && 0 == getToken().compare(",") && arraySegment())
+    if (arrayIdentifier() && 0 == getToken()->valor.compare(",") && arraySegment())
         return true;
     restauraEstado(j);
 
@@ -1104,7 +1119,7 @@ bool boundPairListRecursao() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare(",") && boundPair() && boundPairListRecursao())
+    if (0 == getToken()->valor.compare(",") && boundPair() && boundPairListRecursao())
         return true;
     restauraEstado(j);
 
@@ -1115,7 +1130,7 @@ bool boundPair() {
     int j = 0;
 
     salvaEstado(&j);
-    if (lowerBound() && 0 == getToken().compare(":") && upperBound())
+    if (lowerBound() && 0 == getToken()->valor.compare(":") && upperBound())
         return true;
     restauraEstado(j);
 
@@ -1150,11 +1165,11 @@ bool procedureDeclaration() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare("procedure") && procedureHeading() && procedureBody())
+    if (0 == getToken()->valor.compare("procedure") && procedureHeading() && procedureBody())
         return true;
     restauraEstado(j);
 
-    if (type() && 0 == getToken().compare("procedure") && procedureHeading() && procedureBody())
+    if (type() && 0 == getToken()->valor.compare("procedure") && procedureHeading() && procedureBody())
         return true;
     restauraEstado(j);
 
@@ -1165,7 +1180,7 @@ bool procedureHeading() {
     int j = 0;
 
     salvaEstado(&j);
-    if (procedureIdentifier() && formalParameterPart() && 0 == getToken().compare(";") && valuePart() && specificationPart())
+    if (procedureIdentifier() && formalParameterPart() && 0 == getToken()->valor.compare(";") && valuePart() && specificationPart())
         return true;
     restauraEstado(j);
 
@@ -1176,7 +1191,7 @@ bool valuePart() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare("value") && identifierList() && 0 == getToken().compare(";"))
+    if (0 == getToken()->valor.compare("value") && identifierList() && 0 == getToken()->valor.compare(";"))
         return true;
     restauraEstado(j);
 
@@ -1187,7 +1202,7 @@ bool specificationPart() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare("string"))
+    if (0 == getToken()->valor.compare("string"))
         return true;
     restauraEstado(j);
 
@@ -1195,27 +1210,27 @@ bool specificationPart() {
         return true;
     restauraEstado(j);
 
-    if (0 == getToken().compare("array"))
+    if (0 == getToken()->valor.compare("array"))
         return true;
     restauraEstado(j);
 
-    if (type() && 0 == getToken().compare("array"))
+    if (type() && 0 == getToken()->valor.compare("array"))
         return true;
     restauraEstado(j);
 
-    if (0 == getToken().compare("label"))
+    if (0 == getToken()->valor.compare("label"))
         return true;
     restauraEstado(j);
 
-    if (0 == getToken().compare("switch"))
+    if (0 == getToken()->valor.compare("switch"))
         return true;
     restauraEstado(j);
 
-    if (0 == getToken().compare("procedure"))
+    if (0 == getToken()->valor.compare("procedure"))
         return true;
     restauraEstado(j);
 
-    if (type() && 0 == getToken().compare("procedure"))
+    if (type() && 0 == getToken()->valor.compare("procedure"))
         return true;
     restauraEstado(j);
 
@@ -1226,7 +1241,7 @@ bool identifierList() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()) && identifierListRecursao())
+    if (token_isIdentifier(getToken()->valor) && identifierListRecursao())
         return true;
 
     restauraEstado(j);
@@ -1237,7 +1252,7 @@ bool identifierListRecursao() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare(",") && token_isIdentifier(getToken()) && identifierListRecursao())
+    if (0 == getToken()->valor.compare(",") && token_isIdentifier(getToken()->valor) && identifierListRecursao())
         return true;
     restauraEstado(j);
 
@@ -1248,7 +1263,7 @@ bool procedureIdentifier() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()))
+    if (token_isIdentifier(getToken()->valor))
         return true;
     restauraEstado(j);
 
@@ -1260,7 +1275,7 @@ bool formalParameterPart() {
 
     salvaEstado(&j);
 
-    if (0 == getToken().compare("(") && formalParameterList() && 0 == getToken().compare(")"))
+    if (0 == getToken()->valor.compare("(") && formalParameterList() && 0 == getToken()->valor.compare(")"))
         return true;
     restauraEstado(j);
 
@@ -1293,11 +1308,11 @@ bool parameterDelimiter() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken().compare(","))
+    if (0 == getToken()->valor.compare(","))
         return true;
     restauraEstado(j);
 
-    if (0 == getToken().compare(")") && token_isLetterString(getToken()) && 0 == getToken().compare(":") && 0 == getToken().compare("("))
+    if (0 == getToken()->valor.compare(")") && token_isLetterString(getToken()->valor) && 0 == getToken()->valor.compare(":") && 0 == getToken()->valor.compare("("))
         return true;
     restauraEstado(j);
 
@@ -1312,7 +1327,7 @@ bool formalParameter() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()))
+    if (token_isIdentifier(getToken()->valor))
         return true;
     restauraEstado(j);
 
@@ -1334,7 +1349,7 @@ bool label() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()))
+    if (token_isIdentifier(getToken()->valor))
         return true;
     restauraEstado(j);
 
@@ -1349,7 +1364,7 @@ bool unsignedInteger() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isNumber(getToken()))
+    if (token_isNumber(getToken()->valor))
         return true;
     restauraEstado(j);
 
@@ -1368,7 +1383,7 @@ void restauraEstado(int j) {
     return;
 }
 
-//std::string getToken() {
+//std::string getToken()->valor {
 //
 //    std::string a = tokens[i];
 //    i++;
