@@ -11,9 +11,11 @@ using namespace std;
 
 vector<string> BRACKETS = {"begin", "end", "(", ")", "[", "]", "`", "'"};
 vector<string> TIPOS = {"own", "boolean", "integer","real", "array", "switch", "procedure"};
-vector<string> SIMBOLOS = {":=", "+"};
+
 vector<string> RELATIONAL_OPERATORS = {">", ">=", "==", "<", "<="};
 vector<string> SPECIFICATORS = {"string", "label", "value"};
+vector<string> SEPARATORS = {",", ".", ":", ";", ":=", "_", "step", "until", "while", "comment"};
+vector<string> SEQUENTIAL_OPERATORS = {"goto", "if", "then", "else", "for", "do"};
 
 string NUM = "NUM";
 string TIPO = "declarator";
@@ -21,29 +23,36 @@ string ID = "ID";
 string SIMBOLO = "SIMBOLO";
 string RELATIONAL_OPERATOR = "RELATIONAL_OPERATOR";
 string SPECIFICATOR = "specificator";
+string SEPARATOR = "separator";
+string BRACKET = "bracket";
+string SEQUENTIAL_OPERATOR = "sequential operator";
 
-bool isBracket(string valor){
-    for(int i = 0; i < BRACKETS.size(); i++)
-        if(BRACKETS[i].compare(valor) == 0)
+bool estaEm(vector<string> lista, string valor){
+    for(int i = 0; i < lista.size(); i++)
+        if(lista[i].compare(valor) == 0)
             return true;
 
     return false;
+}
+
+bool isSequentialOperator(string valor){
+    return estaEm(SEQUENTIAL_OPERATORS, valor);
+}
+
+bool isSeparator(string valor){
+    return estaEm(SEPARATORS, valor);
+}
+
+bool isBracket(string valor){
+    return estaEm(BRACKETS, valor);
 }
 
 bool isSpecificator(string valor){
-    for(int i = 0; i < SPECIFICATORS.size(); i++)
-        if(SPECIFICATORS[i].compare(valor) == 0)
-            return true;
-
-    return false;
+    return estaEm(SPECIFICATORS, valor);
 }
 
 bool isTipo(string valor){
-    for(int i = 0; i < TIPOS.size(); i++)
-        if(TIPOS[i].compare(valor) == 0)
-            return true;
-
-    return false;
+    return estaEm(TIPOS, valor);
 }
 
 bool isNumero(string valor) {
@@ -58,27 +67,22 @@ bool isIdentificador(string valor){
     return regex_match(valor, regex_id);
 }
 
-bool isSimbolo(string valor){
-    for(int i = 0; i<SIMBOLOS.size();i++)
-        if(SIMBOLOS[i].compare(valor) == 0)
-            return true;
-    return false;
-}
-
 bool isOperadorRelacional(string valor){
-    for(int i = 0; i < RELATIONAL_OPERATORS.size(); i++)
-        if(RELATIONAL_OPERATORS[i].compare(valor) == 0)
-            return true;
-
-    return false;
+    return estaEm(RELATIONAL_OPERATORS, valor);
 }
 
 string getTipoToken(string valor){
     if(isNumero(valor))
         return NUM;
 
+    if(isSequentialOperator(valor))
+        return SEQUENTIAL_OPERATOR;
+
+    if(isSeparator(valor))
+        return SEPARATOR;
+
     if(isBracket(valor))
-        return "bracket";
+        return BRACKET;
 
     if(isTipo(valor))
         return TIPO;
@@ -91,9 +95,6 @@ string getTipoToken(string valor){
 
     if(isIdentificador(valor))
         return ID;
-
-    if(isSimbolo(valor))
-        return SIMBOLO;
 
     return "NADA";
 }

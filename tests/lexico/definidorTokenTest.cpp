@@ -63,14 +63,6 @@ TEST(DefinidorToken, identificador){
     ASSERT_EQ("ID", getTipoToken("saldo"));
 }
 
-TEST(DefinidorToken, simboloDeAtribuicao){
-    ASSERT_EQ("SIMBOLO", getTipoToken(":="));
-}
-
-TEST(DefinidorToken, simboloDeMais){
-    ASSERT_EQ("SIMBOLO", getTipoToken("+"));
-}
-
 TEST(DefinidorToken, bracket){
     ASSERT_EQ("bracket", getTipoToken("("));
     ASSERT_EQ("bracket", getTipoToken(")"));
@@ -88,4 +80,26 @@ TEST(DefinidorToken, operadorRelacional){
     ASSERT_EQ("RELATIONAL_OPERATOR", getTipoToken("=="));
     ASSERT_EQ("RELATIONAL_OPERATOR", getTipoToken(">"));
     ASSERT_EQ("RELATIONAL_OPERATOR", getTipoToken(">="));
+}
+
+TEST(DefinidorToken, separators){
+    ASSERT_EQ("separator", getTipoToken(","));
+    ASSERT_EQ("separator", getTipoToken("."));
+    ASSERT_EQ("separator", getTipoToken(":"));
+    ASSERT_EQ("separator", getTipoToken(";"));
+    ASSERT_EQ("separator", getTipoToken(":="));
+    ASSERT_EQ("separator", getTipoToken("_"));
+    ASSERT_EQ("separator", getTipoToken("step"));
+    ASSERT_EQ("separator", getTipoToken("until"));
+    ASSERT_EQ("separator", getTipoToken("while"));
+    ASSERT_EQ("separator", getTipoToken("comment"));
+}
+
+TEST(DefinidoToken, sequentialOperator){
+    ASSERT_EQ("sequential operator", getTipoToken("goto"));
+    ASSERT_EQ("sequential operator", getTipoToken("if"));
+    ASSERT_EQ("sequential operator", getTipoToken("then"));
+    ASSERT_EQ("sequential operator", getTipoToken("else"));
+    ASSERT_EQ("sequential operator", getTipoToken("for"));
+    ASSERT_EQ("sequential operator", getTipoToken("do"));
 }
