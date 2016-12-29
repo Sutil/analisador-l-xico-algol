@@ -59,3 +59,11 @@ Token * getToken() {
 
     return token;
 }
+
+int retornaPonteiroAtual(){
+    return fseek(file, 0, SEEK_CUR);
+}
+
+void restauraPonteiro(int posicao){
+    fseek(file, posicao, SEEK_SET);
+}

@@ -20,6 +20,7 @@ char leCaracter(FILE* file){
 }
 
 void voltaPonteiro(FILE * file){
+    fseek(file, 0, file->_offset);
     fseek(file, -1, SEEK_CUR);
     if(caracter == '\n')
         linha--;

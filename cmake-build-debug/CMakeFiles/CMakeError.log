@@ -1,22 +1,22 @@
 Determining if the pthread_create exist failed with the following output:
 Change Dir: /home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_902f3/fast"
-/usr/bin/make -f CMakeFiles/cmTC_902f3.dir/build.make CMakeFiles/cmTC_902f3.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_7089c/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7089c.dir/build.make CMakeFiles/cmTC_7089c.dir/build
 make[1]: Entering directory '/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_902f3.dir/CheckSymbolExists.c.o
-/usr/bin/cc     -o CMakeFiles/cmTC_902f3.dir/CheckSymbolExists.c.o   -c /home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c
-Linking C executable cmTC_902f3
-/home/sutil/CLion/clion-2016.3.1/bin/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_902f3.dir/link.txt --verbose=1
-/usr/bin/cc       CMakeFiles/cmTC_902f3.dir/CheckSymbolExists.c.o  -o cmTC_902f3 -rdynamic 
-CMakeFiles/cmTC_902f3.dir/CheckSymbolExists.c.o: na função `main':
+Building C object CMakeFiles/cmTC_7089c.dir/CheckSymbolExists.c.o
+/usr/bin/cc     -o CMakeFiles/cmTC_7089c.dir/CheckSymbolExists.c.o   -c /home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_7089c
+/home/sutil/CLion/clion-2016.3.1/bin/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_7089c.dir/link.txt --verbose=1
+/usr/bin/cc       CMakeFiles/cmTC_7089c.dir/CheckSymbolExists.c.o  -o cmTC_7089c -rdynamic 
+CMakeFiles/cmTC_7089c.dir/CheckSymbolExists.c.o: na função `main':
 CheckSymbolExists.c:(.text+0x16): referência indefinida a `pthread_create'
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_902f3.dir/build.make:97: recipe for target 'cmTC_902f3' failed
-make[1]: *** [cmTC_902f3] Error 1
+CMakeFiles/cmTC_7089c.dir/build.make:97: recipe for target 'cmTC_7089c' failed
+make[1]: *** [cmTC_7089c] Error 1
 make[1]: Leaving directory '/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_902f3/fast' failed
-make: *** [cmTC_902f3/fast] Error 2
+Makefile:126: recipe for target 'cmTC_7089c/fast' failed
+make: *** [cmTC_7089c/fast] Error 2
 
 File /home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
 /* */
@@ -36,20 +36,20 @@ int main(int argc, char** argv)
 Determining if the function pthread_create exists in the pthreads failed with the following output:
 Change Dir: /home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/CMakeTmp
 
-Run Build Command:"/usr/bin/make" "cmTC_bde04/fast"
-/usr/bin/make -f CMakeFiles/cmTC_bde04.dir/build.make CMakeFiles/cmTC_bde04.dir/build
+Run Build Command:"/usr/bin/make" "cmTC_37244/fast"
+/usr/bin/make -f CMakeFiles/cmTC_37244.dir/build.make CMakeFiles/cmTC_37244.dir/build
 make[1]: Entering directory '/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/CMakeTmp'
-Building C object CMakeFiles/cmTC_bde04.dir/CheckFunctionExists.c.o
-/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_bde04.dir/CheckFunctionExists.c.o   -c /home/sutil/CLion/clion-2016.3.1/bin/cmake/share/cmake-3.6/Modules/CheckFunctionExists.c
-Linking C executable cmTC_bde04
-/home/sutil/CLion/clion-2016.3.1/bin/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_bde04.dir/link.txt --verbose=1
-/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_bde04.dir/CheckFunctionExists.c.o  -o cmTC_bde04 -rdynamic -lpthreads 
+Building C object CMakeFiles/cmTC_37244.dir/CheckFunctionExists.c.o
+/usr/bin/cc    -DCHECK_FUNCTION_EXISTS=pthread_create   -o CMakeFiles/cmTC_37244.dir/CheckFunctionExists.c.o   -c /home/sutil/CLion/clion-2016.3.1/bin/cmake/share/cmake-3.6/Modules/CheckFunctionExists.c
+Linking C executable cmTC_37244
+/home/sutil/CLion/clion-2016.3.1/bin/cmake/bin/cmake -E cmake_link_script CMakeFiles/cmTC_37244.dir/link.txt --verbose=1
+/usr/bin/cc   -DCHECK_FUNCTION_EXISTS=pthread_create    CMakeFiles/cmTC_37244.dir/CheckFunctionExists.c.o  -o cmTC_37244 -rdynamic -lpthreads 
 /usr/bin/ld: não foi possível encontrar -lpthreads
 collect2: error: ld returned 1 exit status
-CMakeFiles/cmTC_bde04.dir/build.make:97: recipe for target 'cmTC_bde04' failed
-make[1]: *** [cmTC_bde04] Error 1
+CMakeFiles/cmTC_37244.dir/build.make:97: recipe for target 'cmTC_37244' failed
+make[1]: *** [cmTC_37244] Error 1
 make[1]: Leaving directory '/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/CMakeTmp'
-Makefile:126: recipe for target 'cmTC_bde04/fast' failed
-make: *** [cmTC_bde04/fast] Error 2
+Makefile:126: recipe for target 'cmTC_37244/fast' failed
+make: *** [cmTC_37244/fast] Error 2
 
 

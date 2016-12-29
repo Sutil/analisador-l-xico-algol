@@ -30,4 +30,8 @@ void inicializaAnalizadorLexico(FILE * pFile);
 
 Token * getToken();
 
+int retornaPonteiroAtual();
+
+void restauraPonteiro(int posicao);
+
 #endif //PROJETOU_ANALISADORLEXICO_H
