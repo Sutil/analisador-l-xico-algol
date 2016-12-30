@@ -7,16 +7,24 @@
 
 int linha = 0;
 int coluna = 0;
+int colunaARetorno = 0;
 char caracter;
+
 
 char leCaracter(FILE* file){
     caracter  = getc(file);
-    if(caracter == '\n')
+    if(caracter == '\n') {
         linha++;
+        coluna = 0;
+    }
     else
         coluna++;
 
     return caracter;
+}
+
+void salvaColuna(){
+    colunaARetorno = coluna;
 }
 
 void voltaPonteiro(FILE * file){
@@ -34,11 +42,25 @@ void descartarCaracteresEmBranco(FILE  * file){
         while(isSeparadorDescartavel(caracter))
             caracter = leCaracter(file);
 
+    if(EOF != caracter)
+        voltaPonteiro(file);
+    else
+        coluna--;
+}
+
+string tokenEOF(FILE * file){
+    char caracter = leCaracter(file);
+    salvaColuna();
+    if(caracter == EOF)
+        return "EOF";
+
     voltaPonteiro(file);
+    return "";
 }
 
 string tokenQueContemSeparador(FILE * file){
     char caracter = leCaracter(file);
+    salvaColuna();
     if(isSeparadorComSequencia(caracter)) {
         char sequencia[3];
         sequencia[0] = caracter;
@@ -53,6 +75,7 @@ string tokenQueContemSeparador(FILE * file){
 
 string tokenSimbolo(FILE * file){
     char caracter = leCaracter(file);
+    salvaColuna();
     if(isSeparadorNaoDescartavel(caracter)){
         char sequencia[2];
         sequencia[0] = caracter;
@@ -66,6 +89,7 @@ string tokenSimbolo(FILE * file){
 
 string tokenSemSimbolo(FILE * file){
     char caracter = leCaracter(file);
+    salvaColuna();
     char sequencia[50];
     int i = 0;
     while (!isSeparador(caracter)){
@@ -85,17 +109,18 @@ ValorToken* getValorToken(FILE * file, int linhaAtual, int colunaAtual){
 
     descartarCaracteresEmBranco(file);
 
+    string valor = tokenEOF(file);
 
-    string valor = tokenQueContemSeparador(file);
+    if(valor.empty())
+        valor = tokenQueContemSeparador(file);
+
     if(valor.empty())
         valor = tokenSimbolo(file);
 
     if(valor.empty())
         valor = tokenSemSimbolo(file);
 
-    int colunaARetornar = coluna-valor.size()+1;
-
-    return new ValorToken(valor, linha, coluna, colunaARetornar);
+    return new ValorToken(valor, linha, coluna, colunaARetorno);
 }
 
 

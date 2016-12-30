@@ -38,6 +38,10 @@ bool estaEm(vector<string> lista, string valor){
     return false;
 }
 
+bool isEOF(string valor){
+    return valor.compare("EOF") == 0;
+}
+
 bool isArithmetcOperator(string valor){
     return estaEm(ARITHMETIC_OPERATORS, valor);
 }
@@ -79,6 +83,9 @@ bool isOperadorRelacional(string valor){
 }
 
 string getTipoToken(string valor){
+    if(isEOF(valor))
+        return "EOF";
+
     if(isNumero(valor))
         return NUM;
 

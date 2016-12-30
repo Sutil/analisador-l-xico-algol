@@ -46,6 +46,12 @@ TEST(Lexico, atribuicao){
     token = getToken();
     assertToken("0", "NUM", 1, 18, token);
 
+    token = getToken();
+    assertToken(";", "separator", 1, 19, token);
+
+    token = getToken();
+    assertToken("EOF", "EOF", 2, 1, token);
+
     fclose(f);
     remove("test.txt");
 }
