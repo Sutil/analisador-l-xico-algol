@@ -17,6 +17,7 @@ vector<string> RELATIONAL_OPERATORS = {">", ">=", "==", "<", "<="};
 vector<string> SPECIFICATORS = {"string", "label", "value"};
 vector<string> SEPARATORS = {",", ".", ":", ";", ":=", "_", "step", "until", "while", "comment"};
 vector<string> SEQUENTIAL_OPERATORS = {"goto", "if", "then", "else", "for", "do"};
+vector<string> ARITHMETIC_OPERATORS = {ARITHMETIOPERATOR_MAIS, ARITHMETIOPERATOR_MENOS, ARITHMETIOPERATOR_VEZES, ARITHMETIOPERATOR_DIVIDIR};
 
 string NUM = "NUM";
 string TIPO = "declarator";
@@ -27,6 +28,7 @@ string SPECIFICATOR = "specificator";
 string SEPARATOR = "separator";
 string BRACKET = "bracket";
 string SEQUENTIAL_OPERATOR = "sequential operator";
+string ARITHMETIC_OPERATOR = "arithmetic operator";
 
 bool estaEm(vector<string> lista, string valor){
     for(int i = 0; i < lista.size(); i++)
@@ -34,6 +36,10 @@ bool estaEm(vector<string> lista, string valor){
             return true;
 
     return false;
+}
+
+bool isArithmetcOperator(string valor){
+    return estaEm(ARITHMETIC_OPERATORS, valor);
 }
 
 bool isSequentialOperator(string valor){
@@ -93,6 +99,9 @@ string getTipoToken(string valor){
 
     if(isOperadorRelacional(valor))
         return RELATIONAL_OPERATOR;
+
+    if(isArithmetcOperator(valor))
+        return ARITHMETIC_OPERATOR;
 
     if(isIdentificador(valor))
         return ID;

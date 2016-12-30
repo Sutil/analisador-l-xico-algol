@@ -1,6 +1,8 @@
 #include <iostream>
 #include "../lexico/AnalisadorLexico.h"
 #include "../terminais.h"
+#include <gtest/gtest.h>
+#include <gmock/gmock.h>
 
 
 
@@ -127,6 +129,9 @@ bool boundPair();
 bool unsignedInteger();
 
 int main(int argc, char* argv[]) {
+    testing::InitGoogleTest(&argc, argv);
+    RUN_ALL_TESTS();
+
     std::cout << "Iniciado, analisador sintatico!" << std::endl;
 
     if(argc != 2){

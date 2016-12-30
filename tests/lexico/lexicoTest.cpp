@@ -20,31 +20,31 @@ void assertToken(string valor, string nome, int linha, int coluna, Token* token)
 }
 
 TEST(Lexico, tipoVariavelValido){
-    FILE * f = criaArquivo("int");
+    FILE * f = criaArquivo("integer");
     inicializaAnalizadorLexico(f);
 
     Token * token = getToken();
-    assertToken("int", "TIPO", 1, 1, token);
+    assertToken("integer", "declarator", 1, 1, token);
 
     fclose(f);
     remove("test.txt");
 }
 
 TEST(Lexico, atribuicao){
-    FILE * f = criaArquivo("int saldo := 0;");
+    FILE * f = criaArquivo("integer saldo := 0;");
     inicializaAnalizadorLexico(f);
 
     Token * token = getToken();
-    assertToken("int", "TIPO", 1, 1, token);
+    assertToken("integer", "declarator", 1, 1, token);
 
     token = getToken();
-    assertToken("saldo", "ID", 1, 5, token);
+    assertToken("saldo", "ID", 1, 9, token);
 
     token = getToken();
-    assertToken(":=", "SIMBOLO", 1, 11, token);
+    assertToken(":=", "separator", 1, 15, token);
 
     token = getToken();
-    assertToken("0", "NUM", 1, 14, token);
+    assertToken("0", "NUM", 1, 18, token);
 
     fclose(f);
     remove("test.txt");
@@ -58,7 +58,7 @@ TEST(Lexico, ignoraEspacosEmBranco){
     assertToken("a", "ID", 1, 1, token);
 
     token = getToken();
-    assertToken("+", "SIMBOLO", 1, 3, token);
+    assertToken("+", "arithmetic operator", 1, 3, token);
 
     token = getToken();
     assertToken("10", "NUM", 1, 6, token);
