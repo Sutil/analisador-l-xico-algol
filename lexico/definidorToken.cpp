@@ -21,7 +21,7 @@ vector<string> ARITHMETIC_OPERATORS = {ARITHMETIOPERATOR_MAIS, ARITHMETIOPERATOR
 
 string NUM = "NUM";
 string TIPO = "declarator";
-string ID = "ID";
+string ID = "identifier";
 string SIMBOLO = "SIMBOLO";
 string RELATIONAL_OPERATOR = "RELATIONAL_OPERATOR";
 string SPECIFICATOR = "specificator";
@@ -73,7 +73,7 @@ bool isNumero(string valor) {
 }
 
 bool isIdentificador(string valor){
-    regex regex_id("[a-z]+");
+    regex regex_id("[a-zA-Z]+");
 
     return regex_match(valor, regex_id);
 }

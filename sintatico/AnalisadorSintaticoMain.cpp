@@ -130,7 +130,9 @@ bool unsignedInteger();
 
 int main(int argc, char* argv[]) {
     testing::InitGoogleTest(&argc, argv);
-    RUN_ALL_TESTS();
+    int resultTests = RUN_ALL_TESTS();
+    if(resultTests)
+        std::cout << "Testes falharam" << std::endl;
 
     std::cout << "Iniciado, analisador sintatico!" << std::endl;
 

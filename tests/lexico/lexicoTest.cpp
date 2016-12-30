@@ -38,7 +38,7 @@ TEST(Lexico, atribuicao){
     assertToken("integer", "declarator", 1, 1, token);
 
     token = getToken();
-    assertToken("saldo", "ID", 1, 9, token);
+    assertToken("saldo", "identifier", 1, 9, token);
 
     token = getToken();
     assertToken(":=", "separator", 1, 15, token);
@@ -61,13 +61,42 @@ TEST(Lexico, ignoraEspacosEmBranco){
     inicializaAnalizadorLexico(f);
 
     Token * token = getToken();
-    assertToken("a", "ID", 1, 1, token);
+    assertToken("a", "identifier", 1, 1, token);
 
     token = getToken();
     assertToken("+", "arithmetic operator", 1, 3, token);
 
     token = getToken();
     assertToken("10", "NUM", 1, 6, token);
+
+    fclose(f);
+    remove("test.txt");
+}
+
+TEST(Lexico, declaracaoProcedure){
+    FILE * f = criaArquivo("procedure multiMatriz(a, b)");
+    inicializaAnalizadorLexico(f);
+
+    Token * token = getToken();
+    assertToken("procedure", "declarator", 1, 1, token);
+
+    token = getToken();
+    assertToken("multiMatriz", "identifier", 1, 11, token);
+
+    token = getToken();
+    assertToken("(", "bracket", 1, 22, token);
+
+    token = getToken();
+    assertToken("a", "identifier", 1, 23, token);
+
+    token = getToken();
+    assertToken(",", "separator", 1, 24, token);
+
+    token = getToken();
+    assertToken("b", "identifier", 1, 26, token);
+
+    token = getToken();
+    assertToken(")", "bracket", 1, 27, token);
 
     fclose(f);
     remove("test.txt");

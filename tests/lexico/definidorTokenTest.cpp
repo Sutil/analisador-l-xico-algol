@@ -60,7 +60,7 @@ TEST(DefinidorToken, specificator){
 }
 
 TEST(DefinidorToken, identificador){
-    ASSERT_EQ("ID", getTipoToken("saldo"));
+    ASSERT_EQ("identifier", getTipoToken("saldo"));
 }
 
 TEST(DefinidorToken, bracket){
