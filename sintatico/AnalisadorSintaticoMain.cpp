@@ -27,7 +27,7 @@ void salvaEstado(int *j);
 void restauraEstado(int j); // Implementar
 
 //std::string getToken()->valor;
-bool token_isIdentifier(std::string token);
+bool token_isIdentifier(Token * token);
 
 bool program();
 bool block();
@@ -88,7 +88,7 @@ bool subscriptList();
 bool multiplyingOperator();
 bool term();
 bool termRecursao();
-bool token_isNumber(std::string token);
+bool token_isNumber(Token * token);
 bool decimalNumber();
 bool primary();
 bool unsignedNumber();
@@ -403,11 +403,11 @@ bool leftPart() {
     int j = 0;
 
     salvaEstado(&j);
-    if (variable() && 0 == getToken()->valor.compare(":") && 0 == getToken()->valor.compare("="))
+    if (variable() && 0 == getToken()->valor.compare(":="))
         return true;
     restauraEstado(j);
 
-    if (procedureIdentifier() && 0 == getToken()->valor.compare(":") && 0 == getToken()->valor.compare("="))
+    if (procedureIdentifier() && 0 == getToken()->valor.compare(":="))
         return true;
     restauraEstado(j);
 
@@ -477,7 +477,7 @@ bool arrayIdentifier() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()->valor))
+    if (token_isIdentifier(getToken()))
         return true;
     restauraEstado(j);
 
@@ -870,7 +870,7 @@ bool decimalNumber() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isNumber(getToken()->valor))
+    if (token_isNumber(getToken()))
         return true;
     restauraEstado(j);
 
@@ -1004,9 +1004,13 @@ bool localOrOwnType() {
     salvaEstado(&j);
     if (type())
         return true;
+
+    cout << j << endl;
+    cout << &j << endl;
+
     restauraEstado(j);
 
-    if (getToken()->valor == "own" && type())
+    if (getToken()->valor.compare("own") == 0 && type())
         return true;
     restauraEstado(j);
 
@@ -1041,7 +1045,7 @@ bool simpleVariable() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()->valor))
+    if (token_isIdentifier(getToken()))
         return true;
     restauraEstado(j);
 
@@ -1241,7 +1245,7 @@ bool identifierList() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()->valor) && identifierListRecursao())
+    if (token_isIdentifier(getToken()) && identifierListRecursao())
         return true;
 
     restauraEstado(j);
@@ -1252,7 +1256,7 @@ bool identifierListRecursao() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare(",") && token_isIdentifier(getToken()->valor) && identifierListRecursao())
+    if (0 == getToken()->valor.compare(",") && token_isIdentifier(getToken()) && identifierListRecursao())
         return true;
     restauraEstado(j);
 
@@ -1263,7 +1267,7 @@ bool procedureIdentifier() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()->valor))
+    if (token_isIdentifier(getToken()))
         return true;
     restauraEstado(j);
 
@@ -1327,7 +1331,7 @@ bool formalParameter() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()->valor))
+    if (token_isIdentifier(getToken()))
         return true;
     restauraEstado(j);
 
@@ -1349,7 +1353,7 @@ bool label() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()->valor))
+    if (token_isIdentifier(getToken()))
         return true;
     restauraEstado(j);
 
@@ -1364,7 +1368,7 @@ bool unsignedInteger() {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isNumber(getToken()->valor))
+    if (token_isNumber(getToken()))
         return true;
     restauraEstado(j);
 
@@ -1374,6 +1378,7 @@ bool unsignedInteger() {
 void salvaEstado(int *j) {
 
     *j = retornaPonteiroAtual();
+    cout << retornaPonteiroAtual() << endl;
 
     return;
 }
@@ -1391,14 +1396,13 @@ void restauraEstado(int j) {
 //    return a;
 //}
 
-bool token_isIdentifier(std::string token) {
+bool token_isIdentifier(Token * token) {
     // implementar
-    return token == "a" || token == "n" || token == "m" || token == "y" || token == "i" || token == "k" || token == "Absmax";
+    return token->nome.compare("ID") == 0;
 }
 
-bool token_isNumber(std::string token) {
-    //implementar
-    return true;
+bool token_isNumber(Token * token) {
+    return token->nome.compare("NUM") == 0;
 }
 
 bool token_isString(std::string token) {

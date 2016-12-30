@@ -57,11 +57,14 @@ Token * getToken() {
 
     Token * token = new Token(valorToken->valor, tipoToken, linhaAtual, colunaARetornar);
 
+    cout << token->valor << endl;
+    cout << token->nome << endl;
+
     return token;
 }
 
-int retornaPonteiroAtual(){
-    return fseek(file, 0, SEEK_CUR);
+long retornaPonteiroAtual(){
+    return ftell(file);
 }
 
 void restauraPonteiro(int posicao){

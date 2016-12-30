@@ -6,6 +6,7 @@
 #include <iostream>
 #include <string>
 #include <regex>
+#include "../terminais.h"
 
 using namespace std;
 

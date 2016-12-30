@@ -30,7 +30,7 @@ void inicializaAnalizadorLexico(FILE * pFile);
 
 Token * getToken();
 
-int retornaPonteiroAtual();
+long retornaPonteiroAtual();
 
 void restauraPonteiro(int posicao);
 
