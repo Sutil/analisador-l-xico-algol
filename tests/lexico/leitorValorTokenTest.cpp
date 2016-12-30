@@ -53,3 +53,37 @@ TEST(leitorValor, lerVarios){
     ASSERT_EQ(";", valor->valor);
     fechaERemove(f);
 }
+
+//procedure multiMatriz(a, b) Size:(n, m) Result:(r);
+TEST(leitorValor, lerCabecalhoProcedure){
+    FILE * f = criaArquivo("procedure multiMatriz(a, b);");
+    ValorToken* valor = getValorToken(f, 0, 0);
+    ASSERT_EQ("procedure", valor->valor);
+
+    valor = getValorToken(f, 0, 0);
+    ASSERT_EQ("multiMatriz", valor->valor);
+
+    valor = getValorToken(f, 0, 0);
+    ASSERT_EQ("(", valor->valor);
+
+    valor = getValorToken(f, 0, 0);
+    ASSERT_EQ("a", valor->valor);
+
+    valor = getValorToken(f, 0, 0);
+    ASSERT_EQ(",", valor->valor);
+
+    valor = getValorToken(f, 0, 0);
+    ASSERT_EQ("b", valor->valor);
+
+    valor = getValorToken(f, 0, 0);
+    ASSERT_EQ(")", valor->valor);
+
+    valor = getValorToken(f, 0, 0);
+    ASSERT_EQ(";", valor->valor);
+
+    valor = getValorToken(f, 0, 0);
+    ASSERT_EQ("EOF", valor->valor);
+
+
+    fechaERemove(f);
+}

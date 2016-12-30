@@ -101,3 +101,28 @@ TEST(Lexico, declaracaoProcedure){
     fclose(f);
     remove("test.txt");
 }
+
+/*
+ * procedure multiMatriz(a, b, n, m)
+    value n, m; array a, b, y; integer n, m;
+begin
+    integer i, j, k, somatorio, produto;
+    i := k := j = 0;
+
+    for i := 1 step 1 until n do
+        for q := 1 step 1 until m do
+        begin
+            somatorio := 0;
+            for k:= 1 step 1 until m
+                begin
+                    produto := a[i,k] * b[k, j];
+                    somatorio := somatorio + produto;
+                end
+            r[i, j] := somatorio;
+        end
+
+
+end multiMatriz
+ */
+
+//criar um teste para fazer toda a análse deste programa.
