@@ -602,7 +602,7 @@ bool addingOperator() {
     salvaEstado(&j);
     std::string t = getToken()->valor;
 
-    if (t.compare(ARITHMETIOPERATOR_MAIS) || t.compare(ARITHMETIOPERATOR_MENOS))
+    if (t.compare(ARITHMETIOPERATOR_MAIS) == 0 || t.compare(ARITHMETIOPERATOR_MENOS) == 0)
         return true;
     restauraEstado(j);
 
@@ -767,7 +767,7 @@ bool multiplyingOperator() {
     salvaEstado(&j);
     std::string op = getToken()->valor;
 
-    if (op.compare(ARITHMETIOPERATOR_VEZES) || op.compare(ARITHMETIOPERATOR_DIVIDIR))
+    if (op.compare(ARITHMETIOPERATOR_VEZES) == 0 || op.compare(ARITHMETIOPERATOR_DIVIDIR) == 0)
         return true;
     restauraEstado(j);
 
