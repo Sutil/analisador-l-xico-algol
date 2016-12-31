@@ -1,110 +1,9 @@
 #include <iostream>
 #include "../lexico/AnalisadorLexico.h"
 #include "../terminais.h"
+#include "AnalisadorSintaticoMain.h"
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-
-
-void salvaEstado(int *j);
-void restauraEstado(int j);
-
-bool token_isIdentifier(Token * token);
-bool program();
-bool block();
-bool compoundStatement();
-bool statement();
-bool unlabelledBlock();
-bool label();
-bool blockHead();
-bool declaration();
-bool compoundTail();
-bool blockHeadRecursao();
-bool unlabelledCompound();
-bool typeDeclaration();
-bool localOrOwnType();
-bool type();
-bool typeList();
-bool simpleVariable();
-bool arrayDeclaration();
-bool upperBound();
-bool boundPairList();
-bool arrayList();
-bool procedureDeclaration();
-bool procedureHeading();
-bool procedureBody();
-bool procedureIdentifier();
-bool token_isLetterString(std::string token);
-bool parameterDelimiter();
-bool formalParameter();
-bool formalParameterList();
-bool formalParameterListRecursao();
-bool formalParameterPart();
-bool identifierList();
-bool identifierListRecursao();
-bool valuePart();
-bool specificationPart();
-bool unconditionalStatement();
-bool conditionalStatement();
-bool lowerBound();
-bool basicStatement();
-bool unlabelledBasicStatement();
-bool forStatement();
-bool assignmentStatement();
-bool procedureStatement();
-bool goToStatement();
-bool dummyStatement();
-bool leftPartList();
-bool booleanExpression();
-bool arithmeticExpression();
-bool leftPart();
-bool boundPairListRecursao();
-bool leftPartListRecursao();
-bool variable();
-bool subscriptedVariable();
-bool arrayIdentifier();
-bool subscriptExpression();
-bool subscriptListRecursao();
-bool subscriptList();
-bool multiplyingOperator();
-bool term();
-bool termRecursao();
-bool token_isNumber(Token * token);
-bool decimalNumber();
-bool primary();
-bool unsignedNumber();
-bool actualParameterPart();
-bool actualParameterList();
-bool actualParameterListRecursao();
-bool token_isString(std::string token);
-bool actualParameter();
-bool expression();
-bool designationalExpression();
-bool simpleArithmeticExpression();
-bool ifClause();
-bool simpleBoolean();
-bool implication();
-bool arrayListRecursao();
-bool implicationRecursao();
-bool booleanTerm();
-bool booleanTermRecursao();
-bool booleanFactor();
-bool booleanPrimary();
-bool booleanSecondary();
-bool booleanFactorRecursao();
-bool logicalValue();
-bool functionDesignator();
-bool relation();
-bool relationalOperator();
-bool simpleBooleanRecursao();
-bool addingOperator();
-bool simpleArithmeticExpressionRecursao();
-bool ifStatement();
-bool forClause();
-bool forList();
-bool forListElement();
-bool arraySegment();
-bool boundPair();
-bool unsignedInteger();
 
 int main(int argc, char* argv[]) {
     testing::InitGoogleTest(&argc, argv);
@@ -1191,6 +1090,28 @@ bool specificationPart() {
     int j = 0;
 
     salvaEstado(&j);
+
+    if (specifier() && identifierList() && 0 == getToken()->valor.compare(";") && specificationPartRecursao())
+        return true;
+    restauraEstado(j);
+
+    return true;
+}
+
+bool specificationPartRecursao() {
+    int j = 0;
+
+    if (specifier() && identifierList() && specificationPartRecursao())
+        return true;
+    restauraEstado(j);
+
+    return true;
+}
+
+bool specifier() {
+    int j = 0;
+
+    salvaEstado(&j);
     if (0 == getToken()->valor.compare("string"))
         return true;
     restauraEstado(j);
@@ -1223,7 +1144,7 @@ bool specificationPart() {
         return true;
     restauraEstado(j);
 
-    return true;
+    return false;
 }
 
 bool identifierList() {
