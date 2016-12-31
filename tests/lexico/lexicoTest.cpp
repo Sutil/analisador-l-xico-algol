@@ -110,6 +110,22 @@ TEST(Lexico, declaracaoProcedure){
     remove("test.txt");
 }
 
+TEST(Lexico, erroLexico){
+    FILE * f = criaArquivo("1abc");
+    inicializaAnalizadorLexico(f);
+
+    try{
+        getToken();
+        ASSERT_EQ("Não deveria ter passado","");
+    }
+    catch (runtime_error){
+        ASSERT_TRUE(true);
+    }
+
+    fclose(f);
+    remove("test.txt");
+}
+
 /*
  * procedure multiMatriz(a, b, n, m)
     value n, m; array a, b, y; integer n, m;

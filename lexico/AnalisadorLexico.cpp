@@ -2,6 +2,7 @@
 // Created by sutil on 16/12/16.
 //
 
+#include <sstream>
 #include "AnalisadorLexico.h"
 #include "separador.h"
 #include "definidorToken.h"
@@ -54,6 +55,13 @@ Token * getToken() {
 
     ValorToken* valorToken = leValorToken();
     string tipoToken = definineTipoToken(valorToken->valor);
+
+    if(tipoToken.compare("NADA") == 0){
+        cout << "Erro léxico no token " << valorToken->valor << endl;
+        cout << "Linha " << linhaAtual << endl;
+        cout << "Coluna " << colunaARetornar << endl;
+        throw runtime_error("Erro léxico");
+    }
 
     Token * token = new Token(valorToken->valor, tipoToken, linhaAtual, colunaARetornar);
 
