@@ -214,9 +214,9 @@ bool unlabelledBasicStatement() {
         return true;
     restauraEstado(j);
 
-    if (dummyStatement())
-        return true;
-    restauraEstado(j);
+//    if (dummyStatement())
+//        return true;
+//    restauraEstado(j);
 
     if (procedureStatement())
         return true;
@@ -918,7 +918,11 @@ bool typeList() {
     int j = 0;
 
     salvaEstado(&j);
-    if (simpleVariable() || (simpleVariable() && 0 == getToken()->valor.compare(",") && typeList()))
+    if (simpleVariable() && 0 == getToken()->valor.compare(",") && typeList())
+        return true;
+    restauraEstado(j);
+
+    if (simpleVariable())
         return true;
     restauraEstado(j);
 
@@ -1068,8 +1072,14 @@ bool procedureHeading() {
     int j = 0;
 
     salvaEstado(&j);
-    if (procedureIdentifier() && formalParameterPart() && 0 == getToken()->valor.compare(";") && valuePart() && specificationPart())
-        return true;
+    if (procedureIdentifier()) {
+        if (formalParameterPart()) {
+            if (0 == getToken()->valor.compare(";")) {
+                if (valuePart() && specificationPart())
+                    return true;
+            }
+        }
+    }
     restauraEstado(j);
 
     return false;
@@ -1091,17 +1101,11 @@ bool specificationPart() {
 
     salvaEstado(&j);
 
-    if (specifier() && identifierList() && 0 == getToken()->valor.compare(";") && specificationPartRecursao())
+    if (specifier() && identifierList() && 0 == getToken()->valor.compare(";") && specificationPart())
         return true;
     restauraEstado(j);
 
-    return true;
-}
-
-bool specificationPartRecursao() {
-    int j = 0;
-
-    if (specifier() && identifierList() && specificationPartRecursao())
+    if (specifier() && identifierList() && specificationPart())
         return true;
     restauraEstado(j);
 
@@ -1113,10 +1117,6 @@ bool specifier() {
 
     salvaEstado(&j);
     if (0 == getToken()->valor.compare("string"))
-        return true;
-    restauraEstado(j);
-
-    if (type())
         return true;
     restauraEstado(j);
 
@@ -1141,6 +1141,10 @@ bool specifier() {
     restauraEstado(j);
 
     if (type() && 0 == getToken()->valor.compare("procedure"))
+        return true;
+    restauraEstado(j);
+
+    if (type())
         return true;
     restauraEstado(j);
 
