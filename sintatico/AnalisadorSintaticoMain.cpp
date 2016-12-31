@@ -5,32 +5,10 @@
 #include <gmock/gmock.h>
 
 
-
-static int i = 0;
-static std::string tokens[] = {"begin", "procedure", "Absmax", "(", "a", ")", "Size", ":", "(", "n", ",", "m", ")",  "Result", ":", "(", "y", ")", "Subscripts", ":", "(", "i", ",", "k", ")", "end"};
-
-
-
-//value n, m; array a; integer n, m, i, k; real y;
-//comment The absolute greatest element of the matrix a, of size n by m,
-//is transferred to y, and the subscripts of this element to i and k;
-//begin
-//        integer p, q;
-//y := 0; i := k := 1;
-//for p := 1 step 1 until n do
-//for q := 1 step 1 until m do
-//if abs(a[p, q]) > y then
-//begin y := abs(a[p, q]);
-//i := p; k := q
-//end
-//        end Absmax
-
 void salvaEstado(int *j);
-void restauraEstado(int j); // Implementar
+void restauraEstado(int j);
 
-//std::string getToken()->valor;
 bool token_isIdentifier(Token * token);
-
 bool program();
 bool block();
 bool compoundStatement();
@@ -1395,17 +1373,9 @@ void restauraEstado(int j) {
     return;
 }
 
-//std::string getToken()->valor {
-//
-//    std::string a = tokens[i];
-//    i++;
-//
-//    return a;
-//}
-
 bool token_isIdentifier(Token * token) {
-    // implementar
-    return token->nome.compare("ID") == 0;
+    cout << token->nome << endl;
+    return token->nome.compare("identifier") == 0;
 }
 
 bool token_isNumber(Token * token) {
