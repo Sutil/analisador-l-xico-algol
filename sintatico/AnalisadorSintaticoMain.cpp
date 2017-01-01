@@ -110,22 +110,25 @@ bool forList() {
 
     salvaEstado(&j);
     if (forListElement())
-        return false;
+        return true;
+
+    return false;
 }
 
 bool forListElement() {
     int j = 0;
 
     salvaEstado(&j);
-    if (arithmeticExpression())
-        return true;
-    restauraEstado(j);
 
     if (arithmeticExpression() && 0 == getToken()->valor.compare("step") && arithmeticExpression() && 0 == getToken()->valor.compare("until") && arithmeticExpression())
         return true;
     restauraEstado(j);
 
     if (arithmeticExpression() && 0 == getToken()->valor.compare("while") && booleanExpression())
+        return true;
+    restauraEstado(j);
+
+    if (arithmeticExpression())
         return true;
     restauraEstado(j);
 
@@ -140,11 +143,11 @@ bool unconditionalStatement(){
         return true;
     restauraEstado(j);
 
-    if (block())
+    if (conditionalStatement())
         return true;
     restauraEstado(j);
 
-    if (conditionalStatement())
+    if (block())
         return true;
     restauraEstado(j);
 
@@ -302,11 +305,12 @@ bool variable() {
     int j = 0;
 
     salvaEstado(&j);
-    if (simpleVariable())
+
+    if (subscriptedVariable())
         return true;
     restauraEstado(j);
 
-    if (subscriptedVariable())
+    if (simpleVariable())
         return true;
     restauraEstado(j);
 
@@ -510,7 +514,7 @@ bool logicalValue() {
     salvaEstado(&j);
     std::string t = getToken()->valor;
 
-    if (t.compare(LOGICALVALUE_TRUE) || t.compare(LOGICALVALUE_FALSE))
+    if (t.compare(LOGICALVALUE_TRUE) == 0 || t.compare(LOGICALVALUE_FALSE) == 0)
         return true;
     restauraEstado(j);
 
@@ -888,9 +892,6 @@ bool localOrOwnType() {
     salvaEstado(&j);
     if (type())
         return true;
-
-    cout << j << endl;
-    cout << &j << endl;
 
     restauraEstado(j);
 
@@ -1288,8 +1289,6 @@ bool unsignedInteger() {
 void salvaEstado(int *j) {
 
     *j = retornaPonteiroAtual();
-    cout << retornaPonteiroAtual() << endl;
-
     return;
 }
 
@@ -1299,7 +1298,6 @@ void restauraEstado(int j) {
 }
 
 bool token_isIdentifier(Token * token) {
-    cout << token->nome << endl;
     return token->nome.compare("identifier") == 0;
 }
 
