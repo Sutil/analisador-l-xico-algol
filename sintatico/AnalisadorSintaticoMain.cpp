@@ -794,8 +794,11 @@ bool compoundTail() {
     int j = 0;
 
     salvaEstado(&j);
-    if (statement() && 0 == getToken()->valor.compare("end"))
-        return true;
+    if (statement()) {
+        if (0 == getToken()->valor.compare("end")) {
+            return true;
+        }
+    }
     restauraEstado(j);
 
     if (statement() && 0 == getToken()->valor.compare(";") && compoundTail())
