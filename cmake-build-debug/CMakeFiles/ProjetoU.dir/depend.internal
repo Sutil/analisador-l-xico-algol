@@ -62,6 +62,7 @@ CMakeFiles/ProjetoU.dir/main.cpp.o
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o
  /home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.h
  /home/sutil/ClionProjects/ProjetoU/sintatico/AnalisadorSintaticoMain.cpp
+ /home/sutil/ClionProjects/ProjetoU/sintatico/AnalisadorSintaticoMain.h
  /home/sutil/ClionProjects/ProjetoU/terminais.h
  googletest-src/googlemock/include/gmock/gmock-actions.h
  googletest-src/googlemock/include/gmock/gmock-cardinalities.h

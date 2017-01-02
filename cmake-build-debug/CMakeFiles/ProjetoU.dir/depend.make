@@ -61,6 +61,7 @@ CMakeFiles/ProjetoU.dir/main.cpp.o: googletest-src/googletest/include/gtest/inte
 
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: ../lexico/AnalisadorLexico.h
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: ../sintatico/AnalisadorSintaticoMain.cpp
+CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: ../sintatico/AnalisadorSintaticoMain.h
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: ../terminais.h
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: googletest-src/googlemock/include/gmock/gmock-actions.h
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: googletest-src/googlemock/include/gmock/gmock-cardinalities.h
