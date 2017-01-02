@@ -985,11 +985,8 @@ bool arraySegment() {
     int j = 0;
 
     salvaEstado(&j);
-    if (arrayIdentifier())
-        return true;
-    restauraEstado(j);
 
-    if (0 == getToken()->valor.compare("[") && boundPairList() && 0 == getToken()->valor.compare("]"))
+    if (arrayIdentifier() && 0 == getToken()->valor.compare("[") && boundPairList() && 0 == getToken()->valor.compare("]"))
         return true;
     restauraEstado(j);
 
