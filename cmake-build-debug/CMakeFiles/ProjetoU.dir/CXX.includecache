@@ -7,6 +7,8 @@
 #IncludeRegexTransform: 
 
 /home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.cpp
+sstream
+-
 AnalisadorLexico.h
 /home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.h
 separador.h
@@ -41,10 +43,10 @@ string
 -
 
 /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.cpp
+vector
+-
 leitorValorToken.h
 /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.h
-separador.h
-/home/sutil/ClionProjects/ProjetoU/lexico/separador.h
 
 /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.h
 string
@@ -75,10 +77,14 @@ iostream
 /home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.h
 ../terminais.h
 /home/sutil/ClionProjects/ProjetoU/terminais.h
+AnalisadorSintaticoMain.h
+/home/sutil/ClionProjects/ProjetoU/sintatico/AnalisadorSintaticoMain.h
 gtest/gtest.h
 -
 gmock/gmock.h
 -
+
+/home/sutil/ClionProjects/ProjetoU/sintatico/AnalisadorSintaticoMain.h
 
 /home/sutil/ClionProjects/ProjetoU/terminais.h
 

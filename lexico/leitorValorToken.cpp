@@ -2,8 +2,10 @@
 // Created by sutil on 20/12/16.
 //
 
+#include <vector>
 #include "leitorValorToken.h"
-#include "separador.h"
+
+vector<char> SEQUENCIA_DOIS_PONTOS = {'='};
 
 int linha = 0;
 int coluna = 0;
@@ -21,6 +23,16 @@ char leCaracter(FILE* file){
         coluna++;
 
     return caracter;
+}
+
+bool isSequenciaValida(char caracter, char sequencia){
+    if(caracter == ':')
+        for (int i = 0; i < SEQUENCIA_DOIS_PONTOS.size() ; ++i) {
+            if(SEQUENCIA_DOIS_PONTOS[i] == sequencia)
+                return true;
+        }
+
+    return false;
 }
 
 void salvaColuna(){
@@ -64,12 +76,18 @@ string tokenQueContemSeparador(FILE * file){
     if(isSeparadorComSequencia(caracter)) {
         char sequencia[3];
         sequencia[0] = caracter;
-        sequencia[1] = leCaracter(file);
-        sequencia[2] = '\0';
-        string valor(sequencia);
-        return valor;
+        char seguinte = leCaracter(file);
+        if(isSequenciaValida(caracter, seguinte)){
+            sequencia[1] = seguinte;
+            sequencia[2] = '\0';
+            string valor(sequencia);
+            return valor;
+        }
+        voltaPonteiro(file);
+        voltaPonteiro(file);
+    } else{
+        voltaPonteiro(file);
     }
-    voltaPonteiro(file);
     return "";
 }
 

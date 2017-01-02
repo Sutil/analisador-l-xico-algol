@@ -27,6 +27,12 @@ void assertProximoToken(string valor, string nome, int linha, int coluna){
     ASSERT_EQ(coluna, token->coluna);
 }
 
+void avancaTokens(int quantidade){
+    for (int i = 0; i < quantidade; ++i) {
+        getToken();
+    }
+}
+
 TEST(Lexico, tipoVariavelValido){
     FILE * f = criaArquivo("integer");
     inicializaAnalizadorLexico(f);
@@ -235,6 +241,85 @@ TEST(Lexico, programaCompleto){
     assertProximoToken("n", "identifier", 8, 29);
     assertProximoToken("do", "sequential operator", 8, 31);
 
+
+    fclose(f);
+    remove("test.txt");
+}
+
+TEST(Lexico, declaracaoMatriz){
+    FILE * f = criaArquivo("integer array a[1:2,1:2];");
+    inicializaAnalizadorLexico(f);
+
+    assertProximoToken("integer", "declarator", 1, 1);
+    assertProximoToken("array", "declarator", 1, 9);
+    assertProximoToken("a", "identifier", 1, 15);
+    assertProximoToken("[", "bracket", 1, 16);
+    assertProximoToken("1", "NUM", 1, 17);
+    assertProximoToken(":", "separator", 1, 18);
+    assertProximoToken("2", "NUM", 1, 19);
+    assertProximoToken(",", "separator", 1, 20);
+    assertProximoToken("1", "NUM", 1, 21);
+    assertProximoToken(":", "separator", 1, 22);
+    assertProximoToken("2", "NUM", 1, 23);
+    assertProximoToken("]", "bracket", 1, 24);
+    assertProximoToken(";", "separator", 1, 25);
+    assertProximoToken("EOF", "EOF", 2, 1);
+
+    fclose(f);
+    remove("test.txt");
+
+}
+
+TEST(Lexico, multiplicacaoMatrizes){
+    FILE * f = criaArquivo("begin\n"
+                                   "procedure multiMatriz(a, b, n, m);\n"
+                                   "    value n, m; integer array a, b, r; integer n, m;\n"
+                                   "begin\n"
+                                   "    integer i, j, k;\n"
+                                   "    \n"
+                                   "    i := k := j := 0;\n"
+                                   "\n"
+                                   "    for i := 1 step 1 until n do\n"
+                                   "        for q := 1 step 1 until m do\n"
+                                   "        begin\n"
+                                   "            integer somatorio;\n"
+                                   "            somatorio := 0;\n"
+                                   "            for k:= 1 step 1 until m do\n"
+                                   "                begin\n"
+                                   "                    integer produto;\n"
+                                   "                    produto := a[i,k] * b[k, j];\n"
+                                   "                    somatorio := somatorio + produto\n"
+                                   "                end;\n"
+                                   "            r[i, j] := somatori\n"
+                                   "         end\n"
+                                   "end;\n"
+                                   "integer array a[1:2,1:2], b[1:2,1:2];\n"
+                                   "\n"
+                                   "a[1,1] := 1;\n"
+                                   "a[1,2] := 2;\n"
+                                   "a[2,1] := 1;\n"
+                                   "a[2,2] := 2;\n"
+                                   "\n"
+                                   "b[1,1] := 2;\n"
+                                   "b[1,2] := 1;\n"
+                                   "b[2,1] := 2;\n"
+                                   "b[2,2] := 1;\n"
+                                   "\n"
+                                   "multiMatriz( a, b, 2, 2 )\n"
+                                   "\n"
+                                   "end");
+    inicializaAnalizadorLexico(f);
+
+    assertProximoToken("begin", "bracket", 1, 1);
+    avancaTokens(30);
+    assertProximoToken("begin", "bracket", 4, 1);
+    avancaTokens(15);
+    int ponteiro = retornaPonteiroAtual();
+    assertProximoToken("for", "sequential operator", 9, 5);
+    avancaTokens(96);
+    assertProximoToken("a", "identifier", 25, 1);
+    restauraPonteiro(ponteiro);
+    assertProximoToken("for", "sequential operator", 9, 5);
 
     fclose(f);
     remove("test.txt");

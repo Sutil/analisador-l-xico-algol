@@ -381,6 +381,9 @@
 		<Unit filename="/home/sutil/ClionProjects/ProjetoU/sintatico/AnalisadorSintaticoMain.cpp">
 			<Option target="ProjetoU"/>
 		</Unit>
+		<Unit filename="/home/sutil/ClionProjects/ProjetoU/sintatico/AnalisadorSintaticoMain.h">
+			<Option target="ProjetoU"/>
+		</Unit>
 		<Unit filename="/home/sutil/ClionProjects/ProjetoU/terminais.h">
 			<Option target="ProjetoU"/>
 		</Unit>

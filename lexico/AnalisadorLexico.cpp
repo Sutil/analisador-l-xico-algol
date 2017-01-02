@@ -65,6 +65,12 @@ Token * getToken() {
 
     Token * token = new Token(valorToken->valor, tipoToken, linhaAtual, colunaARetornar);
 
+    cout << token->valor << endl;
+    cout << token->nome << endl;
+    cout << token->linha << endl;
+    cout << token->coluna << endl;
+    cout << endl;
+
     return token;
 }
 

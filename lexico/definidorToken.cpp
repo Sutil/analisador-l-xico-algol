@@ -22,7 +22,6 @@ vector<string> ARITHMETIC_OPERATORS = {ARITHMETIOPERATOR_MAIS, ARITHMETIOPERATOR
 string NUM = "NUM";
 string TIPO = "declarator";
 string ID = "identifier";
-string SIMBOLO = "SIMBOLO";
 string RELATIONAL_OPERATOR = "RELATIONAL_OPERATOR";
 string SPECIFICATOR = "specificator";
 string SEPARATOR = "separator";

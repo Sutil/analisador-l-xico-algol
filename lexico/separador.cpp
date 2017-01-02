@@ -6,7 +6,7 @@
 #include "separador.h"
 
 std::vector<char> descartaveis = {' ', '\n'};
-std::vector<char> naoDescartaveis = {';', '+','-','*','/', '(', ')', '[', ']' , '`', '\'', ','};
+std::vector<char> naoDescartaveis = {':', ';', '+','-','*','/', '(', ')', '[', ']' , '`', '\'', ','};
 std::vector<char> separadorComSequencia = {':','=','!'};
 
 
