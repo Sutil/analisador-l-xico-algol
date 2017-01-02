@@ -13,19 +13,23 @@ using namespace std;
 struct valorToken{
     string valor;
     int linha;
-    int colunaAtual;
-    int colunaARetornar;
+    int coluna;
 
-    valorToken(string valor, int linha, int coluna, int colunaARetornar){
+    valorToken(string valor, int linha, int coluna){
         this->valor = valor;
         this->linha = linha;
-        this->colunaAtual = coluna;
-        this->colunaARetornar = colunaARetornar;
+        this->coluna = coluna;
     }
 };
 
 typedef struct valorToken ValorToken;
 
-ValorToken* getValorToken(FILE * file, int linhaAtual, int colunaAtual);
+void inicializaLeitorToken();
+
+ValorToken* getValorToken(FILE * file);
+
+void restaurarContagem(long ponteiroArquivo);
+
+void salvarContagem(long ponteiro);
 
 #endif //PROJETOU_LEITORVALORTOKEN_H

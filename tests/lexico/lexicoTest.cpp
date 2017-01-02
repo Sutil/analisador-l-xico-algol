@@ -64,7 +64,7 @@ TEST(Lexico, atribuicao){
     assertToken(";", "separator", 1, 19, token);
 
     token = getToken();
-    assertToken("EOF", "EOF", 2, 1, token);
+    assertToken("EOF", "EOF", 2, 2, token);
 
     fclose(f);
     remove("test.txt");
@@ -263,7 +263,7 @@ TEST(Lexico, declaracaoMatriz){
     assertProximoToken("2", "NUM", 1, 23);
     assertProximoToken("]", "bracket", 1, 24);
     assertProximoToken(";", "separator", 1, 25);
-    assertProximoToken("EOF", "EOF", 2, 1);
+    assertProximoToken("EOF", "EOF", 2, 2);
 
     fclose(f);
     remove("test.txt");
@@ -319,8 +319,15 @@ TEST(Lexico, multiplicacaoMatrizes){
     avancaTokens(96);
     assertProximoToken("a", "identifier", 25, 1);
     restauraPonteiro(ponteiro);
-    //assertProximoToken("for", "sequential operator", 9, 5);
-    //fazer esta correção
+
+    assertProximoToken("for", "sequential operator", 9, 5);
+
+    avancaTokens(17);
+    ponteiro = retornaPonteiroAtual();
+    assertProximoToken("begin", "bracket", 11, 9);
+    avancaTokens(20);
+    restauraPonteiro(ponteiro);
+    assertProximoToken("begin", "bracket", 11, 9);
 
     fclose(f);
     remove("test.txt");

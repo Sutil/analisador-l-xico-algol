@@ -1289,6 +1289,7 @@ bool unsignedInteger() {
 void salvaEstado(int *j) {
 
     *j = retornaPonteiroAtual();
+
     return;
 }
 

@@ -357,6 +357,12 @@
 		<Unit filename="/home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.h">
 			<Option target="ProjetoU"/>
 		</Unit>
+		<Unit filename="/home/sutil/ClionProjects/ProjetoU/lexico/contagem.cpp">
+			<Option target="ProjetoU"/>
+		</Unit>
+		<Unit filename="/home/sutil/ClionProjects/ProjetoU/lexico/contagem.h">
+			<Option target="ProjetoU"/>
+		</Unit>
 		<Unit filename="/home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.cpp">
 			<Option target="ProjetoU"/>
 		</Unit>

@@ -7,11 +7,9 @@
 #include "separador.h"
 #include "definidorToken.h"
 #include "leitorValorToken.h"
+#include "contagem.h"
 
 FILE *file;
-int linhaAtual  = 1;
-int colunaAtual =  0;
-int colunaARetornar = 0;
 
 string definineTipoToken(string basic_string);
 
@@ -19,30 +17,11 @@ bool naoEhSeparador(char caracter);
 
 void inicializaAnalizadorLexico(FILE *pFile) {
     file = pFile;
-    linhaAtual  = 1;
-    colunaAtual =  0;
-    colunaARetornar = 0;
-}
-
-void incrementaLinhaColuna(char caracter){
-    if(caracter == '\n'){
-        linhaAtual++;
-        colunaAtual = 1;
-    } else
-        colunaAtual++;
-}
-
-char leCaracter(){
-    char caracter = fgetc(file);
-    incrementaLinhaColuna(caracter);
-    return caracter;
+    inicializaLeitorToken();
 }
 
 ValorToken* leValorToken(){
-    ValorToken * valorToken = getValorToken(file, linhaAtual, colunaAtual);
-    linhaAtual = valorToken->linha;
-    colunaAtual = valorToken->colunaAtual;
-    colunaARetornar = valorToken->colunaARetornar;
+    ValorToken * valorToken = getValorToken(file);
     return valorToken;
 }
 
@@ -58,26 +37,29 @@ Token * getToken() {
 
     if(tipoToken.compare("NADA") == 0){
         cout << "Erro léxico no token " << valorToken->valor << endl;
-        cout << "Linha " << linhaAtual << endl;
-        cout << "Coluna " << colunaARetornar << endl;
+        cout << "Linha " << valorToken->linha << endl;
+        cout << "Coluna " << valorToken->coluna << endl;
         throw runtime_error("Erro léxico");
     }
 
-    Token * token = new Token(valorToken->valor, tipoToken, linhaAtual, colunaARetornar);
+    Token * token = new Token(valorToken->valor, tipoToken, valorToken->linha, valorToken->coluna);
 
-    cout << token->valor << endl;
-    cout << token->nome << endl;
-    cout << token->linha << endl;
-    cout << token->coluna << endl;
+    cout << "valor:" << token->valor << endl;
+    cout << "tipo:" << token->nome << endl;
+    cout << "linha:" << token->linha << endl;
+    cout << "coluna:" << token->coluna << endl;
     cout << endl;
 
     return token;
 }
 
 long retornaPonteiroAtual(){
-    return ftell(file);
+    long ponteiro = ftell(file);
+    salvarContagem(ftell(file));
+    return ponteiro;
 }
 
 void restauraPonteiro(int posicao){
     fseek(file, posicao, SEEK_SET);
+    restaurarContagem(posicao);
 }

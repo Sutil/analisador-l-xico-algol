@@ -5,6 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.o"
+  "/home/sutil/ClionProjects/ProjetoU/lexico/contagem.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/lexico/contagem.cpp.o"
   "/home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/lexico/definidorToken.cpp.o"
   "/home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o"
   "/home/sutil/ClionProjects/ProjetoU/lexico/separador.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/lexico/separador.cpp.o"

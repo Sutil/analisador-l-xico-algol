@@ -4,14 +4,19 @@
 CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.o
  /home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.cpp
  /home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.h
+ /home/sutil/ClionProjects/ProjetoU/lexico/contagem.h
  /home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.h
  /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.h
  /home/sutil/ClionProjects/ProjetoU/lexico/separador.h
+CMakeFiles/ProjetoU.dir/lexico/contagem.cpp.o
+ /home/sutil/ClionProjects/ProjetoU/lexico/contagem.cpp
+ /home/sutil/ClionProjects/ProjetoU/lexico/contagem.h
 CMakeFiles/ProjetoU.dir/lexico/definidorToken.cpp.o
  /home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.cpp
  /home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.h
  /home/sutil/ClionProjects/ProjetoU/terminais.h
 CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o
+ /home/sutil/ClionProjects/ProjetoU/lexico/contagem.h
  /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.cpp
  /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.h
  /home/sutil/ClionProjects/ProjetoU/lexico/separador.h

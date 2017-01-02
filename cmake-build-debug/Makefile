@@ -246,6 +246,33 @@ lexico/AnalisadorLexico.cpp.s:
 	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.s
 .PHONY : lexico/AnalisadorLexico.cpp.s
 
+lexico/contagem.o: lexico/contagem.cpp.o
+
+.PHONY : lexico/contagem.o
+
+# target to build an object file
+lexico/contagem.cpp.o:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/lexico/contagem.cpp.o
+.PHONY : lexico/contagem.cpp.o
+
+lexico/contagem.i: lexico/contagem.cpp.i
+
+.PHONY : lexico/contagem.i
+
+# target to preprocess a source file
+lexico/contagem.cpp.i:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/lexico/contagem.cpp.i
+.PHONY : lexico/contagem.cpp.i
+
+lexico/contagem.s: lexico/contagem.cpp.s
+
+.PHONY : lexico/contagem.s
+
+# target to generate assembly for a file
+lexico/contagem.cpp.s:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/lexico/contagem.cpp.s
+.PHONY : lexico/contagem.cpp.s
+
 lexico/definidorToken.o: lexico/definidorToken.cpp.o
 
 .PHONY : lexico/definidorToken.o
@@ -536,6 +563,9 @@ help:
 	@echo "... lexico/AnalisadorLexico.o"
 	@echo "... lexico/AnalisadorLexico.i"
 	@echo "... lexico/AnalisadorLexico.s"
+	@echo "... lexico/contagem.o"
+	@echo "... lexico/contagem.i"
+	@echo "... lexico/contagem.s"
 	@echo "... lexico/definidorToken.o"
 	@echo "... lexico/definidorToken.i"
 	@echo "... lexico/definidorToken.s"

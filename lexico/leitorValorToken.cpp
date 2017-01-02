@@ -4,23 +4,19 @@
 
 #include <vector>
 #include "leitorValorToken.h"
+#include "contagem.h"
 
 vector<char> SEQUENCIA_DOIS_PONTOS = {'='};
 
-int linha = 0;
-int coluna = 0;
-int colunaARetorno = 0;
 char caracter;
 
+void inicializaLeitorToken() {
+    inicializaContagem();
+}
 
 char leCaracter(FILE* file){
     caracter  = getc(file);
-    if(caracter == '\n') {
-        linha++;
-        coluna = 0;
-    }
-    else
-        coluna++;
+    avancaCaracter(caracter, file->_offset);
 
     return caracter;
 }
@@ -35,17 +31,10 @@ bool isSequenciaValida(char caracter, char sequencia){
     return false;
 }
 
-void salvaColuna(){
-    colunaARetorno = coluna;
-}
-
 void voltaPonteiro(FILE * file){
     fseek(file, 0, file->_offset);
     fseek(file, -1, SEEK_CUR);
-    if(caracter == '\n')
-        linha--;
-    else
-        coluna--;
+    retornaCaracter();
 }
 
 void descartarCaracteresEmBranco(FILE  * file){
@@ -56,13 +45,11 @@ void descartarCaracteresEmBranco(FILE  * file){
 
     if(EOF != caracter)
         voltaPonteiro(file);
-    else
-        coluna--;
 }
 
 string tokenEOF(FILE * file){
     char caracter = leCaracter(file);
-    salvaColuna();
+    salvaEstadoDaContagem();
     if(caracter == EOF)
         return "EOF";
 
@@ -71,8 +58,9 @@ string tokenEOF(FILE * file){
 }
 
 string tokenQueContemSeparador(FILE * file){
+    Estado * estado = salvaEstadoDaContagem();
     char caracter = leCaracter(file);
-    salvaColuna();
+    salvaEstadoDaContagem();
     if(isSeparadorComSequencia(caracter)) {
         char sequencia[3];
         sequencia[0] = caracter;
@@ -85,6 +73,7 @@ string tokenQueContemSeparador(FILE * file){
         }
         voltaPonteiro(file);
         voltaPonteiro(file);
+        restauraContagem(estado);
     } else{
         voltaPonteiro(file);
     }
@@ -93,7 +82,7 @@ string tokenQueContemSeparador(FILE * file){
 
 string tokenSimbolo(FILE * file){
     char caracter = leCaracter(file);
-    salvaColuna();
+    salvaEstadoDaContagem();
     if(isSeparadorNaoDescartavel(caracter)){
         char sequencia[2];
         sequencia[0] = caracter;
@@ -107,7 +96,7 @@ string tokenSimbolo(FILE * file){
 
 string tokenSemSimbolo(FILE * file){
     char caracter = leCaracter(file);
-    salvaColuna();
+    salvaEstadoDaContagem();
     char sequencia[50];
     int i = 0;
     while (!isSeparador(caracter)){
@@ -121,10 +110,7 @@ string tokenSemSimbolo(FILE * file){
     return valor;
 }
 
-ValorToken* getValorToken(FILE * file, int linhaAtual, int colunaAtual){
-    linha = linhaAtual;
-    coluna = colunaAtual;
-
+ValorToken* getValorToken(FILE * file){
     descartarCaracteresEmBranco(file);
 
     string valor = tokenEOF(file);
@@ -138,8 +124,17 @@ ValorToken* getValorToken(FILE * file, int linhaAtual, int colunaAtual){
     if(valor.empty())
         valor = tokenSemSimbolo(file);
 
-    return new ValorToken(valor, linha, coluna, colunaARetorno);
+    Estado * estado = ultimoEstadoSalvo();
+
+    return new ValorToken(valor, estado->linha, estado->coluna);
 }
 
+void salvarContagem(long ponteiro){
+    salvaEstadoDaContagem(ponteiro);
+}
+
+void restaurarContagem(long ponteiroArquivo) {
+    restauraContagem(ponteiroArquivo);
+}
 
 

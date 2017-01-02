@@ -17,6 +17,8 @@ definidorToken.h
 /home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.h
 leitorValorToken.h
 /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.h
+contagem.h
+/home/sutil/ClionProjects/ProjetoU/lexico/contagem.h
 
 /home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.h
 cstdio
@@ -25,6 +27,16 @@ iostream
 -
 string
 -
+
+/home/sutil/ClionProjects/ProjetoU/lexico/contagem.cpp
+vector
+-
+contagem.h
+/home/sutil/ClionProjects/ProjetoU/lexico/contagem.h
+stack
+-
+
+/home/sutil/ClionProjects/ProjetoU/lexico/contagem.h
 
 /home/sutil/ClionProjects/ProjetoU/lexico/definidorToken.cpp
 definidorToken.h
@@ -47,6 +59,8 @@ vector
 -
 leitorValorToken.h
 /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.h
+contagem.h
+/home/sutil/ClionProjects/ProjetoU/lexico/contagem.h
 
 /home/sutil/ClionProjects/ProjetoU/lexico/leitorValorToken.h
 string

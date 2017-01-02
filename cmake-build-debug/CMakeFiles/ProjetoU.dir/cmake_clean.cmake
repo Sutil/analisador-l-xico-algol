@@ -10,6 +10,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o"
   "CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o"
   "CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o"
+  "CMakeFiles/ProjetoU.dir/lexico/contagem.cpp.o"
   "ProjetoU.pdb"
   "ProjetoU"
 )

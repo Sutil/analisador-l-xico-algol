@@ -3,14 +3,19 @@
 
 CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.o: ../lexico/AnalisadorLexico.cpp
 CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.o: ../lexico/AnalisadorLexico.h
+CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.o: ../lexico/contagem.h
 CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.o: ../lexico/definidorToken.h
 CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.o: ../lexico/leitorValorToken.h
 CMakeFiles/ProjetoU.dir/lexico/AnalisadorLexico.cpp.o: ../lexico/separador.h
+
+CMakeFiles/ProjetoU.dir/lexico/contagem.cpp.o: ../lexico/contagem.cpp
+CMakeFiles/ProjetoU.dir/lexico/contagem.cpp.o: ../lexico/contagem.h
 
 CMakeFiles/ProjetoU.dir/lexico/definidorToken.cpp.o: ../lexico/definidorToken.cpp
 CMakeFiles/ProjetoU.dir/lexico/definidorToken.cpp.o: ../lexico/definidorToken.h
 CMakeFiles/ProjetoU.dir/lexico/definidorToken.cpp.o: ../terminais.h
 
+CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o: ../lexico/contagem.h
 CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o: ../lexico/leitorValorToken.cpp
 CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o: ../lexico/leitorValorToken.h
 CMakeFiles/ProjetoU.dir/lexico/leitorValorToken.cpp.o: ../lexico/separador.h
