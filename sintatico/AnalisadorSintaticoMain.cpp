@@ -50,7 +50,7 @@ int main(int argc, char* argv[]) {
 
 No * addNo(No * pai, string filho){
     No * f = new No(filho);
-    adicionaFilho(raiz, pai, f);
+    pai->addFilho(f);
     return f;
 }
 

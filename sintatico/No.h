@@ -8,36 +8,35 @@
 #include <string>
 #include <vector>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
 struct no {
     string nome;
-    vector<no> filhos;
+    vector<no*> filhos;
 
     no(string nome){
         this->nome = nome;
     }
 
     void addFilho(no * node){
-        this->filhos.push_back(*node);
+        this->filhos.push_back(node);
     }
 
     void removeFilho(no * filho){
-       // std::remove(filhos.begin(), filhos.end(), filho);
+        this->filhos.erase(std::remove(filhos.begin(), filhos.end(), filho), filhos.end());
     }
 
     void imprimir(){
         cout << "\"" << this->nome << "\"" << "{";
-        for(no &fi : this->filhos) {
+        for(no *fi : this->filhos) {
             cout << ",";
-            fi.imprimir();
+            fi->imprimir();
         }
         cout << "}" << endl;
     }
 };
 typedef struct no No;
-
-bool adicionaFilho(No * raiz, No * pai, No * filho);
 
 #endif //PROJETOU_NO_H
