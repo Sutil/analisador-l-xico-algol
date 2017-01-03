@@ -417,6 +417,9 @@
 		<Unit filename="/home/sutil/ClionProjects/ProjetoU/tests/separadorTest.cpp">
 			<Option target="ProjetoU"/>
 		</Unit>
+		<Unit filename="/home/sutil/ClionProjects/ProjetoU/tests/sintatico/arvoreTest.cpp">
+			<Option target="ProjetoU"/>
+		</Unit>
 		<Unit filename="/home/sutil/ClionProjects/ProjetoU/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

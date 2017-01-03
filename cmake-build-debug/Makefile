@@ -570,6 +570,33 @@ tests/separadorTest.cpp.s:
 	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/separadorTest.cpp.s
 .PHONY : tests/separadorTest.cpp.s
 
+tests/sintatico/arvoreTest.o: tests/sintatico/arvoreTest.cpp.o
+
+.PHONY : tests/sintatico/arvoreTest.o
+
+# target to build an object file
+tests/sintatico/arvoreTest.cpp.o:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o
+.PHONY : tests/sintatico/arvoreTest.cpp.o
+
+tests/sintatico/arvoreTest.i: tests/sintatico/arvoreTest.cpp.i
+
+.PHONY : tests/sintatico/arvoreTest.i
+
+# target to preprocess a source file
+tests/sintatico/arvoreTest.cpp.i:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.i
+.PHONY : tests/sintatico/arvoreTest.cpp.i
+
+tests/sintatico/arvoreTest.s: tests/sintatico/arvoreTest.cpp.s
+
+.PHONY : tests/sintatico/arvoreTest.s
+
+# target to generate assembly for a file
+tests/sintatico/arvoreTest.cpp.s:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.s
+.PHONY : tests/sintatico/arvoreTest.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -626,6 +653,9 @@ help:
 	@echo "... tests/separadorTest.o"
 	@echo "... tests/separadorTest.i"
 	@echo "... tests/separadorTest.s"
+	@echo "... tests/sintatico/arvoreTest.o"
+	@echo "... tests/sintatico/arvoreTest.i"
+	@echo "... tests/sintatico/arvoreTest.s"
 .PHONY : help
 
 

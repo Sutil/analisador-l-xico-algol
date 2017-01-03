@@ -67,6 +67,7 @@ CMakeFiles/ProjetoU.dir/main.cpp.o: googletest-src/googletest/include/gtest/inte
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: ../lexico/AnalisadorLexico.h
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: ../sintatico/AnalisadorSintaticoMain.cpp
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: ../sintatico/AnalisadorSintaticoMain.h
+CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: ../sintatico/No.h
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: ../terminais.h
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: googletest-src/googlemock/include/gmock/gmock-actions.h
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: googletest-src/googlemock/include/gmock/gmock-cardinalities.h
@@ -107,6 +108,9 @@ CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: googletest-src/
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-string.h
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-tuple.h
 CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-type-util.h
+
+CMakeFiles/ProjetoU.dir/sintatico/No.cpp.o: ../sintatico/No.cpp
+CMakeFiles/ProjetoU.dir/sintatico/No.cpp.o: ../sintatico/No.h
 
 CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o: ../tests/lexico/abreArquivo.cpp
 
@@ -212,4 +216,29 @@ CMakeFiles/ProjetoU.dir/tests/separadorTest.cpp.o: googletest-src/googletest/inc
 CMakeFiles/ProjetoU.dir/tests/separadorTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-string.h
 CMakeFiles/ProjetoU.dir/tests/separadorTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-tuple.h
 CMakeFiles/ProjetoU.dir/tests/separadorTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-type-util.h
+
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: ../sintatico/No.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: ../tests/sintatico/arvoreTest.cpp
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/gtest-death-test.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/gtest-message.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/gtest-param-test.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/gtest-printers.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/gtest-test-part.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/gtest-typed-test.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/gtest.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/gtest_pred_impl.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/gtest_prod.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/internal/custom/gtest-port.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/internal/custom/gtest-printers.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-death-test-internal.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-filepath.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-internal.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-linked_ptr.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-param-util-generated.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-param-util.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-port-arch.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-port.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-string.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-tuple.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o: googletest-src/googletest/include/gtest/internal/gtest-type-util.h
 

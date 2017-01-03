@@ -28,15 +28,16 @@ struct no {
     }
 
     void imprimir(){
-        cout << this->nome << "{" <<endl;
-        for(no &fi : this->filhos){
-            cout << "\t";
+        cout << "\"" << this->nome << "\"" << "{";
+        for(no &fi : this->filhos) {
+            cout << ",";
             fi.imprimir();
-            cout << ", ";
         }
-        cout << endl << "}" << endl;
+        cout << "}" << endl;
     }
 };
 typedef struct no No;
+
+bool adicionaFilho(No * raiz, No * pai, No * filho);
 
 #endif //PROJETOU_NO_H

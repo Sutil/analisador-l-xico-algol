@@ -17,6 +17,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/sutil/ClionProjects/ProjetoU/tests/lexico/leitorValorTokenTest.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/tests/lexico/leitorValorTokenTest.cpp.o"
   "/home/sutil/ClionProjects/ProjetoU/tests/lexico/lexicoTest.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/tests/lexico/lexicoTest.cpp.o"
   "/home/sutil/ClionProjects/ProjetoU/tests/separadorTest.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/tests/separadorTest.cpp.o"
+  "/home/sutil/ClionProjects/ProjetoU/tests/sintatico/arvoreTest.cpp" "/home/sutil/ClionProjects/ProjetoU/cmake-build-debug/CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

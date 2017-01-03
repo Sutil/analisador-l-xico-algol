@@ -68,6 +68,7 @@ CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o
  /home/sutil/ClionProjects/ProjetoU/lexico/AnalisadorLexico.h
  /home/sutil/ClionProjects/ProjetoU/sintatico/AnalisadorSintaticoMain.cpp
  /home/sutil/ClionProjects/ProjetoU/sintatico/AnalisadorSintaticoMain.h
+ /home/sutil/ClionProjects/ProjetoU/sintatico/No.h
  /home/sutil/ClionProjects/ProjetoU/terminais.h
  googletest-src/googlemock/include/gmock/gmock-actions.h
  googletest-src/googlemock/include/gmock/gmock-cardinalities.h
@@ -108,6 +109,9 @@ CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.o
  googletest-src/googletest/include/gtest/internal/gtest-string.h
  googletest-src/googletest/include/gtest/internal/gtest-tuple.h
  googletest-src/googletest/include/gtest/internal/gtest-type-util.h
+CMakeFiles/ProjetoU.dir/sintatico/No.cpp.o
+ /home/sutil/ClionProjects/ProjetoU/sintatico/No.cpp
+ /home/sutil/ClionProjects/ProjetoU/sintatico/No.h
 CMakeFiles/ProjetoU.dir/tests/lexico/abreArquivo.cpp.o
  /home/sutil/ClionProjects/ProjetoU/tests/lexico/abreArquivo.cpp
 CMakeFiles/ProjetoU.dir/tests/lexico/definidorTokenTest.cpp.o
@@ -191,6 +195,31 @@ CMakeFiles/ProjetoU.dir/tests/lexico/lexicoTest.cpp.o
 CMakeFiles/ProjetoU.dir/tests/separadorTest.cpp.o
  /home/sutil/ClionProjects/ProjetoU/lexico/separador.h
  /home/sutil/ClionProjects/ProjetoU/tests/separadorTest.cpp
+ googletest-src/googletest/include/gtest/gtest-death-test.h
+ googletest-src/googletest/include/gtest/gtest-message.h
+ googletest-src/googletest/include/gtest/gtest-param-test.h
+ googletest-src/googletest/include/gtest/gtest-printers.h
+ googletest-src/googletest/include/gtest/gtest-test-part.h
+ googletest-src/googletest/include/gtest/gtest-typed-test.h
+ googletest-src/googletest/include/gtest/gtest.h
+ googletest-src/googletest/include/gtest/gtest_pred_impl.h
+ googletest-src/googletest/include/gtest/gtest_prod.h
+ googletest-src/googletest/include/gtest/internal/custom/gtest-port.h
+ googletest-src/googletest/include/gtest/internal/custom/gtest-printers.h
+ googletest-src/googletest/include/gtest/internal/gtest-death-test-internal.h
+ googletest-src/googletest/include/gtest/internal/gtest-filepath.h
+ googletest-src/googletest/include/gtest/internal/gtest-internal.h
+ googletest-src/googletest/include/gtest/internal/gtest-linked_ptr.h
+ googletest-src/googletest/include/gtest/internal/gtest-param-util-generated.h
+ googletest-src/googletest/include/gtest/internal/gtest-param-util.h
+ googletest-src/googletest/include/gtest/internal/gtest-port-arch.h
+ googletest-src/googletest/include/gtest/internal/gtest-port.h
+ googletest-src/googletest/include/gtest/internal/gtest-string.h
+ googletest-src/googletest/include/gtest/internal/gtest-tuple.h
+ googletest-src/googletest/include/gtest/internal/gtest-type-util.h
+CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o
+ /home/sutil/ClionProjects/ProjetoU/sintatico/No.h
+ /home/sutil/ClionProjects/ProjetoU/tests/sintatico/arvoreTest.cpp
  googletest-src/googletest/include/gtest/gtest-death-test.h
  googletest-src/googletest/include/gtest/gtest-message.h
  googletest-src/googletest/include/gtest/gtest-param-test.h
