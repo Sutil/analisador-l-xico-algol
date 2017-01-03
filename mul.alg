@@ -11,7 +11,6 @@ begin
             j := 0;
 
             for i := 1 step 1 until n do
-            begin
                 for q := 1 step 1 until m do
                 begin
                     integer somatorio;
@@ -20,12 +19,11 @@ begin
                         begin
                             integer produto;
                             produto := a[i,k] * b[k, j];
-                            somatorio := somatorio + produto;
-                        end
-                    r[i, j] := somatorio;
+                            somatorio := somatorio + produto
+                        end;
+                    r[i, j] := somatorio
                  end
-            end
-        end
+        end;
     integer array a[1:2,1:2], b[1:2,1:2];
 
     a[1,1] := 1;
@@ -38,6 +36,6 @@ begin
     b[2,1] := 2;
     b[2,2] := 1;
 
-    multiMatriz( a, b, 2, 2 )
+    multiMatriz(a,b,2,2)
 
 end

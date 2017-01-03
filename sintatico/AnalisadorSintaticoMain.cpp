@@ -913,7 +913,7 @@ bool actualParameterListRecursao(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (parameterDelimiter(self) && actualParameter(self))
+    if (parameterDelimiter(self) && actualParameter(self) && actualParameterListRecursao(self))
         return true;
     restauraEstado(j);
     removeNo(pai, self);
