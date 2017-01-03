@@ -97,8 +97,26 @@ gtest/gtest.h
 -
 gmock/gmock.h
 -
+regex
+-
+No.h
+/home/sutil/ClionProjects/ProjetoU/sintatico/No.h
 
 /home/sutil/ClionProjects/ProjetoU/sintatico/AnalisadorSintaticoMain.h
+No.h
+/home/sutil/ClionProjects/ProjetoU/sintatico/No.h
+
+/home/sutil/ClionProjects/ProjetoU/sintatico/No.cpp
+No.h
+/home/sutil/ClionProjects/ProjetoU/sintatico/No.h
+
+/home/sutil/ClionProjects/ProjetoU/sintatico/No.h
+string
+-
+vector
+-
+iostream
+-
 
 /home/sutil/ClionProjects/ProjetoU/terminais.h
 

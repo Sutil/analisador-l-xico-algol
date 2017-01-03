@@ -408,6 +408,33 @@ sintatico/AnalisadorSintaticoMain.cpp.s:
 	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/sintatico/AnalisadorSintaticoMain.cpp.s
 .PHONY : sintatico/AnalisadorSintaticoMain.cpp.s
 
+sintatico/No.o: sintatico/No.cpp.o
+
+.PHONY : sintatico/No.o
+
+# target to build an object file
+sintatico/No.cpp.o:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/sintatico/No.cpp.o
+.PHONY : sintatico/No.cpp.o
+
+sintatico/No.i: sintatico/No.cpp.i
+
+.PHONY : sintatico/No.i
+
+# target to preprocess a source file
+sintatico/No.cpp.i:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/sintatico/No.cpp.i
+.PHONY : sintatico/No.cpp.i
+
+sintatico/No.s: sintatico/No.cpp.s
+
+.PHONY : sintatico/No.s
+
+# target to generate assembly for a file
+sintatico/No.cpp.s:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/sintatico/No.cpp.s
+.PHONY : sintatico/No.cpp.s
+
 tests/lexico/abreArquivo.o: tests/lexico/abreArquivo.cpp.o
 
 .PHONY : tests/lexico/abreArquivo.o
@@ -581,6 +608,9 @@ help:
 	@echo "... sintatico/AnalisadorSintaticoMain.o"
 	@echo "... sintatico/AnalisadorSintaticoMain.i"
 	@echo "... sintatico/AnalisadorSintaticoMain.s"
+	@echo "... sintatico/No.o"
+	@echo "... sintatico/No.i"
+	@echo "... sintatico/No.s"
 	@echo "... tests/lexico/abreArquivo.o"
 	@echo "... tests/lexico/abreArquivo.i"
 	@echo "... tests/lexico/abreArquivo.s"

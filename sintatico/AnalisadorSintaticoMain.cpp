@@ -4,6 +4,16 @@
 #include "AnalisadorSintaticoMain.h"
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <regex>
+#include "No.h"
+
+No * raiz;
+
+
+Token * getNextToken(){
+    Token * token = getToken();
+    return token;
+}
 
 int main(int argc, char* argv[]) {
     testing::InitGoogleTest(&argc, argv);
@@ -27,193 +37,281 @@ int main(int argc, char* argv[]) {
 
     inicializaAnalizadorLexico(f);
 
-    return program(); // Verificar se chegou no final do arquivo!!
+    bool ret = program(); // Verificar se chegou no final do arquivo!!
+    if(ret && getNextToken()->valor.compare("EOF") == 0) {
+        cout << "SUCESSO" << endl;
+        return true;
+    }
+    cout << "Falha de análise sintática" << endl;
+
+    return false;
+}
+
+
+No * addNo(No * pai, string filho){
+    No * f = new No(filho);
+    pai->addFilho(f);
+    return f;
+}
+
+void removeNo(No * pai, No * filho){
+    pai->removeFilho(filho);
 }
 
 bool program() {
+    raiz = new No("program");
+    
     int j = 0;
+    
+    salvaEstado(&j);
+    if (block(raiz))
+        return true;
+    restauraEstado(j);
 
     salvaEstado(&j);
-    if (block())
+    if (compoundStatement(raiz))
         return true;
+
     restauraEstado(j);
 
-    if (compoundStatement())
-        return true;
-    restauraEstado(j);
+    raiz->imprimir();
 
     return false;
 }
 
-bool block() {
+bool block(No * pai) {
+	No * self = addNo(pai, "block");
+    
     int j = 0;
 
     salvaEstado(&j);
-    if (unlabelledBlock())
+    if (unlabelledBlock(self))
         return true;
     restauraEstado(j);
 
-    if (label() && 0 == getToken()->valor.compare(":") && block())
+    salvaEstado(&j);
+    if (label(self) && 0 == getNextToken()->valor.compare(":") && block(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool statement() {
+bool statement(No * pai) {
+	No * self = addNo(pai, "statment");
+    
     int j = 0;
 
     salvaEstado(&j);
-    if (unconditionalStatement())
+    if (unconditionalStatement(self))
         return true;
     restauraEstado(j);
 
-    if (conditionalStatement())
+    salvaEstado(&j);
+    if (conditionalStatement(self))
         return true;
     restauraEstado(j);
 
-    if (forStatement())
+    salvaEstado(&j);
+    if (forStatement(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool forStatement() {
+bool forStatement(No * pai) {
+	No * self = addNo(pai, "for statement");
+
+    
+    
+
     int j = 0;
+    salvaEstado(&j);
+    if (forClause(self) &&  statement(self))
+        return true;
+    restauraEstado(j);
 
     salvaEstado(&j);
-    if (forClause() &&  statement())
+    if (label(self) && forStatement(self))
         return true;
     restauraEstado(j);
 
-    if (label() && forStatement())
-        return true;
-    restauraEstado(j);
-
+    removeNo(pai, self);
     return false;
 }
 
-bool forClause() {
+bool forClause(No * pai) {
+	No * self = addNo(pai, "for clause");
+
+    
+    
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare("for") && variable() && 0 == getToken()->valor.compare(":=") && forList() && 0 == getToken()->valor.compare("do"))
+    if (0 == getNextToken()->valor.compare("for") &&
+            variable(self)
+            && 0 == getNextToken()->valor.compare(":=")
+            && forList(self)
+            && 0 == getNextToken()->valor.compare("do"))
         return true;
+
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool forList() {
+bool forList(No * pai) {
+	No * self = addNo(pai, "for list");
+
+    
+    
     int j = 0;
 
     salvaEstado(&j);
-    if (forListElement())
+    if (forListElement(self))
         return true;
 
+    restauraEstado(j);
+    removeNo(pai, self);
     return false;
 }
 
-bool forListElement() {
+bool forListElement(No * pai) {
+	No * self = addNo(pai, "forListElement");
+
     int j = 0;
 
     salvaEstado(&j);
 
-    if (arithmeticExpression() && 0 == getToken()->valor.compare("step") && arithmeticExpression() && 0 == getToken()->valor.compare("until") && arithmeticExpression())
+    if (arithmeticExpression(self)
+        && 0 == getNextToken()->valor.compare("step")
+        && arithmeticExpression(self)
+        && 0 == getNextToken()->valor.compare("until")
+        && arithmeticExpression(self))
         return true;
     restauraEstado(j);
 
-    if (arithmeticExpression() && 0 == getToken()->valor.compare("while") && booleanExpression())
+    salvaEstado(&j);
+    if (arithmeticExpression(self)
+        && 0 == getNextToken()->valor.compare("while")
+        && booleanExpression(self))
         return true;
     restauraEstado(j);
 
-    if (arithmeticExpression())
+    salvaEstado(&j);
+    if (arithmeticExpression(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool unconditionalStatement(){
+bool unconditionalStatement(No * pai){
+    No * self = addNo(pai, "unconditional statment");
+    
     int j = 0;
 
     salvaEstado(&j);
-    if (basicStatement())
+    if (basicStatement(self))
         return true;
     restauraEstado(j);
 
-    if (conditionalStatement())
+    salvaEstado(&j);
+    if (conditionalStatement(self))
         return true;
     restauraEstado(j);
 
-    if (block())
+    salvaEstado(&j);
+    if (block(self))
         return true;
     restauraEstado(j);
 
-
+    removeNo(pai, self);
     return false;
 }
 
-bool conditionalStatement() {
+bool conditionalStatement(No * pai) {
+	No * self = addNo(pai, "conditinal statement");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (ifStatement())
+    if (ifStatement(self))
         return true;
     restauraEstado(j);
 
-    if (ifStatement() && 0 == getToken()->valor.compare("else") && statement())
+    salvaEstado(&j);
+    if (ifStatement(self) && 0 == getNextToken()->valor.compare("else") && statement(self))
         return true;
     restauraEstado(j);
 
-    if (ifClause() && forStatement())
+    salvaEstado(&j);
+    if (ifClause(self) && forStatement(self))
         return true;
     restauraEstado(j);
 
-    if (label() && 0 == getToken()->valor.compare(":") && conditionalStatement())
+    salvaEstado(&j);
+    if (label(self) && 0 == getNextToken()->valor.compare(":") && conditionalStatement(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool ifStatement() {
+bool ifStatement(No * pai) {
+	No * self = addNo(pai, "if statement");
+    
     int j = 0;
 
     salvaEstado(&j);
-    if (ifClause() && unconditionalStatement())
+    if (ifClause(self) && unconditionalStatement(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool basicStatement() {
+bool basicStatement(No * pai) {
+	No * self = addNo(pai, "basic statement");
+
+    
     int j = 0;
 
     salvaEstado(&j);
-    if (unlabelledBasicStatement())
+    if (unlabelledBasicStatement(self))
         return true;
     restauraEstado(j);
 
-    if (label() && 0 == getToken()->valor.compare(":") && basicStatement())
+    salvaEstado(&j);
+    if (label(self) 
+        && 0 == getNextToken()->valor.compare(":") 
+        && basicStatement(self))
         return true;
     restauraEstado(j);
 
-
+    removeNo(pai, self);
     return false;
 }
 
-bool unlabelledBasicStatement() {
+bool unlabelledBasicStatement(No * pai) {
+	No * self = addNo(pai, "unlabelled basic statement");
+    
     int j = 0;
 
     salvaEstado(&j);
-    if (assignmentStatement())
+    if (assignmentStatement(self))
         return true;
     restauraEstado(j);
 
-    if (goToStatement())
+    salvaEstado(&j);
+    if (goToStatement(self))
         return true;
     restauraEstado(j);
 
@@ -221,1075 +319,1320 @@ bool unlabelledBasicStatement() {
 //        return true;
 //    restauraEstado(j);
 
-    if (procedureStatement())
+    salvaEstado(&j);
+    if (procedureStatement(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool procedureStatement(){
+bool procedureStatement(No * pai){
+    No * self = addNo(pai, "procedure statement");
+    
     int j = 0;
 
     salvaEstado(&j);
-    if (procedureIdentifier() && actualParameterPart())
+    if (procedureIdentifier(self) && actualParameterPart(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool dummyStatement() {
+bool dummyStatement(No * pai) {
 
     return true;
 }
 
-bool goToStatement() {
+bool goToStatement(No * pai) {
     // implementar
     return false;
 }
 
-bool assignmentStatement() {
+bool assignmentStatement(No * pai) {
+	No * self = addNo(pai, "assignment statement");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (leftPartList() && arithmeticExpression())
+    if (leftPartList(self) && arithmeticExpression(self))
         return true;
     restauraEstado(j);
 
-    if (leftPartList() && booleanExpression())
+    salvaEstado(&j);
+    if (leftPartList(self) && booleanExpression(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool leftPartList() {
+bool leftPartList(No * pai) {
+	No * self = addNo(pai, "left part list");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (leftPart() && leftPartListRecursao())
+    if (leftPart(self) && leftPartListRecursao(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool leftPartListRecursao() {
+bool leftPartListRecursao(No * pai) {
+	No * self = addNo(pai, "left part list recursao");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (leftPart() && leftPartListRecursao())
+    if (leftPart(self) && leftPartListRecursao(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return true;
 }
 
-bool leftPart() {
+bool leftPart(No * pai) {
+	No * self = addNo(pai, "left part");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (variable() && 0 == getToken()->valor.compare(":="))
+    if (variable(self) && 0 == getNextToken()->valor.compare(":="))
         return true;
     restauraEstado(j);
 
-    if (procedureIdentifier() && 0 == getToken()->valor.compare(":="))
+    salvaEstado(&j);
+    if (procedureIdentifier(self) && 0 == getNextToken()->valor.compare(":="))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool variable() {
+bool variable(No * pai) {
+	No * self = addNo(pai, "variable");
+
     int j = 0;
 
     salvaEstado(&j);
 
-    if (subscriptedVariable())
+    if (subscriptedVariable(self))
         return true;
     restauraEstado(j);
 
-    if (simpleVariable())
+    salvaEstado(&j);
+    if (simpleVariable(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool subscriptedVariable() {
+bool subscriptedVariable(No * pai) {
+	No * self = addNo(pai, "subscripted variable");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (arrayIdentifier() && 0 == getToken()->valor.compare("[") && subscriptList() && 0 == getToken()->valor.compare("]"))
+    if (arrayIdentifier(self) && 0 == getNextToken()->valor.compare("[") && subscriptList(self) && 0 == getNextToken()->valor.compare("]"))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool subscriptList() {
+bool subscriptList(No * pai) {
+    No * self = addNo(pai, "subscript list");
     int j = 0;
 
     salvaEstado(&j);
-    if (subscriptExpression() && subscriptListRecursao())
+    if (subscriptExpression(self) && subscriptListRecursao(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool subscriptExpression() {
+bool subscriptExpression(No * pai) {
+    No * self = addNo(pai, "subscript expression");
     int j = 0;
 
     salvaEstado(&j);
-    if (arithmeticExpression())
+    if (arithmeticExpression(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool subscriptListRecursao() {
+bool subscriptListRecursao(No * pai) {
+    No * self = addNo(pai, "subscript list recursao");
+    
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare(",") && subscriptExpression() && subscriptListRecursao())
+    if (0 == getNextToken()->valor.compare(",") && subscriptExpression(self) && subscriptListRecursao(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return true;
 }
 
-bool arrayIdentifier() {
+bool arrayIdentifier(No * pai) {
+    No * self = addNo(pai, "array identifier");
+    
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()))
+    if (token_isIdentifier(getNextToken()))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool booleanExpression() {
+bool booleanExpression(No * pai) {
+    No * self = addNo(pai, "boolena expression");
     int j = 0;
 
     salvaEstado(&j);
-    if (simpleBoolean())
+    if (simpleBoolean(self))
         return true;
     restauraEstado(j);
 
-    if (ifClause() && simpleBoolean() && 0 == getToken()->valor.compare("else") && booleanExpression())
+    salvaEstado(&j);
+    if (ifClause(self) && simpleBoolean(self) && 0 == getNextToken()->valor.compare("else") && booleanExpression(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool simpleBoolean() {
+bool simpleBoolean(No * pai) {
+    No * self = addNo(pai, "simple boolean");
     int j = 0;
 
     salvaEstado(&j);
-    if (implication() && simpleBooleanRecursao())
+    if (implication(self) && simpleBooleanRecursao(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool simpleBooleanRecursao() {
+bool simpleBooleanRecursao(No * pai) {
+    No * self = addNo(pai, "simple boolean recursão");
+    
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare("===") && implication() && simpleBooleanRecursao())
+    if (0 == getNextToken()->valor.compare("===") && implication(self) && simpleBooleanRecursao(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return true;
 }
 
-bool implication() {
+bool implication(No * pai) {
+    No * self = addNo(pai, "implication");
+    
     int j = 0;
 
     salvaEstado(&j);
-    if (booleanTerm() && implicationRecursao())
+    if (booleanTerm(self) && implicationRecursao(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return false;
 }
 
-bool implicationRecursao() {
+bool implicationRecursao(No * pai) {
+    No * self = addNo(pai, "implication recursao");
+    
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare("naosei") && booleanTerm() && implicationRecursao())
+    if (0 == getNextToken()->valor.compare("naosei") && booleanTerm(self) && implicationRecursao(self))
         return true;
     restauraEstado(j);
+
+    removeNo(pai, self);
     return true;
 }
 
-bool booleanTerm() {
+bool booleanTerm(No * pai) {
+    No * self = addNo(pai, "boolean term");
     int j = 0;
 
     salvaEstado(&j);
-    if (booleanFactor() && booleanTermRecursao())
+    if (booleanFactor(self) && booleanTermRecursao(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool booleanTermRecursao() {
+bool booleanTermRecursao(No * pai) {
+	No * self = addNo(pai, "boolean term recursao");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare("or") && booleanFactor() && booleanTermRecursao())
+    if (0 == getNextToken()->valor.compare("or") && booleanFactor(self) && booleanTermRecursao(self))
         return true;
     restauraEstado(j);
 
-
+    removeNo (pai, self);
     return true;
 }
 
-bool booleanFactor() {
+bool booleanFactor(No * pai) {
+	No * self = addNo(pai, "boolean factor");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (booleanSecondary() && booleanFactorRecursao())
+    if (booleanSecondary(self) && booleanFactorRecursao(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool booleanFactorRecursao() {
+bool booleanFactorRecursao(No * pai) {
+	No * self = addNo(pai, "boolean factor recursao");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare("and") && booleanSecondary() && booleanFactorRecursao())
+    if (0 == getNextToken()->valor.compare("and") && booleanSecondary(self) && booleanFactorRecursao(self))
         return true;
     restauraEstado(j);
-
+    removeNo(pai, self);
     return true;
 }
 
-bool booleanSecondary() {
+bool booleanSecondary(No * pai) {
+	No * self = addNo(pai, "boolena secondary");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (booleanPrimary())
+    if (booleanPrimary(self))
         return true;
     restauraEstado(j);
 
-    if (0 == getToken()->valor.compare("¬") && booleanPrimary())
+    salvaEstado(&j);
+    if (0 == getNextToken()->valor.compare("¬") && booleanPrimary(self))
         return true;
 
-    return false;
+    restauraEstado(j);
+    removeNo (pai, self);
+	return false;
 }
 
-bool booleanPrimary() {
+bool booleanPrimary(No * pai) {
+	No * self = addNo(pai, "boolena primary");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (logicalValue())
+    if (logicalValue(self))
         return true;
     restauraEstado(j);
 
-    if (variable())
+    salvaEstado(&j);
+    if (variable(self))
         return true;
     restauraEstado(j);
 
-    if (functionDesignator())
+    salvaEstado(&j);
+    if (functionDesignator(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool logicalValue() {
+bool logicalValue(No * pai) {
+	No * self = addNo(pai, "logical value");
+
     int j = 0;
 
     salvaEstado(&j);
-    std::string t = getToken()->valor;
+    std::string t = getNextToken()->valor;
 
     if (t.compare(LOGICALVALUE_TRUE) == 0 || t.compare(LOGICALVALUE_FALSE) == 0)
         return true;
     restauraEstado(j);
 
-    if (relation())
+    salvaEstado(&j);
+    if (relation(self))
         return true;
+    restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool relation() {
+bool relation(No * pai) {
+	No * self = addNo(pai, "relation");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (simpleArithmeticExpression() && relationalOperator() && simpleArithmeticExpression())
+    if (simpleArithmeticExpression(self) && relationalOperator(self) && simpleArithmeticExpression(self))
         return true;
     restauraEstado(j);
 
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool relationalOperator() {
+bool relationalOperator(No * pai) {
+	No * self = addNo(pai, "relational operator");
+
     int j = 0;
 
     salvaEstado(&j);
-    std::string token = getToken()->valor;
+    std::string token = getNextToken()->valor;
 
     if (0 == token.compare("<") || 0 == token.compare("<=") || 0 == token.compare("=") || 0 == token.compare("#") || 0 == token.compare(">") || 0 == token.compare(">="))
         return true;
 
-    return false;
+    restauraPonteiro(j);
+    removeNo (pai, self);
+	return false;
 }
 
-bool arithmeticExpression() {
+bool arithmeticExpression(No * pai) {
+	No * self = addNo(pai, "arithmetc expression");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (simpleArithmeticExpression())
+    if (simpleArithmeticExpression(self))
         return true;
     restauraEstado(j);
 
-    if (ifClause() && simpleArithmeticExpression() && 0 == getToken()->valor.compare("else") && arithmeticExpression())
+    salvaEstado(&j);
+    if (ifClause(self) && simpleArithmeticExpression(self) && 0 == getNextToken()->valor.compare("else") && arithmeticExpression(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool ifClause() {
+bool ifClause(No * pai) {
+	No * self = addNo(pai, "if clausure");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare("if") && booleanExpression() && 0 == getToken()->valor.compare("then"))
+    if (0 == getNextToken()->valor.compare("if") && booleanExpression(self) && 0 == getNextToken()->valor.compare("then"))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool simpleArithmeticExpression() {
+bool simpleArithmeticExpression(No * pai) {
+	No * self = addNo(pai, "simple arithmetc expression");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (term() && simpleArithmeticExpressionRecursao())
+    if (term(self) && simpleArithmeticExpressionRecursao(self))
         return true;
     restauraEstado(j);
 
-    if (addingOperator() && term() && simpleArithmeticExpressionRecursao())
+    salvaEstado(&j);
+    if (addingOperator(self) && term(self) && simpleArithmeticExpressionRecursao(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool simpleArithmeticExpressionRecursao() {
+bool simpleArithmeticExpressionRecursao(No * pai) {
+	No * self = addNo(pai, "simple arithmetic expression recursao");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (addingOperator() && term() && simpleArithmeticExpressionRecursao())
+    if (addingOperator(self) && term(self) && simpleArithmeticExpressionRecursao(self))
         return true;
     restauraEstado(j);
 
     return true;
 }
 
-bool addingOperator() {
+bool addingOperator(No * pai) {
+	No * self = addNo(pai, "adding operator");
+
     int j = 0;
 
     salvaEstado(&j);
-    std::string t = getToken()->valor;
+    std::string t = getNextToken()->valor;
 
     if (t.compare(ARITHMETIOPERATOR_MAIS) == 0 || t.compare(ARITHMETIOPERATOR_MENOS) == 0)
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool term() {
+bool term(No * pai) {
+	No * self = addNo(pai, "term");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (primary() && termRecursao())
+    if (primary(self) && termRecursao(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool termRecursao() {
+bool termRecursao(No * pai) {
+	No * self = addNo(pai, "term recursao");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (multiplyingOperator() && primary() && termRecursao())
+    if (multiplyingOperator(self) && primary(self) && termRecursao(self))
         return true;
     restauraEstado(j);
-
+    removeNo(pai, self);
     return true;
 }
 
-bool primary() {
+bool primary(No * pai) {
+	No * self = addNo(pai, "primary");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (unsignedNumber())
+    if (unsignedNumber(self))
         return true;
     restauraEstado(j);
 
-    if (variable())
+    salvaEstado(&j);
+    if (variable(self))
         return true;
     restauraEstado(j);
 
     //if (fu)
     // implementar
 
-    if (0 == getToken()->valor.compare("(") && arithmeticExpression() && 0 == getToken()->valor.compare(")"))
+    salvaEstado(&j);
+    if (0 == getNextToken()->valor.compare("(") && arithmeticExpression(self) && 0 == getNextToken()->valor.compare(")"))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool functionDesignator() {
+bool functionDesignator(No * pai) {
+	No * self = addNo(pai, "function designator");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (procedureIdentifier() && actualParameterPart())
+    if (procedureIdentifier(self) && actualParameterPart(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool actualParameterPart() {
+bool actualParameterPart(No * pai) {
+	No * self = addNo(pai, "actual parameter part");
+
     int j = 0;
 
     salvaEstado(&j);
 
-    if (0 == getToken()->valor.compare("(") && actualParameterList() && 0 == getToken()->valor.compare(")"))
-
+    if (0 == getNextToken()->valor.compare("(") && actualParameterList(self) && 0 == getNextToken()->valor.compare(")"))
         return true;
+
+    restauraEstado(j);
+    removeNo (pai, self);
+	return false;
 }
 
-bool actualParameterList() {
+bool actualParameterList(No * pai) {
+	No * self = addNo(pai, "actual parameter list");
+
     int j = 0;
 
     salvaEstado(&j);
 
-    if (actualParameter() && actualParameterListRecursao())
+    if (actualParameter(self) && actualParameterListRecursao(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool actualParameterListRecursao() {
+bool actualParameterListRecursao(No * pai) {
+	No * self = addNo(pai, "actual parameter list recursao");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (parameterDelimiter() && actualParameter())
+    if (parameterDelimiter(self) && actualParameter(self))
         return true;
     restauraEstado(j);
-
+    removeNo(pai, self);
     return true;
 }
 
-bool actualParameter() {
+bool actualParameter(No * pai) {
+	No * self = addNo(pai, "actual parameter");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isString(getToken()->valor))
+    if (token_isString(getNextToken()))
         return true;
     restauraEstado(j);
 
-    if (expression())
+    salvaEstado(&j);
+    if (expression(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool expression() {
+bool expression(No * pai) {
+	No * self = addNo(pai, "expression");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (arithmeticExpression())
+    if (arithmeticExpression(self))
         return true;
     restauraEstado(j);
 
-    if (booleanExpression())
+    salvaEstado(&j);
+    if (booleanExpression(self))
         return true;
     restauraEstado(j);
 
-    if (designationalExpression())
+    salvaEstado(&j);
+    if (designationalExpression(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool designationalExpression() {
+bool designationalExpression(No * pai) {
     int j = 0;
 
     //implementar
     return false;
 }
 
-bool unsignedNumber() {
+bool unsignedNumber(No * pai) {
+	No * self = addNo(pai, "unsigned number");
+
     int j = 0;
 
     salvaEstado(&j);
 
-    if (decimalNumber())
+    if (decimalNumber(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool decimalNumber() {
+bool decimalNumber(No * pai) {
+	No * self = addNo(pai, "decimal number");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isNumber(getToken()))
+    if (token_isNumber(getNextToken()))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool multiplyingOperator() {
+bool multiplyingOperator(No * pai) {
+	No * self = addNo(pai, "multiplying operator");
+
     int j = 0;
 
     salvaEstado(&j);
-    std::string op = getToken()->valor;
+    std::string op = getNextToken()->valor;
 
     if (op.compare(ARITHMETIOPERATOR_VEZES) == 0 || op.compare(ARITHMETIOPERATOR_DIVIDIR) == 0)
         return true;
     restauraEstado(j);
 
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool unlabelledBlock() {
+bool unlabelledBlock(No * pai) {
+	No * self = addNo(pai, "unlabelled block");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (blockHead() && 0 == getToken()->valor.compare(";") && compoundTail())
+    if (blockHead(self) &&
+            0 == getNextToken()->valor.compare(";") &&
+            compoundTail(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool compoundTail() {
+bool compoundTail(No * pai) {
+	No * self = addNo(pai, "compund tail");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (statement()) {
-        if (0 == getToken()->valor.compare("end")) {
+    if (statement(self)) {
+        if (0 == getNextToken()->valor.compare("end")) {
             return true;
         }
     }
     restauraEstado(j);
 
-    if (statement() && 0 == getToken()->valor.compare(";") && compoundTail())
+    salvaEstado(&j);
+    if (statement(self) && 0 == getNextToken()->valor.compare(";") && compoundTail(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
 
-bool compoundStatement() {
+bool compoundStatement(No * pai) {
+	No * self = addNo(pai, "compaund statement");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (unlabelledCompound())
+    if (unlabelledCompound(self))
         return true;
     restauraEstado(j);
 
-    if (label() && 0 == getToken()->valor.compare(":") && compoundStatement())
+    salvaEstado(&j);
+    if (label(self) && 0 == getNextToken()->valor.compare(":") && compoundStatement(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
 
-bool blockHead() {
+bool blockHead(No * pai) {
+	No * self = addNo(pai, "block head");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare("begin") && declaration() && blockHeadRecursao())
+    if (0 == getNextToken()->valor.compare("begin") && declaration(self) && blockHeadRecursao(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool blockHeadRecursao() {
+bool blockHeadRecursao(No * pai) {
+	No * self = addNo(pai, "block head  recursao");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare(";") && declaration() && blockHeadRecursao())
+    if (0 == getNextToken()->valor.compare(";") && declaration(self) && blockHeadRecursao(self))
         return true;
     restauraEstado(j);
 
+    removeNo(pai, self);
     return true;
 }
 
-bool unlabelledCompound() {
+bool unlabelledCompound(No * pai) {
+	No * self = addNo(pai, "unlabelled compound");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare("begin") && compoundTail())
+    if (0 == getNextToken()->valor.compare("begin") && compoundTail(self))
         return true;
     restauraEstado(j);
 
-    return false;
+    removeNo (pai, self);
+	return false;
 }
 
-bool declaration() {
+bool declaration(No * pai) {
+	No * self = addNo(pai, "declaration");
+
 
     int j = 0;
 
     salvaEstado(&j);
-    if (typeDeclaration())
+    if (typeDeclaration(self))
         return true;
     restauraEstado(j);
 
-    if (arrayDeclaration())
+    salvaEstado(&j);
+    if (arrayDeclaration(self))
         return true;
     restauraEstado(j);
 
-    if (procedureDeclaration())
+    salvaEstado(&j);
+    if (procedureDeclaration(self))
         return true;
-    restauraEstado(j);
 
-    return false;
+    restauraEstado(j);
+    removeNo (pai, self);
+	return false;
 }
 
-bool typeDeclaration() {
+bool typeDeclaration(No * pai) {
+	No * self = addNo(pai, "type definition");
 
     int j = 0;
 
     salvaEstado(&j);
-    if (localOrOwnType() && typeList())
+    if (localOrOwnType(self) && typeList(self))
         return true;
-    restauraEstado(j);
 
-    return false;
+    restauraEstado(j);
+	removeNo (pai, self);
+	return false;
 }
-bool localOrOwnType() {
+bool localOrOwnType(No * pai) {
+	No * self = addNo(pai, "local or own type");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (type())
+    if (type(self))
         return true;
 
     restauraEstado(j);
 
-    if (getToken()->valor.compare("own") == 0 && type())
+    salvaEstado(&j);
+    if (getNextToken()->valor.compare("own") == 0 && type(self))
         return true;
     restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
-bool type() {
+bool type(No * pai) {
+	No * self = addNo(pai, "type");
+
     int j = 0;
 
     salvaEstado(&j);
-    std::string token = getToken()->valor;
+    std::string token = getNextToken()->valor;
 
     if (0 == token.compare("real") || 0 == token.compare("integer") || 0 == token.compare("boolean"))
         return true;
     restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
-bool typeList() {
+bool typeList(No * pai) {
+	No * self = addNo(pai, "type list");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (simpleVariable() && 0 == getToken()->valor.compare(",") && typeList())
+    if (simpleVariable(self) && 0 == getNextToken()->valor.compare(",") && typeList(self))
         return true;
     restauraEstado(j);
 
-    if (simpleVariable())
+    salvaEstado(&j);
+    if (simpleVariable(self))
         return true;
     restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
-bool simpleVariable() {
+bool simpleVariable(No * pai) {
+	No * self = addNo(pai, "simple variable");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()))
+    if (token_isIdentifier(getNextToken()))
         return true;
     restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
-bool arrayDeclaration() {
+bool arrayDeclaration(No * pai) {
+	No * self = addNo(pai, "array declaration");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare("array") && arrayList())
+    if (0 == getNextToken()->valor.compare("array") && arrayList(self))
         return true;
     restauraEstado(j);
 
-    if (localOrOwnType() && 0 == getToken()->valor.compare("array") && arrayList())
+    salvaEstado(&j);
+    if (localOrOwnType(self) && 0 == getNextToken()->valor.compare("array") && arrayList(self))
         return true;
     restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
-bool arrayList() {
+bool arrayList(No * pai) {
+	No * self = addNo(pai, "array list");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (arraySegment() && arrayListRecursao())
+    if (arraySegment(self) && arrayListRecursao(self))
         return true;
     restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
-bool arrayListRecursao() {
+bool arrayListRecursao(No * pai) {
+	No * self = addNo(pai, "array list recursao");
+
     int j = 0;
 
-    if (0 == getToken()->valor.compare(",") && arraySegment() && arrayListRecursao())
+    salvaEstado(&j);
+    if (0 == getNextToken()->valor.compare(",") && arraySegment(self) && arrayListRecursao(self))
         return true;
     restauraEstado(j);
-
+    removeNo(pai, self);
     return true;
 }
 
 
-bool arraySegment() {
+bool arraySegment(No * pai) {
+	No * self = addNo(pai, "array segment");
+
     int j = 0;
 
     salvaEstado(&j);
 
-    if (arrayIdentifier() && 0 == getToken()->valor.compare("[") && boundPairList() && 0 == getToken()->valor.compare("]"))
+    if (arrayIdentifier(self) && 0 == getNextToken()->valor.compare("[") && boundPairList(self) && 0 == getNextToken()->valor.compare("]"))
         return true;
     restauraEstado(j);
 
-    if (arrayIdentifier() && 0 == getToken()->valor.compare(",") && arraySegment())
+    salvaEstado(&j);
+    if (arrayIdentifier(self) && 0 == getNextToken()->valor.compare(",") && arraySegment(self))
         return true;
     restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
-bool boundPairList() {
+bool boundPairList(No * pai) {
+	No * self = addNo(pai, "bound pair list");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (boundPair() && boundPairListRecursao())
+    if (boundPair(self) && boundPairListRecursao(self))
         return true;
     restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
-bool boundPairListRecursao() {
+bool boundPairListRecursao(No * pai) {
+	No * self = addNo(pai, "bound pair list recursao");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare(",") && boundPair() && boundPairListRecursao())
+    if (0 == getNextToken()->valor.compare(",") && boundPair(self) && boundPairListRecursao(self))
         return true;
-    restauraEstado(j);
 
+    restauraEstado(j);
+    removeNo(pai, self);
     return true;
 }
 
-bool boundPair() {
+bool boundPair(No * pai) {
+	No * self = addNo(pai, "bound pair");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (lowerBound() && 0 == getToken()->valor.compare(":") && upperBound())
+    if (lowerBound(self) && 0 == getNextToken()->valor.compare(":") && upperBound(self))
         return true;
-    restauraEstado(j);
 
-    return false;
+    restauraEstado(j);
+	removeNo (pai, self);
+	return false;
 }
 
-bool lowerBound() {
+bool lowerBound(No * pai) {
+	No * self = addNo(pai, "lower bound");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (arithmeticExpression())
+    if (arithmeticExpression(self))
         return true;
     restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
-bool upperBound() {
+bool upperBound(No * pai) {
+	No * self = addNo(pai, "upper bound");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (arithmeticExpression())
+    if (arithmeticExpression(self))
         return true;
     restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
+bool procedureDeclaration(No * pai) {
+	No * self = addNo(pai, "procedure declaratin");
 
-
-bool procedureDeclaration() {
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare("procedure") && procedureHeading() && procedureBody())
+    if (0 == getNextToken()->valor.compare("procedure") && procedureHeading(self) && procedureBody(self))
         return true;
     restauraEstado(j);
 
-    if (type() && 0 == getToken()->valor.compare("procedure") && procedureHeading() && procedureBody())
+    salvaEstado(&j);
+    if (type(self) && 0 == getNextToken()->valor.compare("procedure") && procedureHeading(self) && procedureBody(self))
         return true;
     restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
-bool procedureHeading() {
+bool procedureHeading(No * pai) {
+	No * self = addNo(pai, "procedure headin");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (procedureIdentifier()) {
-        if (formalParameterPart()) {
-            if (0 == getToken()->valor.compare(";")) {
-                if (valuePart() && specificationPart())
+    if (procedureIdentifier(self)) {
+        if (formalParameterPart(self)) {
+            if (0 == getNextToken()->valor.compare(";")) {
+                if (valuePart(self) && specificationPart(self))
                     return true;
             }
         }
     }
     restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
-bool valuePart() {
+bool valuePart(No * pai) {
+	No * self = addNo(pai, "value part");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare("value") && identifierList() && 0 == getToken()->valor.compare(";"))
+    if (0 == getNextToken()->valor.compare("value") && identifierList(self) && 0 == getNextToken()->valor.compare(";"))
+        return true;
+    restauraEstado(j);
+    removeNo(pai, self);
+    return true;
+}
+
+bool specificationPart(No * pai) {
+	No * self = addNo(pai, "specification part");
+
+    int j = 0;
+
+    salvaEstado(&j);
+    if (specifier(self) && identifierList(self) && 0 == getNextToken()->valor.compare(";") && specificationPart(self))
+        return true;
+    restauraEstado(j);
+
+    salvaEstado(&j);
+    if (specifier(self) && identifierList(self) && specificationPart(self))
+        return true;
+
+    restauraEstado(j);
+    removeNo(pai, self);
+    return true;
+}
+
+bool specifier(No * pai) {
+	No * self = addNo(pai, "specifier");
+
+    int j = 0;
+
+    salvaEstado(&j);
+    if (0 == getNextToken()->valor.compare("string"))
+        return true;
+    restauraEstado(j);
+
+    salvaEstado(&j);
+    if (0 == getNextToken()->valor.compare("array"))
+        return true;
+    restauraEstado(j);
+
+    salvaEstado(&j);
+    if (type(self) && 0 == getNextToken()->valor.compare("array"))
+        return true;
+    restauraEstado(j);
+
+    salvaEstado(&j);
+    if (0 == getNextToken()->valor.compare("label"))
+        return true;
+    restauraEstado(j);
+
+    salvaEstado(&j);
+    if (0 == getNextToken()->valor.compare("switch"))
+        return true;
+    restauraEstado(j);
+
+    salvaEstado(&j);
+    if (0 == getNextToken()->valor.compare("procedure"))
+        return true;
+    restauraEstado(j);
+
+    salvaEstado(&j);
+    if (type(self) && 0 == getNextToken()->valor.compare("procedure"))
+        return true;
+    restauraEstado(j);
+
+    salvaEstado(&j);
+    if (type(self))
+        return true;
+    restauraEstado(j);
+	removeNo (pai, self);
+	return false;
+}
+
+bool identifierList(No * pai) {
+	No * self = addNo(pai, "identifier list");
+
+    int j = 0;
+
+    salvaEstado(&j);
+    if (token_isIdentifier(getNextToken()) && identifierListRecursao(self))
+        return true;
+
+    restauraEstado(j);
+	removeNo (pai, self);
+	return false;
+}
+
+bool identifierListRecursao(No * pai) {
+	No * self = addNo(pai, "identifier list recursao");
+
+    int j = 0;
+
+    salvaEstado(&j);
+    if (0 == getNextToken()->valor.compare(",") && token_isIdentifier(getNextToken()) && identifierListRecursao(self))
         return true;
     restauraEstado(j);
 
     return true;
 }
 
-bool specificationPart() {
+bool procedureIdentifier(No * pai) {
+	No * self = addNo(pai, "procedure identifier");
+
+    int j = 0;
+
+    salvaEstado(&j);
+    if (token_isIdentifier(getNextToken()))
+        return true;
+
+    restauraEstado(j);
+	removeNo (pai, self);
+	return false;
+}
+
+bool formalParameterPart(No * pai) {
+	No * self = addNo(pai, "formal parameter part");
+
     int j = 0;
 
     salvaEstado(&j);
 
-    if (specifier() && identifierList() && 0 == getToken()->valor.compare(";") && specificationPart())
+    if (0 == getNextToken()->valor.compare("(") && formalParameterList(self) && 0 == getNextToken()->valor.compare(")"))
         return true;
     restauraEstado(j);
+    removeNo(pai, self);
+    return true;
+}
 
-    if (specifier() && identifierList() && specificationPart())
+bool formalParameterList(No * pai) {
+	No * self = addNo(pai, "formal parameter list");
+
+    int j = 0;
+
+    salvaEstado(&j);
+    if (formalParameter(self) && formalParameterListRecursao(self))
+        return true;
+    restauraEstado(j);
+	removeNo (pai, self);
+	return false;
+}
+
+bool formalParameterListRecursao(No * pai) {
+	No * self = addNo(pai, "forma parameter list recursao");
+
+    int j = 0;
+
+    salvaEstado(&j);
+    if (parameterDelimiter(self) && formalParameter(self) && formalParameterListRecursao(self))
         return true;
     restauraEstado(j);
 
     return true;
 }
 
-bool specifier() {
+bool parameterDelimiter(No * pai) {
+	No * self = addNo(pai, "parameter delimiter");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getToken()->valor.compare("string"))
+    if (0 == getNextToken()->valor.compare(","))
         return true;
     restauraEstado(j);
-
-    if (0 == getToken()->valor.compare("array"))
-        return true;
-    restauraEstado(j);
-
-    if (type() && 0 == getToken()->valor.compare("array"))
-        return true;
-    restauraEstado(j);
-
-    if (0 == getToken()->valor.compare("label"))
-        return true;
-    restauraEstado(j);
-
-    if (0 == getToken()->valor.compare("switch"))
-        return true;
-    restauraEstado(j);
-
-    if (0 == getToken()->valor.compare("procedure"))
-        return true;
-    restauraEstado(j);
-
-    if (type() && 0 == getToken()->valor.compare("procedure"))
-        return true;
-    restauraEstado(j);
-
-    if (type())
-        return true;
-    restauraEstado(j);
-
-    return false;
-}
-
-bool identifierList() {
-    int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()) && identifierListRecursao())
-        return true;
-
-    restauraEstado(j);
-    return false;
-}
-
-bool identifierListRecursao() {
-    int j = 0;
-
-    salvaEstado(&j);
-    if (0 == getToken()->valor.compare(",") && token_isIdentifier(getToken()) && identifierListRecursao())
+    if (0 == getNextToken()->valor.compare(")") && token_isLetterString(getNextToken()->valor) && 0 == getNextToken()->valor.compare(":") && 0 == getNextToken()->valor.compare("("))
         return true;
     restauraEstado(j);
-
-    return true;
-}
-
-bool procedureIdentifier() {
-    int j = 0;
-
-    salvaEstado(&j);
-    if (token_isIdentifier(getToken()))
-        return true;
-    restauraEstado(j);
-
-    return false;
-}
-
-bool formalParameterPart() {
-    int j = 0;
-
-    salvaEstado(&j);
-
-    if (0 == getToken()->valor.compare("(") && formalParameterList() && 0 == getToken()->valor.compare(")"))
-        return true;
-    restauraEstado(j);
-
-    return true;
-}
-
-bool formalParameterList() {
-    int j = 0;
-
-    salvaEstado(&j);
-    if (formalParameter() && formalParameterListRecursao())
-        return true;
-    restauraEstado(j);
-
-    return false;
-}
-
-bool formalParameterListRecursao() {
-    int j = 0;
-
-    salvaEstado(&j);
-    if (parameterDelimiter() && formalParameter() && formalParameterListRecursao())
-        return true;
-    restauraEstado(j);
-
-    return true;
-}
-
-bool parameterDelimiter() {
-    int j = 0;
-
-    salvaEstado(&j);
-    if (0 == getToken()->valor.compare(","))
-        return true;
-    restauraEstado(j);
-
-    if (0 == getToken()->valor.compare(")") && token_isLetterString(getToken()->valor) && 0 == getToken()->valor.compare(":") && 0 == getToken()->valor.compare("("))
-        return true;
-    restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
 bool token_isLetterString(std::string token){
-    return true;
+    regex regex_id("[a-zA-Z]");
+
+    return regex_match(token, regex_id);
 }
 
-bool formalParameter() {
+bool formalParameter(No * pai) {
+	No * self = addNo(pai, "formal parameter");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()))
+    if (token_isIdentifier(getNextToken()))
         return true;
     restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
-bool procedureBody() {
+bool procedureBody(No * pai) {
+	No * self = addNo(pai, "procedure body");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (statement())
+    if (statement(self))
         return true;
     restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
-bool label() {
+bool label(No * pai) {
+	No * self = addNo(pai, "label");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getToken()))
+    if (token_isIdentifier(getNextToken()))
         return true;
     restauraEstado(j);
 
-    if (unsignedInteger())
+    salvaEstado(&j);
+    if (unsignedInteger(self))
         return true;
     restauraEstado(j);
-
-    return false;
+	removeNo (pai, self);
+	return false;
 }
 
-bool unsignedInteger() {
+bool unsignedInteger(No * pai) {
+	No * self = addNo(pai, "unsigned integer");
+
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isNumber(getToken()))
+    if (token_isNumber(getNextToken()))
         return true;
-    restauraEstado(j);
 
+    restauraEstado(j);
+    removeNo (pai, self);
     return false;
 }
 
 void salvaEstado(int *j) {
-
     *j = retornaPonteiroAtual();
-
     return;
 }
 
@@ -1306,7 +1649,6 @@ bool token_isNumber(Token * token) {
     return token->nome.compare("NUM") == 0;
 }
 
-bool token_isString(std::string token) {
-    //implementar
-    return true;
+bool token_isString(Token * token) {
+    return token->valor.compare("string") == 0;
 }
