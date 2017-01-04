@@ -29,12 +29,18 @@ struct no {
     }
 
     void imprimir(){
-        cout << "\"" << this->nome << "\"" << "{";
-        for(no *fi : this->filhos) {
-            cout << ",";
-            fi->imprimir();
-        }
-        cout << "}" << endl;
+        cout << "\"" << this->nome << "\"";
+        if(!this->filhos.empty()) {
+            cout << ":{";
+            for (int i = 0; i < this->filhos.size(); ++i) {
+                if(i != 0)
+                    cout << ",";
+
+                this->filhos[i]->imprimir();
+            }
+            cout << "}";
+        } else
+            cout << ": \"\" ";
     }
 };
 typedef struct no No;

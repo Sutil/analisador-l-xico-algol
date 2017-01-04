@@ -39,11 +39,15 @@ int main(int argc, char* argv[]) {
 
     bool ret = program(); // Verificar se chegou no final do arquivo!!
     if(ret && getNextToken()->valor.compare("EOF") == 0) {
+        cout << "{";
+        raiz->imprimir();
+        cout << "}" << endl;
         cout << "SUCESSO" << endl;
         return true;
     }
     cout << "Falha de análise sintática" << endl;
 
+    raiz->imprimir();
     return false;
 }
 
@@ -73,8 +77,6 @@ bool program() {
         return true;
 
     restauraEstado(j);
-
-    raiz->imprimir();
 
     return false;
 }
