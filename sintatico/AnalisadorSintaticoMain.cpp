@@ -8,18 +8,22 @@
 #include "No.h"
 
 No * raiz;
-
+int profundidade = 0;
+int maiorProfundidade = 0;
+Token * tokenAtual;
+Token * tokenMaiorProfundidade;
 
 Token * getNextToken(){
     Token * token = getToken();
+    tokenAtual = token;
     return token;
 }
 
 int main(int argc, char* argv[]) {
-    testing::InitGoogleTest(&argc, argv);
-    int resultTests = RUN_ALL_TESTS();
-    if(resultTests)
-        std::cout << "Testes falharam" << std::endl;
+//    testing::InitGoogleTest(&argc, argv);
+//    int resultTests = RUN_ALL_TESTS();
+//    if(resultTests)
+//        std::cout << "Testes falharam" << std::endl;
 
     std::cout << "Iniciado, analisador sintatico!" << std::endl;
 
@@ -39,15 +43,19 @@ int main(int argc, char* argv[]) {
 
     bool ret = program(); // Verificar se chegou no final do arquivo!!
     if(ret && getNextToken()->valor.compare("EOF") == 0) {
+        cout << endl << "Árvore de análise sintática: " << endl;
         cout << "{";
         raiz->imprimir();
         cout << "}" << endl;
         cout << "SUCESSO" << endl;
         return true;
     }
-    cout << "Falha de análise sintática" << endl;
+    cout << endl << "Falha de análise sintática" << endl;
 
-    raiz->imprimir();
+    cout << "Próximo ao token: " << tokenMaiorProfundidade->valor << endl;
+    cout << "Na linha: " << tokenMaiorProfundidade->linha << endl;
+    cout << "Na coluna: " << tokenMaiorProfundidade->coluna << endl;
+
     return false;
 }
 
@@ -55,11 +63,26 @@ int main(int argc, char* argv[]) {
 No * addNo(No * pai, string filho){
     No * f = new No(filho);
     pai->addFilho(f);
+
+    profundidade++;
+    if(profundidade > maiorProfundidade){
+        maiorProfundidade = profundidade;
+        if(tokenAtual != NULL) {
+            tokenMaiorProfundidade = new Token(
+                    tokenAtual->valor,
+                    tokenAtual->nome,
+                    tokenAtual->linha,
+                    tokenAtual->coluna);
+        }
+    }
+
     return f;
 }
 
 void removeNo(No * pai, No * filho){
     pai->removeFilho(filho);
+
+    profundidade--;
 }
 
 bool program() {
