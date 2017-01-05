@@ -65,7 +65,12 @@ No * addNo(No * pai, string filho){
     pai->addFilho(f);
 
     profundidade++;
-    if(profundidade > maiorProfundidade){
+    return f;
+}
+
+void removeNo(No * pai, No * filho){
+    pai->removeFilho(filho);
+    if(profundidade >= maiorProfundidade){
         maiorProfundidade = profundidade;
         if(tokenAtual != NULL) {
             tokenMaiorProfundidade = new Token(
@@ -75,12 +80,6 @@ No * addNo(No * pai, string filho){
                     tokenAtual->coluna);
         }
     }
-
-    return f;
-}
-
-void removeNo(No * pai, No * filho){
-    pai->removeFilho(filho);
 
     profundidade--;
 }

@@ -32,7 +32,7 @@ bool isSequenciaValida(char caracter, char sequencia){
 }
 
 void voltaPonteiro(FILE * file){
-    fseek(file, 0, file->_offset);
+    //fseek(file, 0, file->_offset);
     fseek(file, -1, SEEK_CUR);
     retornaCaracter();
 }
@@ -49,7 +49,6 @@ void descartarCaracteresEmBranco(FILE  * file){
 
 string tokenEOF(FILE * file){
     char caracter = leCaracter(file);
-    salvaEstadoDaContagem();
     if(caracter == EOF)
         return "EOF";
 
@@ -58,9 +57,7 @@ string tokenEOF(FILE * file){
 }
 
 string tokenQueContemSeparador(FILE * file){
-    Estado * estado = salvaEstadoDaContagem();
     char caracter = leCaracter(file);
-    salvaEstadoDaContagem();
     if(isSeparadorComSequencia(caracter)) {
         char sequencia[3];
         sequencia[0] = caracter;
@@ -73,7 +70,6 @@ string tokenQueContemSeparador(FILE * file){
         }
         voltaPonteiro(file);
         voltaPonteiro(file);
-        restauraContagem(estado);
     } else{
         voltaPonteiro(file);
     }
@@ -82,7 +78,6 @@ string tokenQueContemSeparador(FILE * file){
 
 string tokenSimbolo(FILE * file){
     char caracter = leCaracter(file);
-    salvaEstadoDaContagem();
     if(isSeparadorNaoDescartavel(caracter)){
         char sequencia[2];
         sequencia[0] = caracter;
@@ -96,7 +91,6 @@ string tokenSimbolo(FILE * file){
 
 string tokenSemSimbolo(FILE * file){
     char caracter = leCaracter(file);
-    salvaEstadoDaContagem();
     char sequencia[50];
     int i = 0;
     while (!isSeparador(caracter)){
@@ -136,5 +130,3 @@ void salvarContagem(long ponteiro){
 void restaurarContagem(long ponteiroArquivo) {
     restauraContagem(ponteiroArquivo);
 }
-
-

@@ -11,10 +11,9 @@ using namespace std;
 int linhaAtual;
 int colunaAtual;
 
-vector<Estado> estados = {};
+//stack<Estado> estados;
 stack<Estado> historico;
 
-Estado * anterior;
 Estado * atual;
 
 void inicializaContagem(){
@@ -25,57 +24,69 @@ void inicializaContagem(){
 
 void avancaCaracter(char caracter, long posicao) {
 
-    anterior = atual;
+    historico.push(*atual);
     if(caracter == '\n') {
         linhaAtual++;
         colunaAtual = 0;
     }
-    else
+    else {
         colunaAtual++;
+    }
 
     atual = new Estado(posicao, linhaAtual, colunaAtual);
-    historico.push(*anterior);
-
 }
 
+//uso no analisador léxico
 void retornaCaracter(){
-    atual = anterior;
-    anterior = &historico.top();
+    atual = &historico.top();
     historico.pop();
 
     linhaAtual = atual->linha;
     colunaAtual = atual->coluna;
 }
 
-Estado * salvaEstadoDaContagem(){
-    estados.push_back(*atual);
-    return atual;
-}
+//Estado * restauraContagem(long posicaoArquivo){
+//    Estado * e = &estados.top();
+//    while(e->posicao != posicaoArquivo){
+//        estados.pop();
+//        e = &estados.top();
+//    }
+//    atual = e;
+//    linhaAtual = e->linha;
+//    colunaAtual = e->coluna;
+//    estados.pop();
+//    return e;
+//}
 
 Estado * restauraContagem(long posicaoArquivo){
-    for (int i = 0; i < estados.size(); ++i) {
-        Estado * e = &estados[i];
-        if(e->posicao == posicaoArquivo) {
-            linhaAtual = e->linha;
-            colunaAtual = e->coluna;
-            return e;
-        }
+    Estado * e = &historico.top();
+    while(e->posicao != posicaoArquivo){
+        historico.pop();
+        e = &historico.top();
     }
-    return nullptr;
+    atual = e;
+    linhaAtual = e->linha;
+    colunaAtual = e->coluna;
+    historico.pop();
+    return e;
 }
 
-void restauraContagem(Estado * estado){
-    atual = estado;
-    linhaAtual = estado->linha;
-    colunaAtual = estado->coluna;
-}
+//Estado *ultimoEstadoSalvo() {
+//    return &estados.top();
+//}
 
 Estado *ultimoEstadoSalvo() {
-    return &estados[estados.size()-1];
+    return &historico.top();
 }
+
+//Estado *salvaEstadoDaContagem(long ponteiro) {
+//    Estado * estado = new Estado(ponteiro, linhaAtual, colunaAtual);
+//    estados.push(*estado);
+//    return estado;
+//}
 
 Estado *salvaEstadoDaContagem(long ponteiro) {
     Estado * estado = new Estado(ponteiro, linhaAtual, colunaAtual);
-    estados.push_back(*estado);
+    historico.push(*estado);
     return estado;
 }

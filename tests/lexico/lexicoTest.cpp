@@ -332,3 +332,12 @@ TEST(Lexico, multiplicacaoMatrizes){
     fclose(f);
     remove("test.txt");
 }
+
+TEST(Lexico, salvaRestauraPonteiro){
+    FILE * f = criaArquivo("begin integer a, b, r; a := 1; b := 1; r := a + b; end");
+    inicializaAnalizadorLexico(f);
+
+    assertProximoToken("begin", "bracket", 1, 1);
+    long ponteiro = retornaPonteiroAtual();
+
+}

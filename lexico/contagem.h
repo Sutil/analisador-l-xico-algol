@@ -18,20 +18,16 @@ struct estado {
 };
 typedef struct estado Estado;
 
+void inicializaContagem();
+
 void avancaCaracter(char caracter, long posicaoArquivo);
 
 void retornaCaracter();
-
-Estado * salvaEstadoDaContagem();
 
 Estado * salvaEstadoDaContagem(long ponteiro);
 
 Estado * restauraContagem(long posicaoArquivo);
 
-void restauraContagem(Estado * estado);
-
 Estado * ultimoEstadoSalvo();
-
-void inicializaContagem();
 
 #endif //PROJETOU_CONTAGEM_H
