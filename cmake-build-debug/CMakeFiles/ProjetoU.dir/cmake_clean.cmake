@@ -13,6 +13,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/ProjetoU.dir/lexico/contagem.cpp.o"
   "CMakeFiles/ProjetoU.dir/sintatico/No.cpp.o"
   "CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o"
+  "CMakeFiles/ProjetoU.dir/sintatico/Visitor.cpp.o"
   "ProjetoU.pdb"
   "ProjetoU"
 )

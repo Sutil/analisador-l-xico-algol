@@ -396,6 +396,12 @@
 		<Unit filename="/home/sutil/ClionProjects/ProjetoU/sintatico/No.h">
 			<Option target="ProjetoU"/>
 		</Unit>
+		<Unit filename="/home/sutil/ClionProjects/ProjetoU/sintatico/Visitor.cpp">
+			<Option target="ProjetoU"/>
+		</Unit>
+		<Unit filename="/home/sutil/ClionProjects/ProjetoU/sintatico/Visitor.h">
+			<Option target="ProjetoU"/>
+		</Unit>
 		<Unit filename="/home/sutil/ClionProjects/ProjetoU/terminais.h">
 			<Option target="ProjetoU"/>
 		</Unit>

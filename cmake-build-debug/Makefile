@@ -435,6 +435,33 @@ sintatico/No.cpp.s:
 	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/sintatico/No.cpp.s
 .PHONY : sintatico/No.cpp.s
 
+sintatico/Visitor.o: sintatico/Visitor.cpp.o
+
+.PHONY : sintatico/Visitor.o
+
+# target to build an object file
+sintatico/Visitor.cpp.o:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/sintatico/Visitor.cpp.o
+.PHONY : sintatico/Visitor.cpp.o
+
+sintatico/Visitor.i: sintatico/Visitor.cpp.i
+
+.PHONY : sintatico/Visitor.i
+
+# target to preprocess a source file
+sintatico/Visitor.cpp.i:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/sintatico/Visitor.cpp.i
+.PHONY : sintatico/Visitor.cpp.i
+
+sintatico/Visitor.s: sintatico/Visitor.cpp.s
+
+.PHONY : sintatico/Visitor.s
+
+# target to generate assembly for a file
+sintatico/Visitor.cpp.s:
+	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/sintatico/Visitor.cpp.s
+.PHONY : sintatico/Visitor.cpp.s
+
 tests/lexico/abreArquivo.o: tests/lexico/abreArquivo.cpp.o
 
 .PHONY : tests/lexico/abreArquivo.o
@@ -638,6 +665,9 @@ help:
 	@echo "... sintatico/No.o"
 	@echo "... sintatico/No.i"
 	@echo "... sintatico/No.s"
+	@echo "... sintatico/Visitor.o"
+	@echo "... sintatico/Visitor.i"
+	@echo "... sintatico/Visitor.s"
 	@echo "... tests/lexico/abreArquivo.o"
 	@echo "... tests/lexico/abreArquivo.i"
 	@echo "... tests/lexico/abreArquivo.s"
