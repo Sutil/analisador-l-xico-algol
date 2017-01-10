@@ -19,16 +19,6 @@ vector<string> SEPARATORS = {",", ".", ":", ";", ":=", "_", "step", "until", "wh
 vector<string> SEQUENTIAL_OPERATORS = {"goto", "if", "then", "else", "for", "do"};
 vector<string> ARITHMETIC_OPERATORS = {ARITHMETIOPERATOR_MAIS, ARITHMETIOPERATOR_MENOS, ARITHMETIOPERATOR_VEZES, ARITHMETIOPERATOR_DIVIDIR};
 
-string NUM = "NUM";
-string TIPO = "declarator";
-string ID = "identifier";
-string RELATIONAL_OPERATOR = "RELATIONAL_OPERATOR";
-string SPECIFICATOR = "specificator";
-string SEPARATOR = "separator";
-string BRACKET = "bracket";
-string SEQUENTIAL_OPERATOR = "sequential operator";
-string ARITHMETIC_OPERATOR = "arithmetic operator";
-
 bool estaEm(vector<string> lista, string valor){
     for(int i = 0; i < lista.size(); i++)
         if(lista[i].compare(valor) == 0)
@@ -43,6 +33,12 @@ bool isEOF(string valor){
 
 bool isArithmetcOperator(string valor){
     return estaEm(ARITHMETIC_OPERATORS, valor);
+}
+
+bool isString(string valor){
+    regex regex_num("\".*\"");
+
+    return regex_match(valor, regex_num);
 }
 
 bool isSequentialOperator(string valor){
@@ -67,8 +63,9 @@ bool isTipo(string valor){
 
 bool isNumero(string valor) {
     regex regex_num("[0-9]+");
+    regex regex_decimal_num("[0-9]+\.[0-9]+");
 
-    return regex_match(valor, regex_num);
+    return regex_match(valor, regex_num) || regex_match(valor, regex_decimal_num);
 }
 
 bool isIdentificador(string valor){
@@ -108,6 +105,9 @@ string getTipoToken(string valor){
 
     if(isArithmetcOperator(valor))
         return ARITHMETIC_OPERATOR;
+
+    if(isString(valor))
+        return STRING;
 
     if(isIdentificador(valor))
         return ID;

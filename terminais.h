@@ -12,4 +12,15 @@
 #define ARITHMETIOPERATOR_VEZES "*"
 #define ARITHMETIOPERATOR_DIVIDIR "/"
 
+#define NUM  "NUM"
+#define TIPO  "declarator"
+#define ID  "identifier"
+#define RELATIONAL_OPERATOR  "RELATIONAL_OPERATOR"
+#define SPECIFICATOR  "specificator"
+#define SEPARATOR  "separator"
+#define BRACKET  "bracket"
+#define SEQUENTIAL_OPERATOR  "sequential operator"
+#define ARITHMETIC_OPERATOR  "arithmetic operator"
+#define STRING  "string"
+
 #endif //PROJETOU_TERMINAIS_H

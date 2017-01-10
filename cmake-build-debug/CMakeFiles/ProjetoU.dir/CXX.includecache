@@ -160,12 +160,6 @@ gtest/gtest.h
 ../lexico/separador.h
 /home/sutil/ClionProjects/ProjetoU/lexico/separador.h
 
-/home/sutil/ClionProjects/ProjetoU/tests/sintatico/arvoreTest.cpp
-gtest/gtest.h
--
-../../sintatico/No.h
-/home/sutil/ClionProjects/ProjetoU/sintatico/No.h
-
 googletest-src/googlemock/include/gmock/gmock-actions.h
 errno.h
 -

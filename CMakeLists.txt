@@ -34,6 +34,6 @@ include_directories(cmake-build-debug/googletest-src/googlemock/include)
 include_directories(cmake-build-debug/googletest-src/googletest/include)
 
 
-set(SOURCE_FILES main.cpp tests/separadorTest.cpp sintatico/AnalisadorSintaticoMain.cpp lexico/AnalisadorLexico.cpp lexico/AnalisadorLexico.h lexico/separador.cpp lexico/separador.h tests/lexico/lexicoTest.cpp lexico/definidorToken.cpp lexico/definidorToken.h tests/lexico/definidorTokenTest.cpp lexico/leitorValorToken.cpp lexico/leitorValorToken.h tests/lexico/leitorValorTokenTest.cpp tests/lexico/abreArquivo.cpp tests/lexico/abreArquivo.h terminais.h sintatico/AnalisadorSintaticoMain.h lexico/contagem.cpp lexico/contagem.h sintatico/No.cpp sintatico/No.h tests/sintatico/arvoreTest.cpp)
+set(SOURCE_FILES main.cpp tests/separadorTest.cpp sintatico/AnalisadorSintaticoMain.cpp lexico/AnalisadorLexico.cpp lexico/AnalisadorLexico.h lexico/separador.cpp lexico/separador.h tests/lexico/lexicoTest.cpp lexico/definidorToken.cpp lexico/definidorToken.h tests/lexico/definidorTokenTest.cpp lexico/leitorValorToken.cpp lexico/leitorValorToken.h tests/lexico/leitorValorTokenTest.cpp tests/lexico/abreArquivo.cpp tests/lexico/abreArquivo.h terminais.h sintatico/AnalisadorSintaticoMain.h lexico/contagem.cpp lexico/contagem.h sintatico/No.cpp sintatico/No.h)
 add_executable(ProjetoU ${SOURCE_FILES})
 target_link_libraries(ProjetoU gtest gtest_main)

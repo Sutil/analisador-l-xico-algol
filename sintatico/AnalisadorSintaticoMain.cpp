@@ -80,10 +80,10 @@ Token * getNextToken(){
 }
 
 int main(int argc, char* argv[]) {
-//    testing::InitGoogleTest(&argc, argv);
-//    int resultTests = RUN_ALL_TESTS();
-//    if(resultTests)
-//        std::cout << "Testes falharam" << std::endl;
+    testing::InitGoogleTest(&argc, argv);
+    int resultTests = RUN_ALL_TESTS();
+    if(resultTests)
+        std::cout << "Testes falharam" << std::endl;
 
     std::cout << "Iniciado, analisador sintatico!" << std::endl;
 
@@ -113,6 +113,7 @@ int main(int argc, char* argv[]) {
     cout << endl << "Falha de análise sintática" << endl;
 
     cout << "Próximo ao token: " << tokenMaiorProfundidade->valor << endl;
+    cout << "token identificado como: " << tokenMaiorProfundidade->nome << endl;
     cout << "Na linha: " << tokenMaiorProfundidade->linha << endl;
     cout << "Na coluna: " << tokenMaiorProfundidade->coluna << endl;
 

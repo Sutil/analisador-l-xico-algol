@@ -89,6 +89,29 @@ string tokenSimbolo(FILE * file){
     return "";
 }
 
+string tokenString(FILE * file){
+    char caracter = leCaracter(file);
+    if(caracter == '"'){
+        char sequencia[50];
+        int i = 0;
+        sequencia[i] = caracter;
+        i++;
+        caracter = leCaracter(file);
+        while (caracter != '"' && caracter != EOF){
+            sequencia[i] = caracter;
+            i++;
+            caracter = leCaracter(file);
+        }
+        sequencia[i] = caracter;
+        sequencia[i+1] = '\0';
+        string valor(sequencia);
+        return valor;
+    }
+
+    voltaPonteiro(file);
+    return "";
+}
+
 string tokenSemSimbolo(FILE * file){
     char caracter = leCaracter(file);
     char sequencia[50];
@@ -114,6 +137,9 @@ ValorToken* getValorToken(FILE * file){
 
     if(valor.empty())
         valor = tokenSimbolo(file);
+
+    if(valor.empty())
+        valor = tokenString(file);
 
     if(valor.empty())
         valor = tokenSemSimbolo(file);

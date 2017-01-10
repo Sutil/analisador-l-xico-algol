@@ -5,20 +5,21 @@
 #include <gtest/gtest.h>
 #include "../../lexico/definidorToken.h"
 
-TEST(DefinidorToken, valorNaoENumero){
+TEST(DefinidorToken, valorNaoEhNumero){
     ASSERT_FALSE(isNumero("a"));
 }
 
-TEST(DefinidorToken, valorENumero){
+TEST(DefinidorToken, valorEhNumero){
     ASSERT_TRUE(isNumero("1"));
 }
 
-TEST(DefinidorToken, valorCom2DigitosENumero){
-    ASSERT_TRUE(isNumero("1"));
+TEST(DefinidorToken, valorCom2DigitosEhNumero){
+    ASSERT_TRUE(isNumero("13"));
 }
 
 TEST(DefinidorToken, valorDoTipoNumerico){
     ASSERT_EQ("NUM", getTipoToken("10"));
+    ASSERT_EQ("NUM", getTipoToken("10.2"));
 }
 
 TEST(DefinidorToken, valorSemTipoDefinido){
@@ -102,4 +103,8 @@ TEST(DefinidoToken, sequentialOperator){
     ASSERT_EQ("sequential operator", getTipoToken("else"));
     ASSERT_EQ("sequential operator", getTipoToken("for"));
     ASSERT_EQ("sequential operator", getTipoToken("do"));
+}
+
+TEST(DefinidorToken, strings){
+    ASSERT_EQ("string", getTipoToken("\"uma string\""));
 }

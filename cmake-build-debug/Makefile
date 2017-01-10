@@ -435,33 +435,6 @@ sintatico/No.cpp.s:
 	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/sintatico/No.cpp.s
 .PHONY : sintatico/No.cpp.s
 
-sintatico/Visitor.o: sintatico/Visitor.cpp.o
-
-.PHONY : sintatico/Visitor.o
-
-# target to build an object file
-sintatico/Visitor.cpp.o:
-	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/sintatico/Visitor.cpp.o
-.PHONY : sintatico/Visitor.cpp.o
-
-sintatico/Visitor.i: sintatico/Visitor.cpp.i
-
-.PHONY : sintatico/Visitor.i
-
-# target to preprocess a source file
-sintatico/Visitor.cpp.i:
-	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/sintatico/Visitor.cpp.i
-.PHONY : sintatico/Visitor.cpp.i
-
-sintatico/Visitor.s: sintatico/Visitor.cpp.s
-
-.PHONY : sintatico/Visitor.s
-
-# target to generate assembly for a file
-sintatico/Visitor.cpp.s:
-	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/sintatico/Visitor.cpp.s
-.PHONY : sintatico/Visitor.cpp.s
-
 tests/lexico/abreArquivo.o: tests/lexico/abreArquivo.cpp.o
 
 .PHONY : tests/lexico/abreArquivo.o
@@ -597,33 +570,6 @@ tests/separadorTest.cpp.s:
 	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/separadorTest.cpp.s
 .PHONY : tests/separadorTest.cpp.s
 
-tests/sintatico/arvoreTest.o: tests/sintatico/arvoreTest.cpp.o
-
-.PHONY : tests/sintatico/arvoreTest.o
-
-# target to build an object file
-tests/sintatico/arvoreTest.cpp.o:
-	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.o
-.PHONY : tests/sintatico/arvoreTest.cpp.o
-
-tests/sintatico/arvoreTest.i: tests/sintatico/arvoreTest.cpp.i
-
-.PHONY : tests/sintatico/arvoreTest.i
-
-# target to preprocess a source file
-tests/sintatico/arvoreTest.cpp.i:
-	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.i
-.PHONY : tests/sintatico/arvoreTest.cpp.i
-
-tests/sintatico/arvoreTest.s: tests/sintatico/arvoreTest.cpp.s
-
-.PHONY : tests/sintatico/arvoreTest.s
-
-# target to generate assembly for a file
-tests/sintatico/arvoreTest.cpp.s:
-	$(MAKE) -f CMakeFiles/ProjetoU.dir/build.make CMakeFiles/ProjetoU.dir/tests/sintatico/arvoreTest.cpp.s
-.PHONY : tests/sintatico/arvoreTest.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -665,9 +611,6 @@ help:
 	@echo "... sintatico/No.o"
 	@echo "... sintatico/No.i"
 	@echo "... sintatico/No.s"
-	@echo "... sintatico/Visitor.o"
-	@echo "... sintatico/Visitor.i"
-	@echo "... sintatico/Visitor.s"
 	@echo "... tests/lexico/abreArquivo.o"
 	@echo "... tests/lexico/abreArquivo.i"
 	@echo "... tests/lexico/abreArquivo.s"
@@ -683,9 +626,6 @@ help:
 	@echo "... tests/separadorTest.o"
 	@echo "... tests/separadorTest.i"
 	@echo "... tests/separadorTest.s"
-	@echo "... tests/sintatico/arvoreTest.o"
-	@echo "... tests/sintatico/arvoreTest.i"
-	@echo "... tests/sintatico/arvoreTest.s"
 .PHONY : help
 
 
