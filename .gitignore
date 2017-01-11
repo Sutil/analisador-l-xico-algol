@@ -1,2 +1,11 @@
 .idea
-cmake-build-debug
+/cmake-build-debug/
+!/cmake-build-debug/
+Would skip repository cmake-build-debug/googletest-src
+cmake-build-debug/CMakeCache.txt
+cmake-build-debug/CMakeFiles
+cmake-build-debug/cmake_install.cmake
+cmake-build-debug/googletest-build
+cmake-build-debug/googletest-download
+cmake-build-debug/Makefile
+cmake-build-debug/ProjetoU.cbp
