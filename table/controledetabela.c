@@ -7,12 +7,12 @@
 #include <stdio.h>
 #include <string.h>
 #include "util.h"
-#include "symbol.h"
+#include "controledetabela.h"
 #include "table.h"
 
 static S_symbol mksymbol(string name, S_symbol next)
 {
-    S_symbol s = checked_malloc(sizeof(*s));
+    S_symbol s = (S_symbol) checked_malloc(sizeof(*s));
     s->name = name;
     s->next = next;
     return s;
@@ -77,7 +77,7 @@ void S_endScope(S_table t)
 {
     S_symbol s;
     do
-        s=TAB_pop(t);
+        s= (S_symbol) TAB_pop(t);
     while (s != &marksym);
 }
 
