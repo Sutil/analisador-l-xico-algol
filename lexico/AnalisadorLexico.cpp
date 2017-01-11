@@ -3,6 +3,7 @@
 //
 
 #include <sstream>
+#include <stdexcept>
 #include "AnalisadorLexico.h"
 #include "separador.h"
 #include "definidorToken.h"
