@@ -104,10 +104,9 @@ bool arraySegment(No * pai);
 bool boundPair(No * pai);
 bool unsignedInteger(No * pai);
 bool specifier(No * pai);
-bool specificationPartRecursao(No * pai);
-bool token_isLetterString(std::string token);
-bool token_isNumber(Token * token);
-bool token_isString(Token * token);
-bool token_isIdentifier(Token * token);
+bool token_isLetterString(std::string token, No * pai);
+bool token_isNumber(Token *token, No *pai);
+bool token_isString(Token *token, No *pai);
+bool token_isIdentifier(Token *token, No *pai);
 
 #endif //PROJETOU_ANALISADORSINTATICOMAIN_H

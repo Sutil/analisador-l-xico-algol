@@ -13,65 +13,65 @@ int maiorDistancia = 0;
 Token * tokenAtual;
 Token * tokenMaiorProfundidade;
 
-bool isAtribuicao();
+bool isAtribuicao(No *pai);
 
-bool isDoisPontos();
+bool isDoisPontos(No *pai);
 
-bool isFor();
+bool isFor(No *pai);
 
-bool isDo();
+bool isDo(No *pai);
 
-bool isStep();
+bool isStep(No *pai);
 
-bool isUntil();
+bool isUntil(No *pai);
 
-bool isWhile();
+bool isWhile(No *pai);
 
-bool isElse();
+bool isElse(No *pai);
 
-bool isAbreColchete();
+bool isAbreColchete(No *pai);
 
 bool isFechaColchete(No * pai);
 
-bool isVirgula();
+bool isVirgula(No *pai);
 
-bool isSuperIgual();
+bool isSuperIgual(No *pai);
 
-bool isOr();
+bool isOr(No *pai);
 
-bool isAnd();
+bool isAnd(No *pai);
 
-bool isTrue();
+bool isTrue(No *pai);
 
-bool isFalse();
+bool isFalse(No *pai);
 
-bool isIf();
+bool isIf(No *pai);
 
-bool isThen();
+bool isThen(No *pai);
 
-bool isAbreParenteses();
+bool isAbreParenteses(No *pai);
 
-bool isFechaParenteses();
+bool isFechaParenteses(No *pai);
 
-bool isProcedure();
+bool isProcedure(No *pai);
 
-bool isSwitch();
+bool isSwitch(No *pai);
 
-bool isLabel();
+bool isLabel(No *pai);
 
-bool isArray();
+bool isArray(No *pai);
 
-bool isString();
+bool isString(No *pai);
 
-bool isPontoEVirgula();
+bool isPontoEVirgula(No *pai);
 
-bool isValue();
+bool isValue(No *pai);
 
-bool isOwn();
+bool isOwn(No *pai);
 
-bool isBegin();
+bool isBegin(No *pai);
 
-bool isEnd();
+bool isEnd(No *pai);
 
 Token * getNextToken(){
     Token * token = getToken();
@@ -125,7 +125,6 @@ No * addNo(No * pai, string filho){
     No * f = new No(filho);
     pai->addFilho(f);
 
-    //profundidade++;
     return f;
 }
 
@@ -175,7 +174,7 @@ bool block(No * pai) {
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (label(self) && isDoisPontos() && block(self))
+    if (label(self) && isDoisPontos(self) && block(self))
         return true;
     restauraEstado(j);
 
@@ -231,11 +230,11 @@ bool forClause(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isFor() &&
+    if (isFor(self) &&
         variable(self)
-        && isAtribuicao()
+        && isAtribuicao(self)
         && forList(self)
-        && isDo())
+        && isDo(self))
         return true;
 
     restauraEstado(j);
@@ -268,16 +267,16 @@ bool forListElement(No * pai) {
     salvaEstado(&j);
 
     if (arithmeticExpression(self)
-        && isStep()
+        && isStep(self)
         && arithmeticExpression(self)
-        && isUntil()
+        && isUntil(self)
         && arithmeticExpression(self))
         return true;
     restauraEstado(j);
 
     salvaEstado(&j);
     if (arithmeticExpression(self)
-        && isWhile()
+        && isWhile(self)
         && booleanExpression(self))
         return true;
     restauraEstado(j);
@@ -326,7 +325,7 @@ bool conditionalStatement(No * pai) {
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (ifStatement(self) && isElse() && statement(self))
+    if (ifStatement(self) && isElse(self) && statement(self))
         return true;
     restauraEstado(j);
 
@@ -336,7 +335,7 @@ bool conditionalStatement(No * pai) {
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (label(self) && isDoisPontos() && conditionalStatement(self))
+    if (label(self) && isDoisPontos(self) && conditionalStatement(self))
         return true;
     restauraEstado(j);
 
@@ -371,7 +370,7 @@ bool basicStatement(No * pai) {
 
     salvaEstado(&j);
     if (label(self) 
-        && isDoisPontos()
+        && isDoisPontos(self)
         && basicStatement(self))
         return true;
     restauraEstado(j);
@@ -485,12 +484,12 @@ bool leftPart(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (variable(self) && isAtribuicao())
+    if (variable(self) && isAtribuicao(self))
         return true;
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (procedureIdentifier(self) && isAtribuicao())
+    if (procedureIdentifier(self) && isAtribuicao(self))
         return true;
     restauraEstado(j);
 
@@ -524,7 +523,7 @@ bool subscriptedVariable(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (arrayIdentifier(self) && isAbreColchete() && subscriptList(self) && isFechaColchete(self))
+    if (arrayIdentifier(self) && isAbreColchete(self) && subscriptList(self) && isFechaColchete(self))
         return true;
     restauraEstado(j);
 
@@ -564,7 +563,7 @@ bool subscriptListRecursao(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isVirgula() && subscriptExpression(self) && subscriptListRecursao(self))
+    if (isVirgula(self) && subscriptExpression(self) && subscriptListRecursao(self))
         return true;
     restauraEstado(j);
 
@@ -578,7 +577,7 @@ bool arrayIdentifier(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getNextToken()))
+    if (token_isIdentifier(getNextToken(), self))
         return true;
     restauraEstado(j);
 
@@ -596,7 +595,7 @@ bool booleanExpression(No * pai) {
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (ifClause(self) && simpleBoolean(self) && isElse() && booleanExpression(self))
+    if (ifClause(self) && simpleBoolean(self) && isElse(self) && booleanExpression(self))
         return true;
     restauraEstado(j);
 
@@ -623,7 +622,7 @@ bool simpleBooleanRecursao(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isSuperIgual() && implication(self) && simpleBooleanRecursao(self))
+    if (isSuperIgual(self) && implication(self) && simpleBooleanRecursao(self))
         return true;
     restauraEstado(j);
 
@@ -678,7 +677,7 @@ bool booleanTermRecursao(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isOr() && booleanFactor(self) && booleanTermRecursao(self))
+    if (isOr(self) && booleanFactor(self) && booleanTermRecursao(self))
         return true;
     restauraEstado(j);
 
@@ -706,7 +705,7 @@ bool booleanFactorRecursao(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isAnd() && booleanSecondary(self) && booleanFactorRecursao(self))
+    if (isAnd(self) && booleanSecondary(self) && booleanFactorRecursao(self))
         return true;
     restauraEstado(j);
     removeNo(pai, self);
@@ -763,7 +762,7 @@ bool logicalValue(No * pai) {
 
     salvaEstado(&j);
 
-    if (isTrue() || isFalse())
+    if (isTrue(self) || isFalse(self))
         return true;
     restauraEstado(j);
 
@@ -820,7 +819,7 @@ bool arithmeticExpression(No * pai) {
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (ifClause(self) && simpleArithmeticExpression(self) && isElse() && arithmeticExpression(self))
+    if (ifClause(self) && simpleArithmeticExpression(self) && isElse(self) && arithmeticExpression(self))
         return true;
     restauraEstado(j);
 
@@ -834,7 +833,7 @@ bool ifClause(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isIf() && booleanExpression(self) && isThen())
+    if (isIf(self) && booleanExpression(self) && isThen(self))
         return true;
     restauraEstado(j);
 
@@ -938,7 +937,7 @@ bool primary(No * pai) {
     // implementar
 
     salvaEstado(&j);
-    if (isAbreParenteses() && arithmeticExpression(self) && isFechaParenteses())
+    if (isAbreParenteses(self) && arithmeticExpression(self) && isFechaParenteses(self))
         return true;
     restauraEstado(j);
 
@@ -967,7 +966,7 @@ bool actualParameterPart(No * pai) {
 
     salvaEstado(&j);
 
-    if (isAbreParenteses() && actualParameterList(self) && isFechaParenteses())
+    if (isAbreParenteses(self) && actualParameterList(self) && isFechaParenteses(self))
         return true;
 
     restauraEstado(j);
@@ -1009,7 +1008,7 @@ bool actualParameter(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isString(getNextToken()))
+    if (token_isString(getNextToken(), self))
         return true;
     restauraEstado(j);
 
@@ -1074,7 +1073,7 @@ bool decimalNumber(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isNumber(getNextToken()))
+    if (token_isNumber(getNextToken(), self))
         return true;
     restauraEstado(j);
 
@@ -1108,7 +1107,7 @@ bool unlabelledBlock(No * pai) {
 
     salvaEstado(&j);
     if (blockHead(self) &&
-            isPontoEVirgula() &&
+            isPontoEVirgula(self) &&
             compoundTail(self))
         return true;
     restauraEstado(j);
@@ -1124,14 +1123,14 @@ bool compoundTail(No * pai) {
 
     salvaEstado(&j);
     if (statement(self)) {
-        if (isEnd()) {
+        if (isEnd(self)) {
             return true;
         }
     }
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (statement(self) && isPontoEVirgula() && compoundTail(self))
+    if (statement(self) && isPontoEVirgula(self) && compoundTail(self))
         return true;
     restauraEstado(j);
 
@@ -1150,7 +1149,7 @@ bool compoundStatement(No * pai) {
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (label(self) && isDoisPontos() && compoundStatement(self))
+    if (label(self) && isDoisPontos(self) && compoundStatement(self))
         return true;
     restauraEstado(j);
 
@@ -1165,7 +1164,7 @@ bool blockHead(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isBegin() && declaration(self) && blockHeadRecursao(self))
+    if (isBegin(self) && declaration(self) && blockHeadRecursao(self))
         return true;
     restauraEstado(j);
 
@@ -1179,7 +1178,7 @@ bool blockHeadRecursao(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isPontoEVirgula() && declaration(self) && blockHeadRecursao(self))
+    if (isPontoEVirgula(self) && declaration(self) && blockHeadRecursao(self))
         return true;
     restauraEstado(j);
 
@@ -1193,7 +1192,7 @@ bool unlabelledCompound(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isBegin() && compoundTail(self))
+    if (isBegin(self) && compoundTail(self))
         return true;
     restauraEstado(j);
 
@@ -1251,7 +1250,7 @@ bool localOrOwnType(No * pai) {
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (isOwn() && type(self))
+    if (isOwn(self) && type(self))
         return true;
     restauraEstado(j);
 	removeNo (pai, self);
@@ -1281,7 +1280,7 @@ bool typeList(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (simpleVariable(self) && isVirgula() && typeList(self))
+    if (simpleVariable(self) && isVirgula(self) && typeList(self))
         return true;
     restauraEstado(j);
 
@@ -1299,7 +1298,7 @@ bool simpleVariable(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getNextToken()))
+    if (token_isIdentifier(getNextToken(), self))
         return true;
     restauraEstado(j);
 	removeNo (pai, self);
@@ -1312,12 +1311,12 @@ bool arrayDeclaration(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isArray() && arrayList(self))
+    if (isArray(self) && arrayList(self))
         return true;
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (localOrOwnType(self) && isArray() && arrayList(self))
+    if (localOrOwnType(self) && isArray(self) && arrayList(self))
         return true;
     restauraEstado(j);
 	removeNo (pai, self);
@@ -1343,7 +1342,7 @@ bool arrayListRecursao(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isVirgula() && arraySegment(self) && arrayListRecursao(self))
+    if (isVirgula(self) && arraySegment(self) && arrayListRecursao(self))
         return true;
     restauraEstado(j);
     removeNo(pai, self);
@@ -1358,12 +1357,12 @@ bool arraySegment(No * pai) {
 
     salvaEstado(&j);
 
-    if (arrayIdentifier(self) && isAbreColchete() && boundPairList(self) && isFechaColchete(self))
+    if (arrayIdentifier(self) && isAbreColchete(self) && boundPairList(self) && isFechaColchete(self))
         return true;
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (arrayIdentifier(self) && isVirgula() && arraySegment(self))
+    if (arrayIdentifier(self) && isVirgula(self) && arraySegment(self))
         return true;
     restauraEstado(j);
 	removeNo (pai, self);
@@ -1389,7 +1388,7 @@ bool boundPairListRecursao(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isVirgula() && boundPair(self) && boundPairListRecursao(self))
+    if (isVirgula(self) && boundPair(self) && boundPairListRecursao(self))
         return true;
 
     restauraEstado(j);
@@ -1403,7 +1402,7 @@ bool boundPair(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (lowerBound(self) && isDoisPontos() && upperBound(self))
+    if (lowerBound(self) && isDoisPontos(self) && upperBound(self))
         return true;
 
     restauraEstado(j);
@@ -1443,12 +1442,12 @@ bool procedureDeclaration(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isProcedure() && procedureHeading(self) && procedureBody(self))
+    if (isProcedure(self) && procedureHeading(self) && procedureBody(self))
         return true;
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (type(self) && isProcedure() && procedureHeading(self) && procedureBody(self))
+    if (type(self) && isProcedure(self) && procedureHeading(self) && procedureBody(self))
         return true;
     restauraEstado(j);
 	removeNo (pai, self);
@@ -1463,7 +1462,7 @@ bool procedureHeading(No * pai) {
     salvaEstado(&j);
     if (procedureIdentifier(self)) {
         if (formalParameterPart(self)) {
-            if (isPontoEVirgula()) {
+            if (isPontoEVirgula(self)) {
                 if (valuePart(self) && specificationPart(self))
                     return true;
             }
@@ -1480,7 +1479,7 @@ bool valuePart(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isValue() && identifierList(self) && isPontoEVirgula())
+    if (isValue(self) && identifierList(self) && isPontoEVirgula(self))
         return true;
     restauraEstado(j);
     removeNo(pai, self);
@@ -1493,7 +1492,7 @@ bool specificationPart(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (specifier(self) && identifierList(self) && isPontoEVirgula() && specificationPart(self))
+    if (specifier(self) && identifierList(self) && isPontoEVirgula(self) && specificationPart(self))
         return true;
     restauraEstado(j);
 
@@ -1512,37 +1511,37 @@ bool specifier(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isString())
+    if (isString(self))
         return true;
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (isArray())
+    if (isArray(self))
         return true;
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (type(self) && isArray())
+    if (type(self) && isArray(self))
         return true;
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (isLabel())
+    if (isLabel(self))
         return true;
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (isSwitch())
+    if (isSwitch(self))
         return true;
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (isProcedure())
+    if (isProcedure(self))
         return true;
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (type(self) && isProcedure())
+    if (type(self) && isProcedure(self))
         return true;
     restauraEstado(j);
 
@@ -1560,7 +1559,7 @@ bool identifierList(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getNextToken()) && identifierListRecursao(self))
+    if (token_isIdentifier(getNextToken(), self) && identifierListRecursao(self))
         return true;
 
     restauraEstado(j);
@@ -1574,7 +1573,7 @@ bool identifierListRecursao(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isVirgula() && token_isIdentifier(getNextToken()) && identifierListRecursao(self))
+    if (isVirgula(self) && token_isIdentifier(getNextToken(), self) && identifierListRecursao(self))
         return true;
     restauraEstado(j);
 
@@ -1587,7 +1586,7 @@ bool procedureIdentifier(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getNextToken()))
+    if (token_isIdentifier(getNextToken(), self))
         return true;
 
     restauraEstado(j);
@@ -1602,7 +1601,7 @@ bool formalParameterPart(No * pai) {
 
     salvaEstado(&j);
 
-    if (isAbreParenteses() && formalParameterList(self) && isFechaParenteses())
+    if (isAbreParenteses(self) && formalParameterList(self) && isFechaParenteses(self))
         return true;
     restauraEstado(j);
     removeNo(pai, self);
@@ -1641,22 +1640,28 @@ bool parameterDelimiter(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (isVirgula())
+    if (isVirgula(self))
         return true;
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (isFechaParenteses() && token_isLetterString(getNextToken()->valor) && isDoisPontos() && isAbreParenteses())
+    if (isFechaParenteses(self) && token_isLetterString(getNextToken()->valor, self) && isDoisPontos(self) && isAbreParenteses(self))
         return true;
     restauraEstado(j);
 	removeNo (pai, self);
 	return false;
 }
 
-bool token_isLetterString(std::string token){
+bool token_isLetterString(std::string token, No * pai){
     regex regex_id("[a-zA-Z]");
 
-    return regex_match(token, regex_id);
+    No * self = addNo(pai, token);
+
+    if(regex_match(token, regex_id))
+        return true;
+
+    removeNo(pai, self);
+    return false;
 }
 
 bool formalParameter(No * pai) {
@@ -1665,7 +1670,7 @@ bool formalParameter(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getNextToken()))
+    if (token_isIdentifier(getNextToken(), self))
         return true;
     restauraEstado(j);
 	removeNo (pai, self);
@@ -1691,7 +1696,7 @@ bool label(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isIdentifier(getNextToken()))
+    if (token_isIdentifier(getNextToken(), self))
         return true;
     restauraEstado(j);
 
@@ -1709,7 +1714,7 @@ bool unsignedInteger(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isNumber(getNextToken()))
+    if (token_isNumber(getNextToken(), self))
         return true;
 
     restauraEstado(j);
@@ -1728,105 +1733,155 @@ void restauraEstado(int j) {
     return;
 }
 
-bool token_isIdentifier(Token * token) {
-    return token->nome.compare("identifier") == 0;
-}
+// terminais
 
-bool token_isNumber(Token * token) {
-    return token->nome.compare("NUM") == 0;
-}
-
-bool token_isString(Token * token) {
-    return token->valor.compare("string") == 0;
-}
-
-bool isAtribuicao() {
-    return 0 == getNextToken()->valor.compare(":=");
-}
-
-bool isDoisPontos() {
-    return 0 == getNextToken()->valor.compare(":");
-}
-
-bool isFor() { return 0 == getNextToken()->valor.compare("for"); }
-
-bool isDo() { return 0 == getNextToken()->valor.compare("do"); }
-
-bool isWhile() { return 0 == getNextToken()->valor.compare("while"); }
-
-bool isUntil() { return 0 == getNextToken()->valor.compare("until"); }
-
-bool isStep() { return 0 == getNextToken()->valor.compare("step"); }
-
-bool isElse() { return 0 == getNextToken()->valor.compare("else"); }
-
-bool isFechaColchete(No * pai) {
-    int j = 0;
-
-    No * self = addNo(pai, "]");
-    if(0 == getNextToken()->valor.compare("]"))
+bool isTerminal(No * pai, string esperado, Token * atual){
+    No * self = addNo(pai, atual->valor);
+    if(esperado.compare(atual->nome) == 0)
         return true;
 
     removeNo(pai, self);
     return false;
 }
 
-bool isAbreColchete() { return 0 == getNextToken()->valor.compare("["); }
-
-bool isVirgula() { return 0 == getNextToken()->valor.compare(","); }
-
-bool isSuperIgual() { return 0 == getNextToken()->valor.compare("==="); }
-
-bool isOr() { return 0 == getNextToken()->valor.compare("or"); }
-
-bool isAnd() { return 0 == getNextToken()->valor.compare("and"); }
-
-bool isFalse() {
-    int j = 0;
-    salvaEstado(&j);
-    if(getNextToken()->valor.compare(LOGICALVALUE_FALSE) == 0)
+bool isTerminal(No * pai, string esperado, string atual){
+    No * self = addNo(pai, atual);
+    if(esperado.compare(atual) == 0)
         return true;
 
-    restauraEstado(j);
+    removeNo(pai, self);
     return false;
 }
 
-bool isTrue() {
-    int j = 0;
-    salvaEstado(&j);
-
-    if(getNextToken()->valor.compare(LOGICALVALUE_TRUE) == 0)
-        return true;
-
-    restauraEstado(j);
-    return false;
+bool token_isIdentifier(Token *token, No *pai) {
+    return isTerminal(pai, "identifier", token);
 }
 
-bool isThen() { return 0 == getNextToken()->valor.compare("then"); }
+bool token_isNumber(Token *token, No *pai) {
+    return isTerminal(pai, "NUM", token);
+}
 
-bool isIf() { return 0 == getNextToken()->valor.compare("if"); }
+bool token_isString(Token *token, No *pai) {
+    return isTerminal(pai, "string", token);
+}
 
-bool isFechaParenteses() { return 0 == getNextToken()->valor.compare(")"); }
+bool isAtribuicao(No *pai) {
+    return isTerminal(pai, ":=", getNextToken()->valor);
+}
 
-bool isAbreParenteses() { return 0 == getNextToken()->valor.compare("("); }
+bool isDoisPontos(No *pai) {
+    return  isTerminal(pai, ":", getNextToken()->valor);
+}
 
-bool isString() { return 0 == getNextToken()->valor.compare("string"); }
+bool isFor(No *pai) {
+    return isTerminal(pai, "for", getNextToken()->valor);
+}
 
-bool isArray() { return 0 == getNextToken()->valor.compare("array"); }
+bool isDo(No *pai) { 
+    return isTerminal(pai, "do", getNextToken()->valor);
+}
 
-bool isLabel() { return 0 == getNextToken()->valor.compare("label"); }
+bool isWhile(No *pai) {
+	return isTerminal(pai, "while", getNextToken()->valor);
+}
 
-bool isSwitch() { return 0 == getNextToken()->valor.compare("switch"); }
+bool isUntil(No *pai) {
+	return isTerminal(pai, "until", getNextToken()->valor);
+}
 
-bool isProcedure() { return 0 == getNextToken()->valor.compare("procedure"); }
+bool isStep(No *pai) {
+	return isTerminal(pai, "step", getNextToken()->valor);
+}
 
-bool isValue() { return 0 == getNextToken()->valor.compare("value"); }
+bool isElse(No *pai) {
+	return isTerminal(pai, "else", getNextToken()->valor);
+}
 
-bool isPontoEVirgula() { return 0 == getNextToken()->valor.compare(";"); }
+bool isFechaColchete(No * pai) {
+    return isTerminal(pai, "]", getNextToken()->valor);
+}
 
-bool isOwn() { return getNextToken()->valor.compare("own") == 0; }
+bool isAbreColchete(No *pai) {
+	return isTerminal(pai, "[", getNextToken()->valor);
+}
 
-bool isBegin() { return 0 == getNextToken()->valor.compare("begin"); }
+bool isVirgula(No *pai) {
+	return isTerminal(pai, ",", getNextToken()->valor);
+}
 
-bool isEnd() { return 0 == getNextToken()->valor.compare("end"); }
+bool isSuperIgual(No *pai) {
+	return isTerminal(pai, "===", getNextToken()->valor);
+}
+
+bool isOr(No *pai) {
+	return isTerminal(pai, "or", getNextToken()->valor);
+}
+
+bool isAnd(No *pai) {
+	return isTerminal(pai, "and", getNextToken()->valor);
+}
+
+bool isFalse(No *pai) {
+    return isTerminal(pai, "false", getNextToken()->valor);
+}
+
+bool isTrue(No *pai) {
+    return isTerminal(pai, "true", getNextToken()->valor);
+}
+
+bool isThen(No *pai) {
+	return isTerminal(pai, "then", getNextToken()->valor);
+}
+
+bool isIf(No *pai) {
+	return isTerminal(pai, "if", getNextToken()->valor);
+}
+
+bool isFechaParenteses(No *pai) {
+	return isTerminal(pai, ")", getNextToken()->valor);
+}
+
+bool isAbreParenteses(No *pai) {
+	return isTerminal(pai, "(", getNextToken()->valor);
+}
+
+bool isString(No *pai) {
+	return isTerminal(pai, "string", getNextToken()->valor);
+}
+
+bool isArray(No *pai) {
+	return isTerminal(pai, "array", getNextToken()->valor);
+}
+
+bool isLabel(No *pai) {
+	return isTerminal(pai, "label", getNextToken()->valor);
+}
+
+bool isSwitch(No *pai) {
+	return isTerminal(pai, "switch", getNextToken()->valor);
+}
+
+bool isProcedure(No *pai) {
+	return isTerminal(pai, "procedure", getNextToken()->valor);
+}
+
+bool isValue(No *pai) {
+	return isTerminal(pai, "value", getNextToken()->valor);
+}
+
+bool isPontoEVirgula(No *pai) {
+	return isTerminal(pai, ";", getNextToken()->valor);
+}
+
+bool isOwn(No *pai) {
+	return isTerminal(pai, "own", getNextToken()->valor);
+}
+
+bool isBegin(No *pai) {
+	return isTerminal(pai, "begin", getNextToken()->valor);
+}
+
+bool isEnd(No *pai) {
+	return isTerminal(pai, "end", getNextToken()->valor);
+}
 
