@@ -465,16 +465,13 @@ bool leftPartList(No * pai) {
 }
 
 bool leftPartListRecursao(No * pai) {
-	No * self = addNo(pai, "left part list recursao");
-
     int j = 0;
 
     salvaEstado(&j);
-    if (leftPart(self) && leftPartListRecursao(self))
+    if (leftPart(pai) && leftPartListRecursao(pai))
         return true;
     restauraEstado(j);
 
-    removeNo(pai, self);
     return true;
 }
 
@@ -558,16 +555,13 @@ bool subscriptExpression(No * pai) {
 }
 
 bool subscriptListRecursao(No * pai) {
-    No * self = addNo(pai, "subscript list recursao");
-    
     int j = 0;
 
     salvaEstado(&j);
-    if (isVirgula(self) && subscriptExpression(self) && subscriptListRecursao(self))
+    if (isVirgula(pai) && subscriptExpression(pai) && subscriptListRecursao(pai))
         return true;
     restauraEstado(j);
 
-    removeNo(pai, self);
     return true;
 }
 
@@ -617,16 +611,13 @@ bool simpleBoolean(No * pai) {
 }
 
 bool simpleBooleanRecursao(No * pai) {
-    No * self = addNo(pai, "simple boolean recursão");
-    
     int j = 0;
 
     salvaEstado(&j);
-    if (isSuperIgual(self) && implication(self) && simpleBooleanRecursao(self))
+    if (isSuperIgual(pai) && implication(pai) && simpleBooleanRecursao(pai))
         return true;
     restauraEstado(j);
 
-    removeNo(pai, self);
     return true;
 }
 
@@ -645,16 +636,13 @@ bool implication(No * pai) {
 }
 
 bool implicationRecursao(No * pai) {
-    No * self = addNo(pai, "implication recursao");
-    
     int j = 0;
 
     salvaEstado(&j);
-    if (0 == getNextToken()->valor.compare("naosei") && booleanTerm(self) && implicationRecursao(self))
+    if (0 == getNextToken()->valor.compare("naosei") && booleanTerm(pai) && implicationRecursao(pai))
         return true;
     restauraEstado(j);
 
-    removeNo(pai, self);
     return true;
 }
 
@@ -672,16 +660,13 @@ bool booleanTerm(No * pai) {
 }
 
 bool booleanTermRecursao(No * pai) {
-	No * self = addNo(pai, "boolean term recursao");
-
     int j = 0;
 
     salvaEstado(&j);
-    if (isOr(self) && booleanFactor(self) && booleanTermRecursao(self))
+    if (isOr(pai) && booleanFactor(pai) && booleanTermRecursao(pai))
         return true;
     restauraEstado(j);
 
-    removeNo (pai, self);
     return true;
 }
 
@@ -700,15 +685,13 @@ bool booleanFactor(No * pai) {
 }
 
 bool booleanFactorRecursao(No * pai) {
-	No * self = addNo(pai, "boolean factor recursao");
-
     int j = 0;
 
     salvaEstado(&j);
-    if (isAnd(self) && booleanSecondary(self) && booleanFactorRecursao(self))
+    if (isAnd(pai) && booleanSecondary(pai) && booleanFactorRecursao(pai))
         return true;
     restauraEstado(j);
-    removeNo(pai, self);
+
     return true;
 }
 
@@ -861,12 +844,10 @@ bool simpleArithmeticExpression(No * pai) {
 }
 
 bool simpleArithmeticExpressionRecursao(No * pai) {
-	No * self = addNo(pai, "simple arithmetic expression recursao");
-
     int j = 0;
 
     salvaEstado(&j);
-    if (addingOperator(self) && term(self) && simpleArithmeticExpressionRecursao(self))
+    if (addingOperator(pai) && term(pai) && simpleArithmeticExpressionRecursao(pai))
         return true;
     restauraEstado(j);
 
@@ -906,15 +887,13 @@ bool term(No * pai) {
 }
 
 bool termRecursao(No * pai) {
-	No * self = addNo(pai, "term recursao");
-
     int j = 0;
 
     salvaEstado(&j);
-    if (multiplyingOperator(self) && primary(self) && termRecursao(self))
+    if (multiplyingOperator(pai) && primary(pai) && termRecursao(pai))
         return true;
     restauraEstado(j);
-    removeNo(pai, self);
+    removeNo(pai, pai);
     return true;
 }
 
@@ -990,15 +969,12 @@ bool actualParameterList(No * pai) {
 }
 
 bool actualParameterListRecursao(No * pai) {
-	No * self = addNo(pai, "actual parameter list recursao");
-
     int j = 0;
 
     salvaEstado(&j);
-    if (parameterDelimiter(self) && actualParameter(self) && actualParameterListRecursao(self))
+    if (parameterDelimiter(pai) && actualParameter(pai) && actualParameterListRecursao(pai))
         return true;
     restauraEstado(j);
-    removeNo(pai, self);
     return true;
 }
 
@@ -1173,16 +1149,13 @@ bool blockHead(No * pai) {
 }
 
 bool blockHeadRecursao(No * pai) {
-	No * self = addNo(pai, "block head  recursao");
-
     int j = 0;
 
     salvaEstado(&j);
-    if (isPontoEVirgula(self) && declaration(self) && blockHeadRecursao(self))
+    if (isPontoEVirgula(pai) && declaration(pai) && blockHeadRecursao(pai))
         return true;
     restauraEstado(j);
 
-    removeNo(pai, self);
     return true;
 }
 
@@ -1337,15 +1310,12 @@ bool arrayList(No * pai) {
 }
 
 bool arrayListRecursao(No * pai) {
-	No * self = addNo(pai, "array list recursao");
-
     int j = 0;
 
     salvaEstado(&j);
-    if (isVirgula(self) && arraySegment(self) && arrayListRecursao(self))
+    if (isVirgula(pai) && arraySegment(pai) && arrayListRecursao(pai))
         return true;
     restauraEstado(j);
-    removeNo(pai, self);
     return true;
 }
 
@@ -1383,16 +1353,13 @@ bool boundPairList(No * pai) {
 }
 
 bool boundPairListRecursao(No * pai) {
-	No * self = addNo(pai, "bound pair list recursao");
-
     int j = 0;
 
     salvaEstado(&j);
-    if (isVirgula(self) && boundPair(self) && boundPairListRecursao(self))
+    if (isVirgula(pai) && boundPair(pai) && boundPairListRecursao(pai))
         return true;
 
     restauraEstado(j);
-    removeNo(pai, self);
     return true;
 }
 
@@ -1474,15 +1441,12 @@ bool procedureHeading(No * pai) {
 }
 
 bool valuePart(No * pai) {
-	No * self = addNo(pai, "value part");
-
     int j = 0;
 
     salvaEstado(&j);
-    if (isValue(self) && identifierList(self) && isPontoEVirgula(self))
+    if (isValue(pai) && identifierList(pai) && isPontoEVirgula(pai))
         return true;
     restauraEstado(j);
-    removeNo(pai, self);
     return true;
 }
 
@@ -1568,12 +1532,10 @@ bool identifierList(No * pai) {
 }
 
 bool identifierListRecursao(No * pai) {
-	No * self = addNo(pai, "identifier list recursao");
-
     int j = 0;
 
     salvaEstado(&j);
-    if (isVirgula(self) && token_isIdentifier(getNextToken(), self) && identifierListRecursao(self))
+    if (isVirgula(pai) && token_isIdentifier(getNextToken(), pai) && identifierListRecursao(pai))
         return true;
     restauraEstado(j);
 
@@ -1596,7 +1558,6 @@ bool procedureIdentifier(No * pai) {
 
 bool formalParameterPart(No * pai) {
 	No * self = addNo(pai, "formal parameter part");
-
     int j = 0;
 
     salvaEstado(&j);
@@ -1622,12 +1583,10 @@ bool formalParameterList(No * pai) {
 }
 
 bool formalParameterListRecursao(No * pai) {
-	No * self = addNo(pai, "forma parameter list recursao");
-
     int j = 0;
 
     salvaEstado(&j);
-    if (parameterDelimiter(self) && formalParameter(self) && formalParameterListRecursao(self))
+    if (parameterDelimiter(pai) && formalParameter(pai) && formalParameterListRecursao(pai))
         return true;
     restauraEstado(j);
 

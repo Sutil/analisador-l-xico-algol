@@ -28,6 +28,10 @@ struct no {
         this->filhos.erase(std::remove(filhos.begin(), filhos.end(), filho), filhos.end());
     }
 
+    bool isTerminal(){
+        return this->filhos.empty();
+    }
+
     void imprimir(){
         cout << "\"" << this->nome << "\"";
         if(!this->filhos.empty()) {
