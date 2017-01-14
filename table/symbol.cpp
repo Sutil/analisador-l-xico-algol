@@ -3,12 +3,7 @@
 //
 
 #include "symbol.h"
-
-#include <stdio.h>
 #include <string.h>
-#include "util.h"
-#include "symbol.h"
-#include "table.h"
 
 static S_symbol mksymbol(_string name, S_symbol next)
 {
@@ -53,7 +48,7 @@ _string S_name(S_symbol sym)
     return sym->name;
 }
 
-S_table S_empty(void)
+S_table S_empty()
 {
     return TAB_empty();
 }

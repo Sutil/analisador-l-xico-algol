@@ -14,7 +14,6 @@ typedef char _bool;
 #define TRUE 1
 #define FALSE 0
 
-
 void *checked_malloc(int);
 _string String(char *);
 

@@ -2,8 +2,8 @@
 // Created by Lucas on 1/10/2017.
 //
 
-#ifndef PROJETOU_CONTROLEDETABELA_H
-#define PROJETOU_CONTROLEDETABELA_H
+#ifndef PROJETOU_SUMBOL_H
+#define PROJETOU_SUMBOL_H
 
 #include "table.h"
 #include "util.h"
@@ -33,7 +33,7 @@ _string S_name(S_symbol);
 typedef struct TAB_table_ *S_table;
 
 /* Make a new table */
-S_table S_empty(void);
+S_table S_empty();
 
 /* Enter a binding "sym->value" into "t", shadowing but not deleting
  *    any previous binding of "sym". */

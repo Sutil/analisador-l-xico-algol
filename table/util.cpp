@@ -19,14 +19,14 @@ void *checked_malloc(int len)
 
 _string String(char *s)
 {
-    _string p = checked_malloc(strlen(s)+1);
+    _string p = (_string) checked_malloc(strlen(s)+1);
     strcpy(p,s);
     return p;
 }
 
 U_boolList U_BoolList(_bool head, U_boolList tail)
 {
-    U_boolList list = checked_malloc(sizeof(*list));
+    U_boolList list = (U_boolList) checked_malloc(sizeof(*list));
     list->head = head;
     list->tail = tail;
     return list;
@@ -42,7 +42,7 @@ char *remove_ext (char* mystr, char dot, char sep) {
 
     if (mystr == NULL)
         return NULL;
-    if ((retstr = malloc (strlen (mystr) + 1)) == NULL)
+    if ((retstr = (char*)malloc (strlen (mystr) + 1)) == NULL)
         return NULL;
 
     strcpy (retstr, mystr);
