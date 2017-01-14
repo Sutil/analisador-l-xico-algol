@@ -8,22 +8,22 @@
 #include <assert.h>
 #include <stdio.h>
 
-typedef char *string;
-typedef char bool;
+typedef char *_string;
+typedef char _bool;
 
 #define TRUE 1
 #define FALSE 0
 
 
 void *checked_malloc(int);
-string String(char *);
+_string String(char *);
 
 typedef struct U_boolList_ *U_boolList;
 struct U_boolList_ {
-    bool head;
+    _bool head;
     U_boolList tail;
 };
-U_boolList U_BoolList(bool head, U_boolList tail);
+U_boolList U_BoolList(_bool head, U_boolList tail);
 int max(int a, int b);
 
 char *remove_ext (char* mystr, char dot, char sep) ;

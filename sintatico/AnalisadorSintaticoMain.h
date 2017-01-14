@@ -5,6 +5,7 @@
 #ifndef PROJETOU_ANALISADORSINTATICOMAIN_H
 #define PROJETOU_ANALISADORSINTATICOMAIN_H
 
+#include "../lexico/AnalisadorLexico.h"
 #include "No.h"
 
 void salvaEstado(int *j);

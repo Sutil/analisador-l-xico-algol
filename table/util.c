@@ -17,14 +17,14 @@ void *checked_malloc(int len)
     return p;
 }
 
-string String(char *s)
+_string String(char *s)
 {
-    string p = checked_malloc(strlen(s)+1);
+    _string p = checked_malloc(strlen(s)+1);
     strcpy(p,s);
     return p;
 }
 
-U_boolList U_BoolList(bool head, U_boolList tail)
+U_boolList U_BoolList(_bool head, U_boolList tail)
 {
     U_boolList list = checked_malloc(sizeof(*list));
     list->head = head;

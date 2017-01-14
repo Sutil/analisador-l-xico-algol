@@ -6,6 +6,7 @@
 #include <gmock/gmock.h>
 #include <regex>
 #include "No.h"
+#include "../geradordecodigo/Gerador.h"
 
 No * raiz;
 int distanciaPercorridaNoArquivo = 0;
@@ -108,6 +109,7 @@ int main(int argc, char* argv[]) {
         raiz->imprimir();
         cout << "}" << endl;
         cout << "SUCESSO" << endl;
+        gerador(raiz, argv[1]);
         return true;
     }
     cout << endl << "Falha de análise sintática" << endl;
@@ -1721,7 +1723,7 @@ bool token_isNumber(Token *token, No *pai) {
 }
 
 bool token_isString(Token *token, No *pai) {
-    return isTerminal(pai, "string", token);
+    return isTerminal(pai, "_string", token);
 }
 
 bool isAtribuicao(No *pai) {
@@ -1805,7 +1807,7 @@ bool isAbreParenteses(No *pai) {
 }
 
 bool isString(No *pai) {
-	return isTerminal(pai, "string", getNextToken()->valor);
+	return isTerminal(pai, "_string", getNextToken()->valor);
 }
 
 bool isArray(No *pai) {

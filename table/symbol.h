@@ -16,17 +16,17 @@
 typedef struct S_symbol_ *S_symbol;
 
 struct S_symbol_ {
-    string name;
+    _string name;
     S_symbol next;
 };
 
-/* Make a unique symbol from a given string.
+/* Make a unique symbol from a given _string.
  *  Different calls to S_Symbol("foo") will yield the same S_symbol
  *  value, even if the "foo" strings are at different locations. */
-S_symbol S_Symbol(string);
+S_symbol S_Symbol(_string);
 
-/* Extract the underlying string from a symbol */
-string S_name(S_symbol);
+/* Extract the underlying _string from a symbol */
+_string S_name(S_symbol);
 
 /* S_table is a mapping from S_symbol->any, where "any" is represented
  *     here by void*  */
