@@ -4,16 +4,19 @@
 
 #include <fstream>
 #include "Gerador.h"
+#include "../table/types.h"
 //#include "../table/symbol.h"
 
 std::ofstream ir_file;
 void gerador(No *raiz, std::string outputfilename) {
+    int level = 0;
 
     ir_file.open (outputfilename + ".ll");
 
     S_table variaveis_functions_table = geratabeladevariaveisefuncoes();
+    S_table tipos_table = geratabeladetipos();
 
-    processano(raiz, variaveis_functions_table);
+    processano(raiz, variaveis_functions_table, tipos_table, level);
 
     ir_file.close();
     std::string command = "clang " + outputfilename + ".ll" + " -o " + outputfilename + ".exec";
@@ -26,25 +29,59 @@ S_table geratabeladevariaveisefuncoes() {
     return table;
 }
 
+S_table geratabeladetipos() {
+    S_table table = S_empty();
 
-void processano(No *raiz, S_table variaveis_functions_table) {
+    std::string s = "integer";
+
+    S_enter(table, S_Symbol((_string) s.data()), Ty_Int());
+
+    return table;
+}
+
+void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table, int level) {
+    level++;
 
 
     if (raiz->nome == "program") {
         ir_file << "define i32 @main() #0 {" << std::endl;
 
         for (int i = 0; i < raiz->filhos.size(); ++i) {
-            processano(raiz->filhos[i], variaveis_functions_table);
+            processano(raiz->filhos[i], variaveis_functions_table, tipos_table, level);
         }
 
         ir_file << "ret i32 0 }" << std::endl;
 
     } else if (raiz->nome == "type definition") {
 
+        vector<no *> filhos = raiz->filhos;
+
+        no *declaration = filhos[0];
+        no *type_list = filhos[1];
+        void * tipodasvariaveis;
+
+        if (declaration->nome == "local or own type") {
+            no *type = filhos[0];
+
+            if (type->nome == "type") {
+                std::string t = type->filhos[0]->nome;
+                tipodasvariaveis = S_look(tipos_table, S_Symbol((_string) t.data()));
+            }
+        }
+
+        if (type_list->nome == "type list") {
+
+            for (int i = 0; i < type_list->filhos.size(); ++i) {
+
+            }
+
+        }
+
+
     }
     else {
         for (int i = 0; i < raiz->filhos.size(); ++i) {
-            processano(raiz->filhos[i], variaveis_functions_table);
+            processano(raiz->filhos[i], variaveis_functions_table, tipos_table, level);
         }
     }
 

@@ -11,7 +11,8 @@
 #include "../table/symbol.h"
 
 void gerador(No *raiz, std::string outputfilename);
-void processano(No *raiz, S_table variaveis_functions_table);
+void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table, int level);
 S_table geratabeladevariaveisefuncoes();
+S_table geratabeladetipos();
 
 #endif //PROJETOU_GERADOR_H

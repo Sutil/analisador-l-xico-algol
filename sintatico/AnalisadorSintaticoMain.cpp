@@ -1221,10 +1221,8 @@ bool localOrOwnType(No * pai) {
     salvaEstado(&j);
     if (type(self))
         return true;
-
     restauraEstado(j);
 
-    salvaEstado(&j);
     if (isOwn(self) && type(self))
         return true;
     restauraEstado(j);
@@ -1259,7 +1257,6 @@ bool typeList(No * pai) {
         return true;
     restauraEstado(j);
 
-    salvaEstado(&j);
     if (simpleVariable(self))
         return true;
     restauraEstado(j);
