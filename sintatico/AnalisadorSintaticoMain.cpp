@@ -7,6 +7,7 @@
 #include <regex>
 #include "No.h"
 #include "../geradordecodigo/Gerador.h"
+#include "../semantico/AnalisadorSemantico.h"
 
 No * raiz;
 int distanciaPercorridaNoArquivo = 0;
@@ -109,6 +110,9 @@ int main(int argc, char* argv[]) {
         raiz->imprimir();
         cout << "}" << endl;
         cout << "SUCESSO" << endl;
+
+        aliseSemantica(raiz);
+
         gerador(raiz, argv[1]);
         return true;
     }
@@ -1125,7 +1129,9 @@ bool compoundStatement(No * pai) {
     if (unlabelledCompound(self))
         return true;
     restauraEstado(j);
+    removeNo(pai, self);
 
+    self = addNo(pai, "compaund statement");
     salvaEstado(&j);
     if (label(self) && isDoisPontos(self) && compoundStatement(self))
         return true;
@@ -1201,7 +1207,7 @@ bool declaration(No * pai) {
 }
 
 bool typeDeclaration(No * pai) {
-	No * self = addNo(pai, "type definition");
+	No * self = addNo(pai, "type declaration");
 
     int j = 0;
 
@@ -1222,7 +1228,10 @@ bool localOrOwnType(No * pai) {
     if (type(self))
         return true;
     restauraEstado(j);
+    removeNo(pai, self);
 
+    self = addNo(pai, "local or own type");
+    salvaEstado(&j);
     if (isOwn(self) && type(self))
         return true;
     restauraEstado(j);
@@ -1256,6 +1265,7 @@ bool typeList(No * pai) {
     if (simpleVariable(self))
         return true;
     restauraEstado(j);
+    removeNo(pai, self);
 
     if (simpleVariable(self) && isVirgula(self) && typeList(self))
         return true;
