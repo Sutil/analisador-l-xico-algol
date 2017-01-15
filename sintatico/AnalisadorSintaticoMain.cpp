@@ -1129,7 +1129,9 @@ bool compoundStatement(No * pai) {
     if (unlabelledCompound(self))
         return true;
     restauraEstado(j);
+    removeNo(pai, self);
 
+    self = addNo(pai, "compaund statement");
     salvaEstado(&j);
     if (label(self) && isDoisPontos(self) && compoundStatement(self))
         return true;
@@ -1226,7 +1228,9 @@ bool localOrOwnType(No * pai) {
     if (type(self))
         return true;
     restauraEstado(j);
+    removeNo(pai, self);
 
+    self = addNo(pai, "local or own type");
     salvaEstado(&j);
     if (isOwn(self) && type(self))
         return true;

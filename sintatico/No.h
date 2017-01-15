@@ -15,6 +15,7 @@ using namespace std;
 struct no {
     string nome;
     vector<no*> filhos;
+    int profundiade = 0;
 
     no(string nome){
         this->nome = nome;
@@ -22,6 +23,7 @@ struct no {
 
     void addFilho(no * node){
         this->filhos.push_back(node);
+        node->profundiade = this->profundiade + 1;
     }
 
     void removeFilho(no * filho){

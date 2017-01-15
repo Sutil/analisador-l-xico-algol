@@ -4,6 +4,7 @@
 
 #include "AnalisadorSemantico.h"
 #include <stack>
+#include <vector>
 #include "../table/symbol.h"
 
 stack<S_table*> pilha;
@@ -16,12 +17,21 @@ bool isDeclaracaoVariavel(No * no){
     return no->nome.compare("type declaration") == 0;
 }
 
-void varrerVariaveis(No * no){
-    if(no->isTerminal() && no->nome.compare(",") != 0)
+vector<string> varrerVariaveis(No * no, vector<string> listaDeVars){
+    if(no->isTerminal() && no->nome.compare(",") != 0) {
         cout << no->nome << " ";
+        listaDeVars.push_back(no->nome);
+    }
 
     for(No * filho : no->filhos)
-        varrerVariaveis(filho);
+        varrerVariaveis(filho, listaDeVars);
+
+    return listaDeVars;
+}
+
+vector<string> varrerVariaveis(No * no){
+    vector<string> listaDeVars;
+    return varrerVariaveis(no, listaDeVars);
 }
 
 void varrerBloco(No * bloco){
@@ -53,15 +63,11 @@ void percorreArvore(No * no){
 
 
     if(isInicioDeEscopo(no)){
-        cout << no->nome << endl;
+        cout << no->nome << " " << no->profundiade << endl;
 
         varrerBloco(no);
 
         cout << "fim do escopo" << endl << endl;
-
-        //percorre filhos
-
-        //fim do escopo
 
     }
 
