@@ -10,23 +10,24 @@
 struct registro {
     string chave;
     string valor;
+
+    registro(string chave, string valor){
+        this->chave = chave;
+        this->valor = valor;
+    }
 };
 typedef struct registro Registro;
 
 struct tabela {
+    int escopo;
     vector<registro*> registros;
+
+    tabela(int escopo){
+        this->escopo = escopo;
+    }
 };
 typedef struct tabela Tabela;
 
-struct escopo {
-    int chave;
-    tabela * tab;
-
-    escopo(int chave){
-        this->chave = chave;
-    }
-};
-typedef struct escopo Escopo;
 
 bool aliseSemantica(No * raiz);
 

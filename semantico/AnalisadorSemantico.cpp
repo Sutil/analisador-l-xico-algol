@@ -46,10 +46,18 @@ void varrerBloco(No * bloco){
 
             cout << tipoVariavel->nome << " ";
 
+            Tabela * t = new Tabela(bloco->profundiade);
+
 
             No * typeList = filho->filhos[1];
 
-            varrerVariaveis(typeList);
+            vector<string> vars = varrerVariaveis(typeList);
+
+            for(string v : vars){
+                Registro * r = new Registro(tipoVariavel->nome, v);
+                // adicinar registro na tabela
+            }
+
 
             cout << endl;
             continue;
