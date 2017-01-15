@@ -7,6 +7,7 @@
 #include <regex>
 #include "No.h"
 #include "../geradordecodigo/Gerador.h"
+#include "../semantico/AnalisadorSemantico.h"
 
 No * raiz;
 int distanciaPercorridaNoArquivo = 0;
@@ -109,6 +110,9 @@ int main(int argc, char* argv[]) {
         raiz->imprimir();
         cout << "}" << endl;
         cout << "SUCESSO" << endl;
+
+        aliseSemantica(raiz);
+
         gerador(raiz, argv[1]);
         return true;
     }
@@ -174,7 +178,9 @@ bool block(No * pai) {
     if (unlabelledBlock(self))
         return true;
     restauraEstado(j);
+    removeNo(pai, self);
 
+    self = addNo(pai, "block");
     salvaEstado(&j);
     if (label(self) && isDoisPontos(self) && block(self))
         return true;
@@ -1117,7 +1123,7 @@ bool compoundTail(No * pai) {
 }
 
 bool compoundStatement(No * pai) {
-	No * self = addNo(pai, "compaund statement");
+	No * self = addNo(pai, "compound statement");
 
     int j = 0;
 
@@ -1201,7 +1207,7 @@ bool declaration(No * pai) {
 }
 
 bool typeDeclaration(No * pai) {
-	No * self = addNo(pai, "type definition");
+	No * self = addNo(pai, "type declaration");
 
     int j = 0;
 
@@ -1221,9 +1227,10 @@ bool localOrOwnType(No * pai) {
     salvaEstado(&j);
     if (type(self))
         return true;
-
     restauraEstado(j);
+    removeNo(pai, self);
 
+    self = addNo(pai, "local or own type");
     salvaEstado(&j);
     if (isOwn(self) && type(self))
         return true;
@@ -1258,7 +1265,9 @@ bool typeList(No * pai) {
     if (simpleVariable(self) && isVirgula(self) && typeList(self))
         return true;
     restauraEstado(j);
+    removeNo (pai, self);
 
+    self = addNo(pai, "type list");
     salvaEstado(&j);
     if (simpleVariable(self))
         return true;
