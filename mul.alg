@@ -1,4 +1,4 @@
 begin
-    integer a, b;
+    integer a;
     a := 2
 end
