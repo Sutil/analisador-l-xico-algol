@@ -459,20 +459,12 @@ bool assignmentStatement(No * pai) {
 }
 
 bool leftPartList(No * pai) {
-	No * self = addNo(pai, "left part list");
+    No * self = addNo(pai, "left part list");
 
     int j = 0;
 
-
     salvaEstado(&j);
-    if(leftPart(self))
-        return true;
-    restauraEstado(j);
-    removeNo(pai, self);
-
-    self = addNo(pai, "left part list");
-    salvaEstado(&j);
-    if (leftPartList(self) && leftPart(self))
+    if (leftPart(self) && leftPartListRecursao(self))
         return true;
     restauraEstado(j);
 
@@ -1274,18 +1266,22 @@ bool typeList(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (simpleVariable(self))
+    if (simpleVariable(self) && isVirgula(self) && typeList(self))
         return true;
     restauraEstado(j);
     removeNo(pai, self);
 
     self = addNo(pai, "type list");
     salvaEstado(&j);
-    if (simpleVariable(self) && isVirgula(self) && typeList(self))
+    if (simpleVariable(self))
         return true;
     restauraEstado(j);
 	removeNo (pai, self);
 	return false;
+}
+
+bool typeListRecursao(){
+
 }
 
 bool simpleVariable(No * pai) {

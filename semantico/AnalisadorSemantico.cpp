@@ -46,6 +46,7 @@ void varrerBloco(No * bloco){
 
             cout << tipoVariavel->nome << " ";
 
+
             No * typeList = filho->filhos[1];
 
             varrerVariaveis(typeList);
@@ -64,11 +65,8 @@ void percorreArvore(No * no){
 
     if(isInicioDeEscopo(no)){
         cout << no->nome << " " << no->profundiade << endl;
-
         varrerBloco(no);
-
         cout << "fim do escopo" << endl << endl;
-
     }
 
     for(No * n : no->filhos)
