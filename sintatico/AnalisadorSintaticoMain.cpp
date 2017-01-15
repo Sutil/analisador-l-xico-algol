@@ -1253,11 +1253,11 @@ bool typeList(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (simpleVariable(self) && isVirgula(self) && typeList(self))
+    if (simpleVariable(self))
         return true;
     restauraEstado(j);
 
-    if (simpleVariable(self))
+    if (simpleVariable(self) && isVirgula(self) && typeList(self))
         return true;
     restauraEstado(j);
 	removeNo (pai, self);

@@ -3,11 +3,21 @@
 //
 
 #include <fstream>
+#include <sstream>
 #include "Gerador.h"
 #include "../table/types.h"
 //#include "../table/symbol.h"
 
 std::ofstream ir_file;
+int temporario = 0;
+
+std::string gettemporario() {
+    temporario++;
+
+    std::stringstream r;
+    r << "%" << temporario;
+    return r.str();
+}
 void gerador(No *raiz, std::string outputfilename) {
     int level = 0;
 
@@ -51,8 +61,11 @@ void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table
         for (int i = 0; i < raiz->filhos.size(); ++i) {
             processano(raiz->filhos[i], variaveis_functions_table, tipos_table, level);
         }
+        std::string temp = gettemporario();
 
-        ir_file << "call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i32 0, i32 0), i32* %a)" << std::endl;
+        ir_file << temp << " = load i32, i32* %a" << std::endl;
+        ir_file << "call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i32 0, i32 0), i32 ";
+        ir_file << temp << ")" << std::endl;
         ir_file << "ret i32 0" << std::endl << "}" << std::endl;
         ir_file << "declare i32 @printf(i8*, ...) #1" << std::endl;
     } else if (raiz->nome == "assignment statement") {
