@@ -50,7 +50,7 @@ void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table
             processano(raiz->filhos[i], variaveis_functions_table, tipos_table, level);
         }
 
-        ir_file << "ret i32 0 }" << std::endl;
+        ir_file << "ret i32 0" << std::endl << "}" << std::endl;
 
     } else if (raiz->nome == "type definition") {
 
@@ -58,9 +58,10 @@ void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table
 
         no *declaration = filhos[0];
         no *type_list = filhos[1];
-        void * tipodasvariaveis;
+        void * tipodasvariaveis = NULL;
 
         if (declaration->nome == "local or own type") {
+            vector<no *> filhos = declaration->filhos;
             no *type = filhos[0];
 
             if (type->nome == "type") {
@@ -72,6 +73,18 @@ void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table
         if (type_list->nome == "type list") {
 
             for (int i = 0; i < type_list->filhos.size(); ++i) {
+                no * variavel = type_list->filhos[i];
+                if (variavel->nome == "simple variable" && variavel->filhos.size() == 1 && tipodasvariaveis != NULL) {
+                    std::string nomedavariavel = variavel->filhos[0]->nome;
+                    if (tipodasvariaveis == Ty_Int()) {
+                        std::string v = "%" + std::string((char*)S_name(S_Symbol((_string) nomedavariavel.data())));
+                        std::string code = "i32* " + v;
+                        S_enter(variaveis_functions_table,S_Symbol((_string) nomedavariavel.data()), (void*)v.data());
+                        ir_file << v << " = alloca i32" << std::endl;
+                    }
+
+                }
+
 
             }
 
