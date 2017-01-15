@@ -446,7 +446,9 @@ bool assignmentStatement(No * pai) {
     if (leftPartList(self) && arithmeticExpression(self))
         return true;
     restauraEstado(j);
+    removeNo(pai, self);
 
+    self = addNo(pai, "assignment statement");
     salvaEstado(&j);
     if (leftPartList(self) && booleanExpression(self))
         return true;
@@ -461,8 +463,16 @@ bool leftPartList(No * pai) {
 
     int j = 0;
 
+
     salvaEstado(&j);
-    if (leftPart(self) && leftPartListRecursao(self))
+    if(leftPart(self))
+        return true;
+    restauraEstado(j);
+    removeNo(pai, self);
+
+    self = addNo(pai, "left part list");
+    salvaEstado(&j);
+    if (leftPartList(self) && leftPart(self))
         return true;
     restauraEstado(j);
 
@@ -490,7 +500,9 @@ bool leftPart(No * pai) {
     if (variable(self) && isAtribuicao(self))
         return true;
     restauraEstado(j);
+    removeNo(pai, self);
 
+    self = addNo(pai, "left part");
     salvaEstado(&j);
     if (procedureIdentifier(self) && isAtribuicao(self))
         return true;
@@ -1267,6 +1279,8 @@ bool typeList(No * pai) {
     restauraEstado(j);
     removeNo(pai, self);
 
+    self = addNo(pai, "type list");
+    salvaEstado(&j);
     if (simpleVariable(self) && isVirgula(self) && typeList(self))
         return true;
     restauraEstado(j);
