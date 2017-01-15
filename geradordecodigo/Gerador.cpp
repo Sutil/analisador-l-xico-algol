@@ -6,7 +6,6 @@
 #include <sstream>
 #include "Gerador.h"
 #include "../table/types.h"
-//#include "../table/symbol.h"
 
 std::ofstream ir_file;
 int temporario = 0;
@@ -55,19 +54,69 @@ void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table
 
     if (raiz->nome == "program") {
         ir_file << "@.str = private unnamed_addr constant [3 x i8] c\"%d\\00\", align 1" << std::endl;
+        ir_file << "declare i32 @printf(i8*, ...) #1" << std::endl;
 
         ir_file << "define i32 @main() #0 {" << std::endl;
 
         for (int i = 0; i < raiz->filhos.size(); ++i) {
             processano(raiz->filhos[i], variaveis_functions_table, tipos_table, level);
         }
-        std::string temp = gettemporario();
-
-        ir_file << temp << " = load i32, i32* %a" << std::endl;
-        ir_file << "call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i32 0, i32 0), i32 ";
-        ir_file << temp << ")" << std::endl;
         ir_file << "ret i32 0" << std::endl << "}" << std::endl;
-        ir_file << "declare i32 @printf(i8*, ...) #1" << std::endl;
+
+    } else if (raiz->nome == "begin") {
+        S_beginScope(variaveis_functions_table);
+        S_beginScope(tipos_table);
+
+
+    } else if (raiz->nome == "procedure statement") {
+
+        no * identifer = raiz->filhos[0];
+        no * parameter_part = raiz->filhos[1];
+
+        std::string call_func;
+        if (identifer->nome == "procedure identifier") {
+            if (identifer->filhos[0]->nome == "write"){
+                call_func = "call i32 (i8*, ...) @printf(i8* getelementptr inbounds ([3 x i8], [3 x i8]* @.str, i32 0, i32 0), i32 ";
+            }
+        }
+
+        if (parameter_part->nome == "actual parameter part") {
+
+            no * parameter_list = parameter_part->filhos[1];
+            for (int i = 0; i < parameter_list->filhos.size(); ++i) {
+                no * expression = parameter_list->filhos[i]->filhos[0];
+                if (expression->nome == "expression") {
+                    no * aritmetic_expression = expression->filhos[0];
+                    if (aritmetic_expression->nome == "arithmetc expression") {
+                        no * expression = aritmetic_expression->filhos[0];
+                        if (expression->nome == "simple arithmetc expression") {
+                            no * expression_terms = expression->filhos[0];
+                            if (expression_terms->nome == "term"){
+                                no * term = expression_terms->filhos[0];
+                                if (term->nome == "primary") {
+
+                                    if (term->filhos[0]->nome == "unsigned number") {
+                                        ir_file << call_func << term->filhos[0]->filhos[0]->filhos[0]->nome << ")" << std::endl;
+                                    } else if (term->filhos[0]->nome == "variable") {
+                                        std::string temp (gettemporario());
+                                        no * simpl_v = term->filhos[0]->filhos[0];
+                                        ir_file << temp << " = load i32, ";
+                                        ir_file << static_cast<char*>(S_look(variaveis_functions_table, S_Symbol((_string)simpl_v->filhos[0]->nome.data()))) << std::endl;
+                                        ir_file << call_func << temp << ")" << std::endl;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    } else if (raiz->nome == "end") {
+        S_endScope(variaveis_functions_table);
+        S_endScope(tipos_table);
+
     } else if (raiz->nome == "assignment statement") {
         vector<no *> filhos = raiz->filhos;
 
@@ -101,13 +150,10 @@ void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table
                             if (primary->filhos[0]->nome == "decimal number") {
                                 ir_file << "store i32 ";
                                 ir_file << primary->filhos[0]->filhos[0]->nome << ", ";
-                                ir_file << variaveis_para_atribuir[j]  << std::endl;
+                                ir_file << variaveis_para_atribuir[j] << std::endl;
                             }
                         }
                     }
-
-
-
                 }
             }
         }
@@ -155,8 +201,4 @@ void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table
             processano(raiz->filhos[i], variaveis_functions_table, tipos_table, level);
         }
     }
-
-
-
-
 }
