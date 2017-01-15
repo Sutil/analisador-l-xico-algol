@@ -1205,7 +1205,7 @@ bool declaration(No * pai) {
 }
 
 bool typeDeclaration(No * pai) {
-	No * self = addNo(pai, "type definition");
+	No * self = addNo(pai, "type declaration");
 
     int j = 0;
 
