@@ -7,6 +7,7 @@
 #include <regex>
 #include "No.h"
 #include "../geradordecodigo/Gerador.h"
+#include "../semantico/AnalisadorSemantico.h"
 
 No * raiz;
 int distanciaPercorridaNoArquivo = 0;
@@ -109,6 +110,9 @@ int main(int argc, char* argv[]) {
         raiz->imprimir();
         cout << "}" << endl;
         cout << "SUCESSO" << endl;
+
+        aliseSemantica(raiz);
+
         gerador(raiz, argv[1]);
         return true;
     }
@@ -1221,7 +1225,6 @@ bool localOrOwnType(No * pai) {
     salvaEstado(&j);
     if (type(self))
         return true;
-
     restauraEstado(j);
 
     salvaEstado(&j);
@@ -1258,6 +1261,7 @@ bool typeList(No * pai) {
     if (simpleVariable(self) && isVirgula(self) && typeList(self))
         return true;
     restauraEstado(j);
+
 
     salvaEstado(&j);
     if (simpleVariable(self))
