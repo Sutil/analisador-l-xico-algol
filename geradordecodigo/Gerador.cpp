@@ -113,7 +113,7 @@ void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table
         }
 
 
-    } else if (raiz->nome == "type definition") {
+    } else if (raiz->nome == "type declaration") {
 
         vector<no *> filhos = raiz->filhos;
 
