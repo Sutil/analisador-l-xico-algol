@@ -1261,8 +1261,9 @@ bool typeList(No * pai) {
     if (simpleVariable(self) && isVirgula(self) && typeList(self))
         return true;
     restauraEstado(j);
+    removeNo(pai, self);
 
-
+    self = addNo(pai, "type list");
     salvaEstado(&j);
     if (simpleVariable(self))
         return true;

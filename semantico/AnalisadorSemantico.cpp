@@ -17,7 +17,7 @@ bool isDeclaracaoVariavel(No * no){
 }
 
 void varrerVariaveis(No * no){
-    if(no->isTerminal())
+    if(no->isTerminal() && no->nome.compare(",") != 0)
         cout << no->nome << " ";
 
     for(No * filho : no->filhos)
