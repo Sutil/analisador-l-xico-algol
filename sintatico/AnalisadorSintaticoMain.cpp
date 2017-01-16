@@ -82,10 +82,10 @@ Token * getNextToken(){
 }
 
 int main(int argc, char* argv[]) {
-    testing::InitGoogleTest(&argc, argv);
-    int resultTests = RUN_ALL_TESTS();
-    if(resultTests)
-        std::cout << "Testes falharam" << std::endl;
+//    testing::InitGoogleTest(&argc, argv);
+//    int resultTests = RUN_ALL_TESTS();
+//    if(resultTests)
+//        std::cout << "Testes falharam" << std::endl;
 
     std::cout << "Iniciado, analisador sintatico!" << std::endl;
 
@@ -154,7 +154,8 @@ bool program() {
     raiz = new No("program");
     
     int j = 0;
-    
+
+
     salvaEstado(&j);
     if (block(raiz))
         return true;
@@ -197,12 +198,16 @@ bool statement(No * pai) {
     if (unconditionalStatement(self))
         return true;
     restauraEstado(j);
+    removeNo(pai, self);
 
+    self = addNo(pai, "statment");
     salvaEstado(&j);
     if (conditionalStatement(self))
         return true;
     restauraEstado(j);
+    removeNo(pai, self);
 
+    self = addNo(pai, "statment");
     salvaEstado(&j);
     if (forStatement(self))
         return true;
@@ -1114,7 +1119,9 @@ bool compoundTail(No * pai) {
         }
     }
     restauraEstado(j);
+    removeNo(pai, self);
 
+    self = addNo(pai, "compund tail");
     salvaEstado(&j);
     if (statement(self) && isPontoEVirgula(self) && compoundTail(self))
         return true;
@@ -1255,6 +1262,7 @@ bool type(No * pai) {
     if (0 == token.compare("real") || 0 == token.compare("integer") || 0 == token.compare("boolean"))
         return true;
     removeNo(self, n);
+
     restauraEstado(j);
 	removeNo (pai, self);
 	return false;
@@ -1306,7 +1314,9 @@ bool arrayDeclaration(No * pai) {
     if (isArray(self) && arrayList(self))
         return true;
     restauraEstado(j);
+    removeNo(pai, self);
 
+    self = addNo(pai, "array declaration");
     salvaEstado(&j);
     if (localOrOwnType(self) && isArray(self) && arrayList(self))
         return true;

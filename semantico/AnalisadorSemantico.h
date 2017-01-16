@@ -15,15 +15,31 @@ struct registro {
         this->chave = chave;
         this->valor = valor;
     }
+
+    registro * copy(){
+        return new registro(this->chave, this->valor);
+    }
 };
 typedef struct registro Registro;
 
 struct tabela {
     int escopo;
-    vector<registro*> registros;
+    vector<Registro*> registros;
 
     tabela(int escopo){
         this->escopo = escopo;
+    }
+
+    void addRegistro(Registro * registro){
+        this->registros.push_back(registro);
+    }
+
+    tabela * copy(int escopo){
+        tabela * t = new tabela(escopo);
+        for(registro * r : this->registros)
+            t->addRegistro(r->copy());
+
+        return t;
     }
 };
 typedef struct tabela Tabela;
