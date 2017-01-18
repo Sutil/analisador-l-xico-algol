@@ -27,6 +27,19 @@ bool isFimDeEscopo(No * no){
 
 void verifica(No * no){
     //cout << "verifica atribuição" << endl;
+
+    No * direita = no->filhos[1];
+
+    No * leftPartList = no->filhos[0];
+    No * leftPart = leftPartList->filhos[0];
+    No * variable = leftPart->filhos[0];
+    No * simpleVariable = variable->filhos[0];
+    // verificar se eh uma variavel simples ou um array!
+    No * variavel = simpleVariable->filhos[0];
+
+
+    cout << ">>>>>>>> " << variavel->nome << " <<<<<<<<<<<<<<<< " << endl;
+
 }
 
 void varrerVariaveis(No * no, string tipo){
