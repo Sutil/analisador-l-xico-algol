@@ -996,12 +996,12 @@ bool actualParameter(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (token_isString(getNextToken(), self))
+    if (expression(self))
         return true;
     restauraEstado(j);
 
     salvaEstado(&j);
-    if (expression(self))
+    if (token_isString(getNextToken(), self))
         return true;
     restauraEstado(j);
 
