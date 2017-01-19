@@ -3,6 +3,7 @@ begin
         value n, m;
         integer array a, b, r;
         integer n, m;
+
         begin
             integer i, j, k;
 
@@ -11,7 +12,6 @@ begin
             j := 0;
 
             for i := 1 step 1 until n do
-                a := b;
                 for q := 1 step 1 until m do
                 begin
                     integer somatorio;

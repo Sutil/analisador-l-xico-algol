@@ -41,6 +41,22 @@ struct tabela {
 
         return t;
     }
+
+    bool variavelEstaNaTabela(string variavel){
+        for(Registro * r : registros)
+            if(r->valor.compare(variavel) == 0)
+                return true;
+
+        return false;
+    }
+
+    string getTipoVariavel(string nomeVariavel){
+        for(Registro * r : registros)
+            if(r->valor.compare(nomeVariavel) == 0)
+                return r->chave;
+
+        return "";
+    }
 };
 typedef struct tabela Tabela;
 

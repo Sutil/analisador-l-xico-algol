@@ -1834,7 +1834,7 @@ bool isAbreParenteses(No *pai) {
 }
 
 bool isString(No *pai) {
-	return isTerminal(pai, "_string", getNextToken()->valor);
+	return isTerminal(pai, "string", getNextToken()->valor);
 }
 
 bool isArray(No *pai) {
