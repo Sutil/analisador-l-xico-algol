@@ -3,6 +3,7 @@
 #include "../terminais.h"
 #include "AnalisadorSintaticoMain.h"
 #include <regex>
+#include <c++/fstream>
 #include "No.h"
 #include "../geradordecodigo/Gerador.h"
 #include "../semantico/AnalisadorSemantico.h"
@@ -84,7 +85,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Iniciado, analisador sintatico!" << std::endl;
 
     if(argc != 2){
-        std::cout << "Informe endereço do arquivo fonte por parâmetro." << std::endl;
+        std::cout << "Informe endereco do arquivo fonte por parametro." << std::endl;
         return false;
     }
 
@@ -99,11 +100,14 @@ int main(int argc, char* argv[]) {
 
     bool ret = program(); // Verificar se chegou no final do arquivo!!
     if(ret && getNextToken()->valor.compare("EOF") == 0) {
-        cout << endl << "Árvore de análise sintática: " << endl;
-        cout << "{";
-        raiz->imprimir();
-        cout << "}" << endl;
-        cout << "SUCESSO" << endl;
+        std::ofstream arvore;
+        arvore.open("arvore_sintatica.ast");
+        arvore << endl << "Árvore de análise sintática: " << endl;
+        arvore << "{";
+        raiz->imprimir(arvore);
+        arvore << "}" << endl;
+        arvore << "SUCESSO" << endl;
+        arvore.close();
 
 //        aliseSemantica(raiz);
 

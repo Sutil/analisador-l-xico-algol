@@ -9,6 +9,7 @@
 #include <vector>
 #include <iostream>
 #include <algorithm>
+#include <c++/fstream>
 
 using namespace std;
 
@@ -34,19 +35,19 @@ struct no {
         return this->filhos.empty();
     }
 
-    void imprimir(){
-        cout << "\"" << this->nome << "\"";
+    void imprimir(std::ofstream arvore){
+        arvore << "\"" << this->nome << "\"";
         if(!this->filhos.empty()) {
-            cout << ":{";
+            arvore << ":{";
             for (int i = 0; i < this->filhos.size(); ++i) {
                 if(i != 0)
-                    cout << ",";
+                    arvore << ",";
 
-                this->filhos[i]->imprimir();
+                this->filhos[i]->imprimir(arvore);
             }
-            cout << "}";
+            arvore << "}";
         } else
-            cout << ": \"\" ";
+            arvore << ": \"\" ";
     }
 };
 typedef struct no No;
