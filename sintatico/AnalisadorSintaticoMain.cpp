@@ -108,7 +108,7 @@ int main(int argc, char* argv[]) {
         arvore << "SUCESSO" << endl;
         arvore.close();
 
-//        aliseSemantica(raiz);
+        aliseSemantica(raiz);
 
         gerador(raiz, argv[1]);
         return true;
