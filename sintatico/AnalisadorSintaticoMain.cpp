@@ -3,7 +3,7 @@
 #include "../terminais.h"
 #include "AnalisadorSintaticoMain.h"
 #include <regex>
-#include <c++/fstream>
+#include <fstream>
 #include "No.h"
 #include "../geradordecodigo/Gerador.h"
 #include "../semantico/AnalisadorSemantico.h"
