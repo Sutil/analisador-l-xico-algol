@@ -34,7 +34,7 @@ struct no {
         return this->filhos.empty();
     }
 
-    void imprimir(std::ofstream arvore){
+    void imprimir(std::ofstream& arvore){
         arvore << "\"" << this->nome << "\"";
         if(!this->filhos.empty()) {
             arvore << ":{";
