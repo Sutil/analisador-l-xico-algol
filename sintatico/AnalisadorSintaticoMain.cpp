@@ -1,4 +1,3 @@
-#include <iostream>
 #include "../lexico/AnalisadorLexico.h"
 #include "../terminais.h"
 #include "AnalisadorSintaticoMain.h"
