@@ -2,8 +2,6 @@
 #include "../lexico/AnalisadorLexico.h"
 #include "../terminais.h"
 #include "AnalisadorSintaticoMain.h"
-#include <gtest/gtest.h>
-#include <gmock/gmock.h>
 #include <regex>
 #include "No.h"
 #include "../geradordecodigo/Gerador.h"
@@ -82,10 +80,6 @@ Token * getNextToken(){
 }
 
 int main(int argc, char* argv[]) {
-//    testing::InitGoogleTest(&argc, argv);
-//    int resultTests = RUN_ALL_TESTS();
-//    if(resultTests)
-//        std::cout << "Testes falharam" << std::endl;
 
     std::cout << "Iniciado, analisador sintatico!" << std::endl;
 
