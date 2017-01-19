@@ -5,6 +5,7 @@
 #include "AnalisadorSemantico.h"
 #include <stack>
 #include <vector>
+#include <iostream>
 #include "../table/symbol.h"
 
 stack<Tabela*> pilha;
@@ -86,7 +87,7 @@ void verifica(No * no){
 
     string nomeVariavel = variavel->nome;
     if(!variavelFoiDeclarada(nomeVariavel)){
-        cout << endl << "Variável '" << nomeVariavel << "' não foi declarada" << endl;
+        std::cout << endl << "Variável '" << nomeVariavel << "' não foi declarada" << endl;
         throw runtime_error("Variável não foi declarada.");
     }
 
