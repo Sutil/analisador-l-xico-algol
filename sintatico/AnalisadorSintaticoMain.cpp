@@ -111,7 +111,7 @@ int main(int argc, char* argv[]) {
         cout << "}" << endl;
         cout << "SUCESSO" << endl;
 
-        aliseSemantica(raiz);
+//        aliseSemantica(raiz);
 
         gerador(raiz, argv[1]);
         return true;
@@ -1750,7 +1750,8 @@ bool token_isNumber(Token *token, No *pai) {
 }
 
 bool token_isString(Token *token, No *pai) {
-    return isTerminal(pai, "_string", token);
+    No * self = addNo(pai, "open string");
+    return isTerminal(self, "string", token);
 }
 
 bool isAtribuicao(No *pai) {
