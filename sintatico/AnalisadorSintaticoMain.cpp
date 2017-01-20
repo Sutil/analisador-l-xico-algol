@@ -1271,22 +1271,24 @@ bool typeList(No * pai) {
     int j = 0;
 
     salvaEstado(&j);
-    if (simpleVariable(self) && isVirgula(self) && typeList(self))
-        return true;
-    restauraEstado(j);
-    removeNo(pai, self);
 
-    self = addNo(pai, "type list");
-    salvaEstado(&j);
-    if (simpleVariable(self))
+    if (simpleVariable(self) && typeListRecursao(self))
         return true;
     restauraEstado(j);
+
 	removeNo (pai, self);
 	return false;
 }
 
-bool typeListRecursao(){
+bool typeListRecursao(No * pai){
+    int j = 0;
 
+    salvaEstado(&j);
+    if (isVirgula(pai) && simpleVariable(pai) && typeListRecursao(pai))
+        return true;
+    restauraEstado(j);
+
+    return true;
 }
 
 bool simpleVariable(No * pai) {
@@ -1792,7 +1794,7 @@ bool isAbreColchete(No *pai) {
 }
 
 bool isVirgula(No *pai) {
-	return isTerminal(pai, ",", getNextToken()->valor);
+    return getToken()->valor.compare(",") == 0;
 }
 
 bool isSuperIgual(No *pai) {

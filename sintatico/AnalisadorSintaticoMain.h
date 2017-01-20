@@ -26,6 +26,7 @@ bool typeDeclaration(No * pai);
 bool localOrOwnType(No * pai);
 bool type(No * pai);
 bool typeList(No * pai);
+bool typeListRecursao(No * pai);
 bool simpleVariable(No * pai);
 bool arrayDeclaration(No * pai);
 bool upperBound(No * pai);
