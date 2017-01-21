@@ -1,9 +1,6 @@
-//
-// Created by Lucas on 1/10/2017.
-//
-
-#ifndef PROJETOU_TABLE_H
-#define PROJETOU_TABLE_H
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 /*
  * table.h - generic hash table
@@ -36,5 +33,6 @@ void *TAB_pop(TAB_table t);
  *  recent binding of any key to the oldest binding in the table */
 void TAB_dump(TAB_table t, void (*show)(void *key, void *value));
 
-
-#endif //PROJETOU_TABLE_H
+#ifdef __cplusplus
+};
+#endif

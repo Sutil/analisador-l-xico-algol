@@ -5,7 +5,12 @@
 #include <fstream>
 #include <sstream>
 #include "Gerador.h"
+extern "C" {
 #include "../table/types.h"
+}
+
+S_table variaveis_functions_table = geratabeladevariaveisefuncoes();
+S_table tipos_table = geratabeladetipos();
 
 std::stringstream ir_global;
 std::stringstream ir_body;
@@ -53,10 +58,7 @@ void declare_global_string(std::string string, std::string temp, int size) {
 void gerador(No *raiz, std::string outputfilename) {
     int level = 0;
 
-    S_table variaveis_functions_table = geratabeladevariaveisefuncoes();
-    S_table tipos_table = geratabeladetipos();
-
-    processano(raiz, variaveis_functions_table, tipos_table, level);
+    processano(raiz, level);
 
     std::ofstream file;
     file.open (outputfilename + ".ll");
@@ -76,35 +78,31 @@ S_table geratabeladevariaveisefuncoes() {
 S_table geratabeladetipos() {
     S_table table = S_empty();
 
-    std::string s = "integer";
-
-    S_enter(table, S_Symbol((_string) s.data()), Ty_Int());
-
-//    s = "integer array";
-//    S_enter(table, S_Symbol((_string) s.data()), Ty_Array(Ty_Int()));
+    S_enter(table, S_Symbol(String("integer")), Ty_Int());
 
     return table;
 }
 
-void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table, int level) {
+void processano(No *raiz, int level) {
     level++;
 
-
     if (raiz->nome == "program") {
-        //ir_body <<  << std::endl;
         ir_body << "declare i32 @printf(i8*, ...)" << std::endl;
-
         ir_body << "define i32 @main() {" << std::endl;
 
         for (int i = 0; i < raiz->filhos.size(); ++i) {
-            processano(raiz->filhos[i], variaveis_functions_table, tipos_table, level);
+            processano(raiz->filhos[i], level);
         }
+
         ir_body << "ret i32 0" << std::endl << "}" << std::endl;
 
     } else if (raiz->nome == "begin") {
-        S_beginScope(variaveis_functions_table);
+        //S_beginScope(variaveis_functions_table);
         S_beginScope(tipos_table);
 
+    } else if (raiz->nome == "end") {
+        //S_endScope(variaveis_functions_table);
+        S_endScope(tipos_table);
 
     } else if (raiz->nome == "procedure statement") {
 
@@ -147,7 +145,7 @@ void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table
                                         replace(call_func, "%1", std::to_string(4));
                                         replace(call_func, "%2", global_temp);
                                         ir_body << temp << " = load i32, ";
-                                        ir_body << static_cast<char*>(S_look(variaveis_functions_table, S_Symbol((_string)simpl_v->filhos[0]->nome.data()))) << std::endl;
+                                        ir_body << (char*)S_look(variaveis_functions_table, S_Symbol(String((char*)simpl_v->filhos[0]->nome.data()))) << std::endl;
                                         ir_body << gettemporario() << call_func << temp << ")" << std::endl;
                                     }
 
@@ -159,7 +157,7 @@ void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table
                     std::string global_temp = getglobal();
                     std::string open_string (parameter->filhos[0]->nome);
                     replace(open_string, "\"", "");
-                    declare_global_string( open_string + "\\00", global_temp, open_string.length() + 1);
+                    declare_global_string( open_string + "\\00", global_temp, open_string.size() + 1);
                     replace(call_func, "%1", std::to_string(open_string.length() + 1));
                     replace(call_func, "%2", global_temp);
                     ir_body << gettemporario() << call_func << 0 << ")" << std::endl;
@@ -167,9 +165,6 @@ void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table
             }
         }
 
-    } else if (raiz->nome == "end") {
-        S_endScope(variaveis_functions_table);
-        S_endScope(tipos_table);
 
     } else if (raiz->nome == "assignment statement") {
         vector<no *> filhos = raiz->filhos;
@@ -182,13 +177,12 @@ void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table
                 no * atribuivel = left_part_list->filhos[0]->filhos[0];
                 if (atribuivel->nome == "variable" && atribuivel->filhos[0]->nome == "simple variable") {
                     no * simpl_v = atribuivel->filhos[0];
-                    std::string code (static_cast<char*>(S_look(variaveis_functions_table, S_Symbol((_string)simpl_v->filhos[0]->nome.data()))));
+                    std::string code ((char*)S_look(variaveis_functions_table, S_Symbol(String((char*)simpl_v->filhos[0]->nome.data()))));
                     variaveis_para_atribuir.push_back(code);
                 }
             }
 
         }
-
 
         for (int j = 0; j < variaveis_para_atribuir.size(); ++j) {
             if (aritmetic_expression->nome == "arithmetc expression") {
@@ -226,7 +220,7 @@ void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table
 
             if (type->nome == "type") {
                 std::string t = type->filhos[0]->nome;
-                tipodasvariaveis = S_look(tipos_table, S_Symbol((_string) t.data()));
+                tipodasvariaveis = S_look(tipos_table, S_Symbol(String((char*)t.data())));
             }
         }
 
@@ -237,21 +231,19 @@ void processano(No *raiz, S_table variaveis_functions_table, S_table tipos_table
                     std::string nomedavariavel = variavel->filhos[0]->nome;
                     if (tipodasvariaveis == Ty_Int()) {
                         std::string vv = "i32* ";
-                        std::string v = "%" + std::string(static_cast<char*>(S_name(S_Symbol((_string) nomedavariavel.data()))));
+                        std::string v = "%" + std::string((char*)(S_name(S_Symbol(String((char*) nomedavariavel.data())))));
                         vv += v;
 
-                        S_enter(variaveis_functions_table,S_Symbol((_string) nomedavariavel.data()), (void*)vv.data());
+                        S_enter(variaveis_functions_table,S_Symbol(String((char*) nomedavariavel.data())), (void*)vv.data());
                         ir_body << v << " = alloca i32" << std::endl;
                     }
                 }
             }
         }
-
-
     }
     else {
         for (int i = 0; i < raiz->filhos.size(); ++i) {
-            processano(raiz->filhos[i], variaveis_functions_table, tipos_table, level);
+            processano(raiz->filhos[i], level);
         }
     }
 }

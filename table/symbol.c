@@ -1,13 +1,12 @@
-//
-// Created by Lucas on 1/10/2017.
-//
-
-#include "symbol.h"
+#include <stdio.h>
 #include <string.h>
+#include "util.h"
+#include "symbol.h"
+#include "table.h"
 
-static S_symbol mksymbol(_string name, S_symbol next)
+static S_symbol mksymbol(string_ name, S_symbol next)
 {
-    S_symbol s = (S_symbol) checked_malloc(sizeof(*s));
+    S_symbol s = checked_malloc(sizeof(*s));
     s->name = name;
     s->next = next;
     return s;
@@ -26,12 +25,12 @@ static unsigned int hash(char *s0)
     return h;
 }
 
-static int streq(_string a, _string b)
+static int streq(string_ a, string_ b)
 {
     return !strcmp(a,b);
 }
 
-S_symbol S_Symbol(_string name)
+S_symbol S_Symbol(string_ name)
 {
     int index = hash(name) % SIZE;
     S_symbol syms = hashtable[index], sym;
@@ -43,12 +42,12 @@ S_symbol S_Symbol(_string name)
     return sym;
 }
 
-_string S_name(S_symbol sym)
+string_ S_name(S_symbol sym)
 {
     return sym->name;
 }
 
-S_table S_empty()
+S_table S_empty(void)
 {
     return TAB_empty();
 }
@@ -72,7 +71,7 @@ void S_endScope(S_table t)
 {
     S_symbol s;
     do
-        s= (S_symbol) TAB_pop(t);
+        s=TAB_pop(t);
     while (s != &marksym);
 }
 

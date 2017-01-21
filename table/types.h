@@ -1,9 +1,9 @@
-//
-// Created by lucas on 14/01/17.
-//
+#ifndef __TYPES_H__
+#define __TYPES_H__
 
-#ifndef PROJETOU_TYPES_H
-#define PROJETOU_TYPES_H
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 #include "symbol.h"
 
@@ -66,5 +66,8 @@ int Ty_is_compatible(Ty_ty ty1, Ty_ty ty2);
 
 void Ty_print(Ty_ty t);
 void TyList_print(Ty_tyList list);
+#ifdef __cplusplus
+};
+#endif
 
-#endif //PROJETOU_TYPES_H
+#endif
