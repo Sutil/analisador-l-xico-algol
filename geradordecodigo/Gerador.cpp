@@ -97,11 +97,11 @@ void processano(No *raiz, int level) {
         ir_body << "ret i32 0" << std::endl << "}" << std::endl;
 
     } else if (raiz->nome == "begin") {
-        //S_beginScope(variaveis_functions_table);
+        S_beginScope(variaveis_functions_table);
         S_beginScope(tipos_table);
 
     } else if (raiz->nome == "end") {
-        //S_endScope(variaveis_functions_table);
+        S_endScope(variaveis_functions_table);
         S_endScope(tipos_table);
 
     } else if (raiz->nome == "procedure statement") {
@@ -234,7 +234,7 @@ void processano(No *raiz, int level) {
                         std::string v = "%" + std::string((char*)(S_name(S_Symbol(String((char*) nomedavariavel.data())))));
                         vv += v;
 
-                        S_enter(variaveis_functions_table,S_Symbol(String((char*) nomedavariavel.data())), (void*)vv.data());
+                        S_enter(variaveis_functions_table,S_Symbol(String((char*) nomedavariavel.data())), String((char*)vv.data()));
                         ir_body << v << " = alloca i32" << std::endl;
                     }
                 }
