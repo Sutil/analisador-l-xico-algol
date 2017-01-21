@@ -96,14 +96,13 @@ void verifica(No * no){
     verificaAtribuicaoPorTipo(tipo, direita);
 
     No * n = direita->filhos[0];
-
-
 }
 
 void varrerVariaveis(No * no, string tipo){
     if(no->isTerminal() && no->nome.compare(",") != 0) {
         //cout << tipo << " " << no->nome << endl;
-        Registro * r = new Registro(tipo, no->nome);
+        string nomeVariavel = no->nome;
+        Registro * r = new Registro(tipo, nomeVariavel);
         Tabela * tab = pilha.top();
         tab->addRegistro(r);
 

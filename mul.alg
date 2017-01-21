@@ -3,7 +3,6 @@ begin
         value n, m;
         integer array a, b, r;
         integer n, m;
-
         begin
             integer i, j, k;
 
