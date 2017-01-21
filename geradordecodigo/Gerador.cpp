@@ -88,6 +88,7 @@ void processano(No *raiz, int level) {
 
     if (raiz->nome == "program") {
         ir_body << "declare i32 @printf(i8*, ...)" << std::endl;
+        ir_body << "target triple = \"x86_64-pc-linux-gnu\"" << std::endl;
         ir_body << "define i32 @main() {" << std::endl;
 
         for (int i = 0; i < raiz->filhos.size(); ++i) {
