@@ -91,7 +91,6 @@ void processano(No *raiz, int level) {
                             if (expression_terms->nome == "term"){
                                 no * term = expression_terms->filhos[0];
                                 if (term->nome == "primary") {
-
                                     if (term->filhos[0]->nome == "unsigned number") {
                                         std::string global_temp = getglobal();
                                         declare_global_string(int_format, global_temp, 4);
@@ -100,11 +99,11 @@ void processano(No *raiz, int level) {
                                         ir_body << gettemporario() << call_func << term->filhos[0]->filhos[0]->filhos[0]->nome << ")" << std::endl;
                                     } else if (term->filhos[0]->nome == "variable") {
                                         std::string temp (gettemporario());
-                                        no * simpl_v = term->filhos[0]->filhos[0];
+                                        no * simpl_variable = term->filhos[0]->filhos[0];
                                         std::string global_temp = getglobal();
                                         prepareCallWrite(call_func, int_format, global_temp, 4);
                                         ir_body << temp << " = load i32, ";
-                                        ir_body << recuperaValorSimboloNaTabela(simpl_v->filhos[0]->nome.data()) << std::endl;
+                                        ir_body << recuperaValorSimboloNaTabela(simpl_variable->filhos[0]->nome.data()) << std::endl;
                                         ir_body << gettemporario() << call_func << temp << ")" << std::endl;
                                     }
 
